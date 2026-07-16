@@ -1,5 +1,5 @@
 const path = require("path");
-const { openApiSpec } = require("./spec");
+const { openApiSpec } = require("./openApiSpec");
 
 function getOpenApiJson(req, res) {
   return res.status(200).json(openApiSpec);

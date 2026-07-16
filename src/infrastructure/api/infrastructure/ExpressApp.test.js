@@ -89,6 +89,29 @@ describe("Express App Integration Tests", () => {
                 })
             );
         });
+
+        test("GET /api/v1/openapi.json debe retornar OpenAPI spec", async () => {
+            const res = await request(app).get("/api/v1/openapi.json");
+            expect(res.status).toBe(200);
+            expect(res.body).toEqual(
+                expect.objectContaining({
+                    openapi: "3.0.3",
+                    info: expect.objectContaining({ title: "Abiel Core API" }),
+                })
+            );
+        });
+
+        test("GET /api/v1/openapi.yaml debe retornar archivo yaml", async () => {
+            const res = await request(app).get("/api/v1/openapi.yaml");
+            expect(res.status).toBe(200);
+            expect(res.text).toContain("openapi: 3.0.3");
+        });
+
+        test("GET /api/internal/docs debe retornar Swagger UI", async () => {
+            const res = await request(app).get("/api/internal/docs");
+            expect(res.status).toBe(200);
+            expect(res.text).toContain("SwaggerUIBundle");
+        });
     });
 
     describe("Empresas Endpoints", () => {

@@ -7,6 +7,8 @@
     "start": "node app.js",
     "start:api:mock": "node src/modules/api/infrastructure/runApiMock.js",
     "test": "npx prisma generate && jest",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "typecheck:build": "tsc -p tsconfig.build.json",
     "arch:check": "node tools/architecture/check-architecture.js",
     "arch:check:strict": "node tools/architecture/check-architecture.js --strict",
     "arch:inventory:wrappers": "node tools/architecture/check-architecture.js --write-inventory"
