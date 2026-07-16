@@ -1,12 +1,8 @@
-# Conversation Control — Documentación del módulo
+# Módulo Human Intervention
 
 ## Propósito
 
-# Módulo Conversation Control
-
-## Propósito
-
-Administra el control operativo de una conversación: decide si el bot puede responder o si debe ceder el control a un humano. No genera respuestas; solo administra permisos.
+Gestiona la intervención humana en conversaciones: escalado a operadores, bloqueo, cierre y validación de transiciones. Es el punto de entrada para que operadores tomen control manual de una conversación.
 
 ---
 
@@ -89,5 +85,5 @@ Evalúa periódicamente sesiones en `HUMAN_ACTIVE`. Si la última intervención 
 ## Tests
 
 ```
-npx jest src/modules/conversation-control --runInBand
+npx jest src/modules/human-intervention --runInBand
 ```

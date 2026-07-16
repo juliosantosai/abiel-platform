@@ -17,8 +17,9 @@ describe("PrismaUsuarioRepository integration-style", () => {
     let repository;
 
     beforeEach(() => {
-        repository = new PrismaUsuarioRepository();
+        jest.resetAllMocks();
         jest.clearAllMocks();
+        repository = new PrismaUsuarioRepository();
     });
 
     test("debe soportar el flujo completo de crear, buscar, actualizar y eliminar", async () => {

@@ -28,7 +28,7 @@
 |-----------|--------|
 | [modules/empresa/README.md](modules/empresa/README.md) | ✅ Implementado (+ PrismaRepository) |
 | [modules/usuario/README.md](modules/usuario/README.md) | ✅ Implementado (+ PrismaRepository) |
-| [modules/conversation-control/README.md](modules/conversation-control/README.md) | ✅ Implementado |
+| [modules/human-intervention/README.md](modules/human-intervention/README.md) | ✅ Implementado |
 | [modules/buffer/README.md](modules/buffer/README.md) | ⬜ Documentado — pendiente implementación |
 | [modules/state-machine/README.md](modules/state-machine/README.md) | ⬜ Documentado — pendiente implementación |
 | [modules/ai/README.md](modules/ai/README.md) | ⬜ Documentado — pendiente implementación |

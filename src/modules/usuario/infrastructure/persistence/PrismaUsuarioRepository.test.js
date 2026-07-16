@@ -17,8 +17,9 @@ describe("PrismaUsuarioRepository", () => {
     let repository;
 
     beforeEach(() => {
-        repository = new PrismaUsuarioRepository();
+        jest.resetAllMocks();
         jest.clearAllMocks();
+        repository = new PrismaUsuarioRepository();
     });
 
     test("guardar() debe llamar a prisma.usuario.upsert", async () => {

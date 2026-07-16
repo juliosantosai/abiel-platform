@@ -8,7 +8,7 @@ abiel-core/
 │   ├── modules/
 │   │   ├── empresa/
 │   │   ├── usuario/
-│   │   └── conversation-control/
+│   │   └── human-intervention/
 │   └── shared/
 │       ├── config/
 │       ├── database/

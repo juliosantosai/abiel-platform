@@ -2,10 +2,13 @@ const express = require("express");
 const EmpresaController = require("../interfaces/controllers/EmpresaController");
 const UsuarioController = require("../interfaces/controllers/UsuarioController");
 const ConversationControlController = require("../interfaces/controllers/ConversationControlController");
+const DashboardController = require("../../dashboard/interfaces/controllers/DashboardController");
 const { crearRutasEmpresas } = require("../interfaces/routes/empresasRoutes");
 const { crearRutasUsuarios } = require("../interfaces/routes/usuariosRoutes");
 const { crearRutasConversaciones } = require("../interfaces/routes/conversacionesRoutes");
+const { crearRutasDashboard } = require("../../dashboard/interfaces/routes/dashboardRoutes");
 const { autenticar, manejarErrores } = require("../interfaces/middleware/auth");
+const { crearRateLimiter } = require("../interfaces/middleware/rateLimit");
 
 class ExpressApp {
     constructor({
@@ -21,11 +24,17 @@ class ExpressApp {
         cancelarUsuarioUseCase,
         bloquearConversacionUseCase,
         cerrarConversacionUseCase,
+        obtenerMetricasGlobalesUseCase,
+        obtenerActividadRecienteUseCase,
     }) {
         this.app = express();
 
         // Middleware global
         this.app.use(express.json());
+
+        // Rate limiter: 100 requests per minute per IP
+        const apiLimiter = crearRateLimiter(100, 60000);
+        this.app.use("/api/", apiLimiter.middleware());
 
         // Inyectar controllers con use cases
         const empresaController = new EmpresaController({
@@ -49,10 +58,16 @@ class ExpressApp {
             cerrarConversacionUseCase,
         });
 
+        const dashboardController = new DashboardController({
+            obtenerMetricasGlobalesUseCase,
+            obtenerActividadRecienteUseCase,
+        });
+
         // Montar rutas
         this.app.use("/api/empresas", crearRutasEmpresas(empresaController));
         this.app.use("/api/usuarios", crearRutasUsuarios(usuarioController));
         this.app.use("/api/conversaciones", crearRutasConversaciones(conversationControlController));
+        this.app.use("/api/dashboard", autenticar, crearRutasDashboard(dashboardController));
 
         // Health check
         this.app.get("/health", (req, res) => {

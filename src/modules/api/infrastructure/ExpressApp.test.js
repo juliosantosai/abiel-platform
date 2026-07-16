@@ -23,6 +23,8 @@ describe("Express App Integration Tests", () => {
             cancelarUsuarioUseCase: { execute: jest.fn() },
             bloquearConversacionUseCase: { execute: jest.fn() },
             cerrarConversacionUseCase: { execute: jest.fn() },
+            obtenerMetricasGlobalesUseCase: { execute: jest.fn() },
+            obtenerActividadRecienteUseCase: { execute: jest.fn() },
         };
 
         const expressApp = new ExpressApp(mockUseCases);

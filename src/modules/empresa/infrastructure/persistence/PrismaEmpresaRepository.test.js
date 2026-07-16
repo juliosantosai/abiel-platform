@@ -15,8 +15,8 @@ describe("PrismaEmpresaRepository", () => {
     let repository;
 
     beforeEach(() => {
-        repository = new PrismaEmpresaRepository();
         jest.clearAllMocks();
+        repository = new PrismaEmpresaRepository();
     });
 
     test("guardar() debe llamar a prisma.empresa.upsert", async () => {
