@@ -71,6 +71,10 @@ class Empresa {
             throw new DomainError("Una empresa cancelada no puede ser suspendida.");
         }
 
+        if (this.estado === "PENDIENTE") {
+            throw new DomainError("Una empresa pendiente no puede ser suspendida.");
+        }
+
         this.estado = "SUSPENDIDA";
         this.updatedAt = new Date();
     }

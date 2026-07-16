@@ -18,6 +18,7 @@ describe("SuspenderEmpresaUseCase", () => {
             id: "empresa-4",
             nombre: "Empresa Cuatro"
         });
+        empresaExistente.activar();
 
         const fakeRepository = {
             buscarPorId: jest.fn(async () => empresaExistente),

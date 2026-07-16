@@ -38,8 +38,9 @@ describe("Empresa", () => {
 
     });
 
-    test("debe activar la empresa", () => {
+    test("debe activar la empresa desde SUSPENDIDA", () => {
 
+        empresa.activar();
         empresa.suspender();
         empresa.activar();
 
@@ -47,17 +48,72 @@ describe("Empresa", () => {
 
     });
 
-    test("debe suspender la empresa", () => {
+    test("debe suspender una empresa activa", () => {
 
+        empresa.activar();
         empresa.suspender();
 
         expect(empresa.estado).toBe("SUSPENDIDA");
 
     });
 
+    test("debe cancelar una empresa activa", () => {
+
+        empresa.activar();
+        empresa.cancelar();
+
+        expect(empresa.estado).toBe("CANCELADA");
+
+    });
+
+    test("debe rechazar suspender una empresa pendiente", () => {
+
+        expect(() => {
+            empresa.suspender();
+        }).toThrow("Una empresa pendiente no puede ser suspendida.");
+
+    });
+
     test("debe eliminar la empresa", () => {
 
         empresa.eliminar();
+
+        expect(empresa.estado).toBe("CANCELADA");
+
+    });
+
+    test("debe activar la empresa desde PENDIENTE", () => {
+
+        empresa.activar();
+
+        expect(empresa.estado).toBe("ACTIVA");
+
+    });
+
+    test("debe lanzar error si se intenta activar una empresa cancelada", () => {
+
+        empresa.eliminar();
+
+        expect(() => {
+            empresa.activar();
+        }).toThrow("Una empresa cancelada no puede volver a activarse.");
+
+    });
+
+    test("debe lanzar error si se intenta suspender una empresa cancelada", () => {
+
+        empresa.eliminar();
+
+        expect(() => {
+            empresa.suspender();
+        }).toThrow("Una empresa cancelada no puede ser suspendida.");
+
+    });
+
+    test("debe mantener el estado CANCELADA como final", () => {
+
+        empresa.eliminar();
+        empresa.cancelar();
 
         expect(empresa.estado).toBe("CANCELADA");
 
