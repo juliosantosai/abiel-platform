@@ -6,8 +6,10 @@ const jwt = require("jsonwebtoken");
 describe("Express App Integration Tests", () => {
     let app;
     let mockUseCases;
+    const TEST_JWT_SECRET = "test-secret-key";
 
     beforeEach(() => {
+        process.env.JWT_SECRET = TEST_JWT_SECRET;
         mockUseCases = {
             crearEmpresaUseCase: { execute: jest.fn() },
             actualizarEmpresaUseCase: { execute: jest.fn() },
@@ -57,7 +59,7 @@ describe("Express App Integration Tests", () => {
         });
 
         test("PUT /api/empresas/:id debe actualizar con token válido", async () => {
-            const token = jwt.sign({ empresaId: "e1" }, "dev-secret");
+            const token = jwt.sign({ empresaId: "e1" }, TEST_JWT_SECRET);
             const empresa = { id: "e1", nombre: "Acme Corp", email: "new@acme.com" };
             mockUseCases.actualizarEmpresaUseCase.execute.mockResolvedValue(empresa);
 
@@ -77,7 +79,7 @@ describe("Express App Integration Tests", () => {
         });
 
         test("POST /api/empresas/:id/activar debe activar con token válido", async () => {
-            const token = jwt.sign({ empresaId: "e1" }, "dev-secret");
+            const token = jwt.sign({ empresaId: "e1" }, TEST_JWT_SECRET);
             const empresa = { id: "e1", estado: "ACTIVA" };
             mockUseCases.activarEmpresaUseCase.execute.mockResolvedValue(empresa);
 
@@ -100,7 +102,7 @@ describe("Express App Integration Tests", () => {
         });
 
         test("POST /api/usuarios debe crear con token válido", async () => {
-            const token = jwt.sign({ empresaId: "e1" }, "dev-secret");
+            const token = jwt.sign({ empresaId: "e1" }, TEST_JWT_SECRET);
             const usuario = { id: "u1", empresaId: "e1", nombre: "Juan", email: "juan@acme.com", rol: "OPERADOR", estado: "ACTIVO" };
             mockUseCases.crearUsuarioUseCase.execute.mockResolvedValue(usuario);
 
@@ -122,7 +124,7 @@ describe("Express App Integration Tests", () => {
         });
 
         test("POST /api/conversaciones/:id/bloquear debe bloquear con token válido", async () => {
-            const token = jwt.sign({ empresaId: "e1" }, "dev-secret");
+            const token = jwt.sign({ empresaId: "e1" }, TEST_JWT_SECRET);
             const resultado = { conversacionId: "c1", control: "HUMAN_LOCKED" };
             mockUseCases.bloquearConversacionUseCase.execute.mockResolvedValue(resultado);
 
@@ -144,7 +146,7 @@ describe("Express App Integration Tests", () => {
         });
 
         test("debe retornar 500 para errores internos", async () => {
-            const token = jwt.sign({ empresaId: "e1" }, "dev-secret");
+            const token = jwt.sign({ empresaId: "e1" }, TEST_JWT_SECRET);
             mockUseCases.crearEmpresaUseCase.execute.mockRejectedValue(new Error("DB error"));
 
             const res = await request(app)

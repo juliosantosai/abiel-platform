@@ -43,12 +43,13 @@ describe("EmpresaController", () => {
             const error = new ValidationError("Email inválido");
             mockUseCases.crearEmpresaUseCase.execute.mockRejectedValue(error);
 
-            const req = { body: { nombre: "", email: "invalid" } };
-            const res = {};
+            const req = { body: { nombre: "Acme", email: "contact@acme.com", telefono: "555-1234" } };
+            const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
             const next = jest.fn();
 
             await controller.crear(req, res, next);
 
+            expect(mockUseCases.crearEmpresaUseCase.execute).toHaveBeenCalled();
             expect(next).toHaveBeenCalledWith(error);
         });
     });
@@ -81,12 +82,13 @@ describe("EmpresaController", () => {
             const error = new NotFoundError("Empresa", "invalid");
             mockUseCases.actualizarEmpresaUseCase.execute.mockRejectedValue(error);
 
-            const req = { params: { id: "invalid" }, body: {}, tenantContext: { tenantId: "e1" } };
-            const res = {};
+            const req = { params: { id: "invalid" }, body: { nombre: "Updated" }, tenantContext: { tenantId: "e1" } };
+            const res = { json: jest.fn() };
             const next = jest.fn();
 
             await controller.actualizar(req, res, next);
 
+            expect(mockUseCases.actualizarEmpresaUseCase.execute).toHaveBeenCalled();
             expect(next).toHaveBeenCalledWith(error);
         });
     });

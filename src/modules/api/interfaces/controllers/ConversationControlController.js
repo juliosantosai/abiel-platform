@@ -7,6 +7,12 @@ class ConversationControlController {
     async bloquear(req, res, next) {
         try {
             const { id } = req.params;
+            
+            // Validate id
+            if (!id || typeof id !== "string" || id.trim().length === 0) {
+                return res.status(400).json({ success: false, error: "id en params es requerido." });
+            }
+            
             const resultado = await this.bloquearConversacionUseCase.execute({ id, tenantContext: req.tenantContext });
             res.json({ success: true, data: resultado });
         } catch (err) {
@@ -17,6 +23,12 @@ class ConversationControlController {
     async cerrar(req, res, next) {
         try {
             const { id } = req.params;
+            
+            // Validate id
+            if (!id || typeof id !== "string" || id.trim().length === 0) {
+                return res.status(400).json({ success: false, error: "id en params es requerido." });
+            }
+            
             const resultado = await this.cerrarConversacionUseCase.execute({ id, tenantContext: req.tenantContext });
             res.json({ success: true, data: resultado });
         } catch (err) {
