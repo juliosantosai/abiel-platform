@@ -8,7 +8,13 @@ abiel-core/
 │   ├── modules/
 │   │   ├── empresa/
 │   │   ├── usuario/
-│   │   └── human-intervention/
+│   │   ├── human-intervention/
+│   │   ├── runtime/
+│   │   │   ├── application/
+│   │   │   ├── domain/
+│   │   │   └── infrastructure/
+│   │   └── execution-policy/
+│   │       └── domain/
 │   └── shared/
 │       ├── config/
 │       ├── database/

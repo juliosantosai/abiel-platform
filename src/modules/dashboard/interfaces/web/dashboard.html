@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Abiel Core Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #f3f5f7;
+            --bg-accent: #e8efe4;
+            --panel: #ffffff;
+            --text: #142025;
+            --muted: #5f6a70;
+            --line: #d9e0e5;
+            --brand: #0a7c66;
+            --brand-ink: #064f42;
+            --warn: #b35c00;
+            --ok: #167347;
+            --shadow: 0 14px 30px rgba(8, 25, 26, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 15% 5%, rgba(10, 124, 102, 0.18), transparent 35%),
+                radial-gradient(circle at 85% 10%, rgba(179, 92, 0, 0.12), transparent 30%),
+                linear-gradient(170deg, var(--bg) 0%, var(--bg-accent) 100%);
+            min-height: 100vh;
+        }
+
+        .shell {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 22px 16px 36px;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+            animation: rise 450ms ease-out both;
+        }
+
+        .eyebrow {
+            margin: 0;
+            color: var(--brand-ink);
+            font-size: 12px;
+            letter-spacing: 0.11em;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        h1 {
+            margin: 0;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: clamp(28px, 4.4vw, 44px);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            margin: 0;
+            color: var(--muted);
+            max-width: 760px;
+        }
+
+        .toolbar {
+            background: rgba(255, 255, 255, 0.84);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            padding: 14px;
+            display: grid;
+            gap: 10px;
+            margin-bottom: 18px;
+            animation: rise 600ms ease-out both;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .token {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            outline: none;
+            font-size: 14px;
+        }
+
+        .token:focus {
+            border-color: var(--brand);
+            box-shadow: 0 0 0 3px rgba(10, 124, 102, 0.14);
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .btn {
+            border: 0;
+            border-radius: 999px;
+            padding: 10px 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 120ms ease, opacity 120ms ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            opacity: 0.95;
+        }
+
+        .btn-primary {
+            color: #ffffff;
+            background: linear-gradient(130deg, #0a7c66, #0d9b81);
+        }
+
+        .btn-secondary {
+            color: #1f2f36;
+            background: #edf2f6;
+        }
+
+        .status {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .status.ok {
+            color: var(--ok);
+        }
+
+        .status.warn {
+            color: var(--warn);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .card {
+            grid-column: span 12;
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+            animation: rise 720ms ease-out both;
+        }
+
+        .metric {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: clamp(30px, 5vw, 42px);
+            margin: 6px 0 0;
+        }
+
+        .label {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .section-title {
+            margin: 0 0 10px;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 22px;
+            letter-spacing: -0.01em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 10px;
+            border: 1px solid var(--line);
+        }
+
+        thead th {
+            text-align: left;
+            background: #f4f8fb;
+            color: #34424b;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 10px;
+        }
+
+        tbody td {
+            padding: 10px;
+            border-top: 1px solid var(--line);
+            font-size: 14px;
+            color: #27343d;
+        }
+
+        .muted {
+            color: var(--muted);
+            font-size: 14px;
+            margin: 0;
+        }
+
+        @media (min-width: 760px) {
+            .row {
+                grid-template-columns: 1fr auto;
+                align-items: center;
+            }
+
+            .card.span-4 {
+                grid-column: span 4;
+            }
+
+            .card.span-12 {
+                grid-column: span 12;
+            }
+        }
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="shell">
+        <header class="hero">
+            <p class="eyebrow">Abiel Core</p>
+            <h1>Dashboard Operativo</h1>
+            <p class="subtitle">Visualiza en tiempo real el estado de conversaciones, usuarios y actividad reciente de tu tenant.</p>
+        </header>
+
+        <section class="toolbar">
+            <div class="row">
+                <input id="tokenInput" class="token" type="text" placeholder="Pega tu JWT para consultar /api/dashboard" />
+                <div class="actions">
+                    <button id="useDemo" class="btn btn-secondary" type="button">Usar token demo</button>
+                    <button id="loadData" class="btn btn-primary" type="button">Actualizar dashboard</button>
+                </div>
+            </div>
+            <p id="status" class="status">Estado: pendiente de carga</p>
+        </section>
+
+        <section class="grid">
+            <article class="card span-4">
+                <p class="label">Conversaciones activas</p>
+                <p id="metricConversations" class="metric">-</p>
+            </article>
+
+            <article class="card span-4">
+                <p class="label">Usuarios activos</p>
+                <p id="metricUsers" class="metric">-</p>
+            </article>
+
+            <article class="card span-4">
+                <p class="label">Mensajes hoy</p>
+                <p id="metricMessages" class="metric">-</p>
+            </article>
+
+            <article class="card span-12">
+                <h2 class="section-title">Actividad reciente</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Descripción</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody id="activityBody">
+                        <tr>
+                            <td colspan="3" class="muted">Sin datos todavía</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </article>
+        </section>
+    </main>
+
+    <script>
+        (function initDashboard() {
+            const tokenInput = document.getElementById("tokenInput");
+            const useDemoBtn = document.getElementById("useDemo");
+            const loadDataBtn = document.getElementById("loadData");
+            const status = document.getElementById("status");
+            const metricConversations = document.getElementById("metricConversations");
+            const metricUsers = document.getElementById("metricUsers");
+            const metricMessages = document.getElementById("metricMessages");
+            const activityBody = document.getElementById("activityBody");
+            const storageKey = "abiel_dashboard_token";
+
+            tokenInput.value = localStorage.getItem(storageKey) || "";
+
+            useDemoBtn.addEventListener("click", async () => {
+                try {
+                    setStatus("solicitando token demo...", "");
+                    const response = await fetch("/api/demo-token");
+                    const data = await response.json();
+
+                    if (!response.ok || data.success === false || !data.data?.token) {
+                        throw new Error(data.error || "No se pudo generar token demo.");
+                    }
+
+                    tokenInput.value = data.data.token;
+                    localStorage.setItem(storageKey, data.data.token);
+                    setStatus("Token demo cargado.", "ok");
+                } catch (error) {
+                    setStatus(error.message || "No se pudo cargar token demo.", "warn");
+                }
+            });
+
+            loadDataBtn.addEventListener("click", () => {
+                loadDashboard().catch((error) => {
+                    setStatus(error.message || "No se pudo cargar el dashboard.", "warn");
+                });
+            });
+
+            tokenInput.addEventListener("change", () => {
+                localStorage.setItem(storageKey, tokenInput.value.trim());
+            });
+
+            function setStatus(message, type) {
+                status.textContent = `Estado: ${message}`;
+                status.classList.remove("ok", "warn");
+                if (type) {
+                    status.classList.add(type);
+                }
+            }
+
+            function authHeaders() {
+                const token = tokenInput.value.trim();
+                if (!token) {
+                    throw new Error("Ingresa un JWT para continuar.");
+                }
+                localStorage.setItem(storageKey, token);
+                return { Authorization: `Bearer ${token}` };
+            }
+
+            async function loadDashboard() {
+                setStatus("cargando datos...", "");
+                const headers = authHeaders();
+
+                const [metricasRes, actividadRes] = await Promise.all([
+                    fetch("/api/dashboard/metricas", { headers }),
+                    fetch("/api/dashboard/actividad?limit=10", { headers }),
+                ]);
+
+                const metricasJson = await metricasRes.json();
+                const actividadJson = await actividadRes.json();
+
+                if (!metricasRes.ok || metricasJson.success === false) {
+                    throw new Error(metricasJson.error || "Error obteniendo métricas.");
+                }
+
+                if (!actividadRes.ok || actividadJson.success === false) {
+                    throw new Error(actividadJson.error || "Error obteniendo actividad.");
+                }
+
+                const m = metricasJson.data || {};
+                const conversaciones = m.conversacionesMetricas || {};
+                const usuarios = m.usuariosMetricas || {};
+
+                metricConversations.textContent = safeValue(conversaciones.total);
+                metricUsers.textContent = safeValue(usuarios.total);
+                metricMessages.textContent = safeValue(conversaciones.FINALIZADA);
+
+                renderActivity(actividadJson.data);
+                setStatus("dashboard actualizado", "ok");
+            }
+
+            function safeValue(value) {
+                if (value === null || value === undefined || Number.isNaN(value)) {
+                    return "0";
+                }
+                return String(value);
+            }
+
+            function renderActivity(data) {
+                let rows = [];
+
+                if (Array.isArray(data)) {
+                    rows = data;
+                } else if (data && Array.isArray(data.actividad)) {
+                    rows = data.actividad;
+                }
+
+                if (!rows.length) {
+                    activityBody.innerHTML = '<tr><td colspan="3" class="muted">Sin actividad reciente</td></tr>';
+                    return;
+                }
+
+                activityBody.innerHTML = rows
+                    .map((item) => {
+                        const tipo = sanitize(item.tipo || item.type || "evento");
+                        const descripcion = sanitize(
+                            item.descripcion ||
+                                item.description ||
+                                (item.usuario ? `${item.usuario}: ${JSON.stringify(item.datos || {})}` : "Actividad registrada")
+                        );
+                        const fecha = sanitize(item.fecha || item.timestamp || "-");
+                        return `<tr><td>${tipo}</td><td>${descripcion}</td><td>${fecha}</td></tr>`;
+                    })
+                    .join("");
+            }
+
+            function sanitize(text) {
+                return String(text)
+                    .replaceAll("&", "&amp;")
+                    .replaceAll("<", "&lt;")
+                    .replaceAll(">", "&gt;")
+                    .replaceAll('"', "&quot;")
+                    .replaceAll("'", "&#39;");
+            }
+
+            setStatus("listo para consultar", "");
+        })();
+    </script>
+</body>
+</html>

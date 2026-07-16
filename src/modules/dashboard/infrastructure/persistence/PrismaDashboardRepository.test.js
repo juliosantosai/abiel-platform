@@ -11,7 +11,7 @@ jest.mock("../../../../shared/database/prisma", () => ({
         groupBy: jest.fn(),
         findMany: jest.fn(),
     },
-}), { virtual: true });
+}));
 
 const PrismaDashboardRepository = require("./PrismaDashboardRepository");
 const prisma = require("../../../../shared/database/prisma");

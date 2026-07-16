@@ -32,6 +32,30 @@ describe("Express App Integration Tests", () => {
     });
 
     describe("Health Check", () => {
+        test("GET / debe retornar señal de vida", async () => {
+            const res = await request(app).get("/");
+            expect(res.status).toBe(200);
+            expect(res.body).toEqual({ success: true, message: "API Root OK" });
+        });
+
+        test("GET /api/demo-token debe retornar token JWT válido", async () => {
+            const res = await request(app).get("/api/demo-token");
+            expect(res.status).toBe(200);
+            expect(res.body.success).toBe(true);
+            expect(typeof res.body.data.token).toBe("string");
+            expect(typeof res.body.data.empresaId).toBe("string");
+
+            const decoded = jwt.verify(res.body.data.token, TEST_JWT_SECRET);
+            expect(decoded.empresaId).toBe(res.body.data.empresaId);
+            expect(decoded.usuarioId).toBe("user-demo");
+        });
+
+        test("GET /dashboard debe retornar HTML", async () => {
+            const res = await request(app).get("/dashboard");
+            expect(res.status).toBe(200);
+            expect(res.text).toContain("<title>Abiel Core Dashboard</title>");
+        });
+
         test("GET /health debe retornar estado OK", async () => {
             const res = await request(app).get("/health");
             expect(res.status).toBe(200);

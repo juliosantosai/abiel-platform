@@ -2,6 +2,20 @@
 
 ## Módulos implementados
 
+### Runtime Core V1 ✅
+Orquesta la ejecución del flujo principal de Abiel Core.
+
+- Componentes: `RuntimeEngine`, `ExecutionContext`, `ExecutionLifecycle`, `EventDispatcher`
+- Flujo: `Event -> Runtime -> Decision Context -> Policy Check -> Execution Pipeline -> Capability -> Result Event`
+- Cobertura: tests unitarios, de contrato y de integración sobre EventBus
+
+### Execution Policy ✅
+Centraliza reglas de ejecución y control de errores/permisos.
+
+- Componentes: `RetryPolicy`, `TimeoutPolicy`, `ErrorClassifier`, `PermissionChecker`
+- Rol: fuente única de verdad para retry, timeout, permisos y clasificación de errores
+- Integración: consumido por `RuntimeEngine`
+
 ### Empresa ✅
 Tenant raíz del sistema. Administra información y estado de cada cliente SaaS.
 

@@ -7,7 +7,7 @@ jest.mock("../../../../shared/database/prisma", () => ({
         update: jest.fn(),
         delete: jest.fn()
     }
-}), { virtual: true });
+}));
 
 const prisma = require("../../../../shared/database/prisma");
 const PrismaConversationSessionRepository = require("./PrismaConversationSessionRepository");

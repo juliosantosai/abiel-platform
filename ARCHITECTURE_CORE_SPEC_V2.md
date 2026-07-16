@@ -1,4 +1,4 @@
-# ABIEL CORE v1 - CORE SPEC IMPLEMENTABLE
+# ABIEL CORE v1 - CORE SPEC IMPLEMENTABLE (V2)
 
 ## Estado del documento
 
@@ -68,7 +68,7 @@ Fases operativas:
 1. Ingreso: Runtime recibe Event y asigna executionId.
 2. Contexto: Runtime crea Decision Context inmutable para esta ejecucion.
 3. Politica: Runtime evalua permisos y Execution Policy.
-4. Ruta: Runtime selecciona un pipeline (Direct, Agent, Workflow).
+4. Ruta: Runtime selecciona un pipeline (Direct, Planned, Workflow).
 5. Ejecucion: Pipeline invoca capacidades bajo contrato.
 6. Cierre: Runtime publica Result Event y persiste auditoria minima.
 
@@ -94,10 +94,19 @@ Campos obligatorios:
 - agentId: Identificador de agente que ejecuta.
 - userId: Identificador de usuario originador.
 - conversationId: Identificador de conversacion.
+- eventType: Tipo de evento de entrada que dispara la ejecucion.
+- inputPayload: Carga normalizada de entrada para decision y ejecucion.
+- sourceChannel: Origen del evento (canal o integracion).
+- requestedAction: Accion solicitada al Core (si aplica).
 - availableCapabilities: Lista de capacidades disponibles para esta ejecucion.
 - permissions: Permisos efectivos ya resueltos para esta ejecucion.
+- policySnapshot: Snapshot inmutable de la Execution Policy efectiva.
+- authContext: Contexto de identidad y autorizacion efectiva de la solicitud.
 - memory: Estado de memoria permitido para esta ejecucion.
-- metadata: Datos de soporte (timestamps, canal, correlacion, prioridad).
+- memoryWindow: Ventana de memoria incluida en esta ejecucion.
+- correlationId: Identificador de correlacion transversal.
+- traceId: Identificador de trazabilidad de la ejecucion.
+- metadata: Datos de soporte (timestamps, prioridad, origen tecnico).
 
 ### Quien lo crea
 
@@ -107,9 +116,10 @@ Campos obligatorios:
 
 - Policy Check para autorizacion y limites.
 - Execution Pipelines para decidir ruta de ejecucion.
-- Agent Execution para razonamiento asistido.
+- Planned Execution para seleccion de accion/capability.
 - Capabilities para ejecutar con contexto controlado.
-- Auditoria para trazabilidad y cumplimiento.
+- Memory para lectura/escritura permitida por ventana.
+- Security para enforcement y auditoria.
 
 ### Reglas de contrato
 
@@ -144,7 +154,7 @@ Ejemplo real:
 - Usuario solicita actualizar una preferencia de perfil ya permitida.
 - Runtime valida permisos, ejecuta capability de perfil y devuelve confirmacion.
 
-### B) Agent Execution
+### B) Planned Execution
 
 Cuando usarlo:
 
@@ -156,14 +166,46 @@ Componentes involucrados:
 - Runtime
 - Decision Context
 - Policy Check
-- Decision Engine del agente
+- Planned Decision Engine
 - Capability seleccionada
 - Result Event
 
 Ejemplo real:
 
 - Usuario pide "resumeme la conversacion y genera una accion siguiente".
-- El agente decide capacidad de resumen y luego capacidad de tarea.
+- Planned Decision Engine decide capacidad de resumen y luego capacidad de tarea.
+
+### Contrato formal de Planned Execution
+
+Input:
+
+- Decision Context completo e inmutable.
+- requestedAction e inputPayload normalizados.
+- policySnapshot y permissions efectivas.
+
+Output:
+
+- Plan de ejecucion corto con capacidad(es) seleccionada(s).
+- Razon de decision auditable.
+- Estado de salida: success o failed.
+
+Ownership:
+
+- Runtime es owner de entrada, invocacion y cierre.
+- Planned Decision Engine es owner de la decision dentro del pipeline.
+- Capability ejecuta accion final bajo policy.
+
+Fallback:
+
+- Si no hay decision valida, Runtime aplica fallback definido en policySnapshot.
+- Si fallback no aplica, termina en failed con motivo auditable.
+
+Errores:
+
+- decision_error: no se pudo decidir ruta/capability.
+- policy_violation: decision o accion bloqueada por policy.
+- capability_unavailable: capacidad requerida no activa.
+- execution_error: error durante ejecucion de capability.
 
 ### C) Workflow Execution
 
@@ -188,7 +230,7 @@ Ejemplo real:
 
 Regla de seleccion:
 
-- Runtime selecciona pipeline con base en tipo de Event, metadata y policy.
+- Runtime selecciona pipeline con base en eventType, requestedAction y policySnapshot.
 - La seleccion queda auditada dentro del Result Event.
 
 ---
@@ -234,32 +276,68 @@ Transiciones controladas:
 
 ## 5) HUMAN INTERVENTION (DOMINIO PROPIO)
 
-Este modulo se mantiene como dominio separado del Runtime y del Agent Execution.
+Este modulo se mantiene como dominio separado del Runtime y del Planned Execution.
 
-### Deteccion de humano
+### State machine formal
 
-- Detecta senales explicitas de intervencion humana en canal o evento.
-- Clasifica la intervencion: revision, correccion, anulacion o takeover.
+Estados:
 
-### Bloqueo temporal del bot
+- bot_active
+- human_detected
+- temp_blocked
+- learning_during_intervention
+- auto_reactivated
+- permanent_blocked
 
-- Suspende respuestas automaticas dentro de una ventana definida.
-- Mantiene contexto y estado para reanudacion.
+Eventos:
 
-### Bloqueo permanente
+- human_signal_detected
+- temporary_block_requested
+- permanent_block_requested
+- human_decision_recorded
+- temporary_block_timeout_reached
+- reactivation_condition_met
+- admin_unlock
 
-- Desactiva automatizacion para la conversacion o agente segun policy.
-- Requiere accion administrativa para revertir.
+Transiciones y condiciones:
 
-### Aprendizaje de conversacion
+- bot_active -> human_detected
+  - Evento: human_signal_detected
+  - Condicion: senal valida de intervencion humana.
 
-- Registra decisiones humanas como eventos de aprendizaje trazables.
-- No altera contratos base; alimenta memoria historica autorizada.
+- human_detected -> temp_blocked
+  - Evento: temporary_block_requested
+  - Condicion: policy permite bloqueo temporal.
 
-### Reactivacion automatica
+- human_detected -> permanent_blocked
+  - Evento: permanent_block_requested
+  - Condicion: policy exige takeover permanente o riesgo alto.
 
-- Se reactiva cuando se cumple condicion de policy o timeout de bloqueo temporal.
-- La reactivacion genera evento auditable.
+- temp_blocked -> learning_during_intervention
+  - Evento: human_decision_recorded
+  - Condicion: existe accion humana auditable.
+
+- learning_during_intervention -> temp_blocked
+  - Evento: human_decision_recorded
+  - Condicion: intervencion continua en ventana activa.
+
+- temp_blocked -> auto_reactivated
+  - Evento: temporary_block_timeout_reached o reactivation_condition_met
+  - Condicion: bloqueo temporal expiro o criterio automatico cumplido.
+
+- auto_reactivated -> bot_active
+  - Evento: reactivation_condition_met
+  - Condicion: policy y permisos validos para retomar automatizacion.
+
+- permanent_blocked -> bot_active
+  - Evento: admin_unlock
+  - Condicion: desbloqueo administrativo explicito.
+
+Reglas:
+
+- Toda transicion genera evento auditable.
+- Durante temp_blocked y permanent_blocked, el bot no ejecuta respuestas autonomas.
+- learning_during_intervention registra conocimiento sin alterar contratos base.
 
 ---
 
@@ -338,17 +416,42 @@ Regla de seguridad v1:
 
 Execution Policy es la unica fuente de verdad para control de ejecucion.
 
-Campos obligatorios:
+### Campos obligatorios
 
-- retry: cantidad maxima, backoff, condiciones reintentables.
-- timeout: limite maximo de duracion por ejecucion o paso.
-- cancelacion: modo de cancelacion y garantias de parada.
-- limites: cuotas de recursos y concurrencia.
+- retry:
+  - cantidad maxima
+  - estrategia de backoff
+  - condiciones reintentables
 
-Reglas:
+- timeout:
+  - duracion maxima por ejecucion
+  - duracion maxima por paso (si aplica)
 
-- Scheduler, Runtime y Workflow no deben redefinir politicas paralelas.
+- cancelacion:
+  - condiciones de cancelacion aceptadas
+  - modo de parada (graceful o inmediata)
+
+- permisos:
+  - permisos efectivos requeridos por accion
+  - reglas de bloqueo por falta de permiso
+
+- limites:
+  - cuotas de recursos
+  - limites de concurrencia
+
+- errorClassification:
+  - retryable_error
+  - non_retryable_error
+  - policy_error
+  - timeout_error
+  - cancellation_error
+  - capability_error
+
+### Reglas de fuente unica de verdad
+
+- Scheduler, Runtime, Planned Execution y Workflow no deben redefinir politicas paralelas.
 - Toda ejecucion recibe una policy efectiva (default o especifica).
+- Retry, timeout, cancelacion, permisos y clasificacion de errores se resuelven solo desde Execution Policy.
 - Violaciones de policy finalizan en estado failed o cancelled con auditoria.
 
 ---
@@ -359,11 +462,39 @@ Reglas:
 
 - Todo acceso a datos y memoria se filtra por tenantId.
 - Decision Context y capabilities operan bajo aislamiento estricto.
+- Ninguna operacion puede cruzar fronteras de tenant.
 
 ### Permisos
 
 - Modelo de minimo privilegio para agentes, usuarios, capabilities y plugins.
 - Permisos se evaluan antes de ejecutar y durante operaciones sensibles.
+
+### Secrets contract
+
+Almacenamiento:
+
+- Los secretos se almacenan como datos de alta sensibilidad bajo frontera de tenant.
+- El Core no expone secretos en eventos, respuestas ni metadata de negocio.
+
+Acceso:
+
+- Acceso solo por componentes autorizados y bajo permisos efectivos.
+- Todo acceso a secreto debe estar ligado a executionId, tenantId y motivo de uso.
+
+Rotacion:
+
+- Los secretos deben soportar rotacion sin requerir cambio de arquitectura.
+- La rotacion invalida usos previos segun policy y alcance configurado.
+
+Auditoria:
+
+- Toda lectura, uso, rotacion o revocacion de secreto genera evento auditable.
+- La auditoria de secretos incluye actor, tenant, momento y resultado.
+
+Aislamiento por tenant:
+
+- Un secreto pertenece a un unico tenant.
+- No se permite reutilizacion de secretos entre tenants.
 
 ### Auditoria
 
@@ -386,14 +517,14 @@ Objetivo:
 ### CORE V1 (construir ahora)
 
 - Runtime con flujo obligatorio cerrado.
-- Decision Context con contrato inmutable definido.
-- Tres Execution Pipelines: Direct, Agent, Workflow.
+- Decision Context con contrato inmutable definido y completo para ejecucion.
+- Tres Execution Pipelines: Direct, Planned, Workflow.
 - Capability System con contrato y lifecycle.
-- Human Intervention como dominio propio.
+- Human Intervention como dominio propio con state machine formal.
 - Memory MVP: conversacion actual + historial.
 - Plugin System con manifest, permisos, version, registro y lifecycle.
-- Execution Policy unico para retry, timeout, cancelacion y limites.
-- Security base: tenant isolation, permisos, auditoria.
+- Execution Policy unico para retry, timeout, cancelacion, permisos, limites y errores.
+- Security base: tenant isolation, permisos, secrets contract y auditoria.
 
 ### CORE V2 (posponer)
 

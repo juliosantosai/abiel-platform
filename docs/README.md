@@ -1,6 +1,6 @@
 # Abiel Core — Índice de documentación
 
-**Status:** ✅ 266/270 Tests Passing | Migrations Applied | E2E Tests Created
+**Status:** ✅ 330/334 Tests Passing | Core Runtime V1 Implementado | Migrations Applied
 
 ## Arquitectura general
 
@@ -29,6 +29,8 @@
 | [modules/empresa/README.md](modules/empresa/README.md) | ✅ Implementado (+ PrismaRepository) |
 | [modules/usuario/README.md](modules/usuario/README.md) | ✅ Implementado (+ PrismaRepository) |
 | [modules/human-intervention/README.md](modules/human-intervention/README.md) | ✅ Implementado |
+| [modules/runtime/README.md](modules/runtime/README.md) | ✅ Implementado (Core Runtime V1) |
+| [modules/execution-policy/README.md](modules/execution-policy/README.md) | ✅ Implementado |
 | [modules/buffer/README.md](modules/buffer/README.md) | ⬜ Documentado — pendiente implementación |
 | [modules/state-machine/README.md](modules/state-machine/README.md) | ⬜ Documentado — pendiente implementación |
 | [modules/ai/README.md](modules/ai/README.md) | ⬜ Documentado — pendiente implementación |

@@ -1,4 +1,6 @@
 const express = require("express");
+const path = require("path");
+const jwt = require("jsonwebtoken");
 const EmpresaController = require("../interfaces/controllers/EmpresaController");
 const UsuarioController = require("../interfaces/controllers/UsuarioController");
 const ConversationControlController = require("../interfaces/controllers/ConversationControlController");
@@ -70,6 +72,49 @@ class ExpressApp {
         this.app.use("/api/dashboard", autenticar, crearRutasDashboard(dashboardController));
 
         // Health check
+        this.app.get("/", (req, res) => {
+            res.json({ success: true, message: "API Root OK" });
+        });
+
+        this.app.get("/dashboard", (req, res) => {
+            res.sendFile(path.resolve(__dirname, "../../dashboard/interfaces/web/dashboard.html"));
+        });
+
+        this.app.get("/api/demo-token", (req, res) => {
+            const secret = process.env.JWT_SECRET || "dev-secret";
+            const requestedEmpresaId = req.query.empresaId;
+
+            const resolveEmpresaId = async () => {
+                if (requestedEmpresaId) {
+                    return requestedEmpresaId;
+                }
+                if (process.env.DEMO_EMPRESA_ID) {
+                    return process.env.DEMO_EMPRESA_ID;
+                }
+
+                try {
+                    const prisma = require("../../../shared/database/prisma");
+                    const empresa = await prisma.empresa.findFirst({ orderBy: { createdAt: "desc" } });
+                    return empresa?.id || "empresa-demo";
+                } catch (error) {
+                    return "empresa-demo";
+                }
+            };
+
+            resolveEmpresaId().then((empresaId) => {
+                const token = jwt.sign(
+                    {
+                        empresaId,
+                        usuarioId: "user-demo",
+                    },
+                    secret,
+                    { expiresIn: "12h" }
+                );
+
+                res.json({ success: true, data: { token, empresaId } });
+            });
+        });
+
         this.app.get("/health", (req, res) => {
             res.json({ success: true, message: "API Health OK" });
         });

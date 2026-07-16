@@ -20,6 +20,31 @@ EventBus           (distribuye a suscriptores)
 Otros módulos      (reaccionan de forma independiente)
 ```
 
+## Flujo Core Runtime V1
+
+```
+Event
+  ↓
+RuntimeEngine
+  ↓
+ExecutionContext
+  ↓
+PermissionChecker + ExecutionPolicy
+  ↓
+Execution Pipeline (v1: direct/planned/workflow)
+  ↓
+Capability
+  ↓
+ResultEvent
+```
+
+Notas:
+
+- `RuntimeEngine` construye un `ExecutionContext` inmutable por ejecución.
+- `ExecutionLifecycle` controla transiciones de estado hasta terminal.
+- `EventDispatcher` publica `ExecutionStarted` y `ResultEvent`.
+- `RetryPolicy`, `TimeoutPolicy` y `ErrorClassifier` se aplican dentro del runtime.
+
 ## Flujo de eventos de dominio
 
 Un evento de dominio representa algo que **ocurrió**, no una orden.

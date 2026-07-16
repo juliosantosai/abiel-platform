@@ -20,6 +20,7 @@ class PrismaDashboardRepository extends DashboardRepository {
         const empresasCount = await prisma.empresa.groupBy({
             by: ["estado"],
             where: { id: empresaId }, // Limitar a la empresa del usuario
+            _count: { _all: true },
         });
 
         const empresasMetricas = MetricasEmpresa.desde(this._agruparPorEstado(empresasCount, "estado"));
@@ -28,7 +29,7 @@ class PrismaDashboardRepository extends DashboardRepository {
         const usuariosCount = await prisma.usuario.groupBy({
             by: ["rol"],
             where: { empresaId },
-            _count: true,
+            _count: { _all: true },
         });
 
         const usuariosMetricas = MetricasUsuario.desde(this._agruparPorRol(usuariosCount, "rol"));
@@ -37,7 +38,7 @@ class PrismaDashboardRepository extends DashboardRepository {
         const conversacionesCount = await prisma.conversationSession.groupBy({
             by: ["estado"],
             where: { empresaId },
-            _count: true,
+            _count: { _all: true },
         });
 
         const conversacionesMetricas = MetricasConversacion.desde(
@@ -80,9 +81,10 @@ class PrismaDashboardRepository extends DashboardRepository {
         // Contar
         datos.forEach((item) => {
             const estado = item[campo];
+            const count = this._countFromGroupBy(item);
             if (estadosValidos.includes(estado)) {
-                resultado[estado] += item._count;
-                resultado.total += item._count;
+                resultado[estado] += count;
+                resultado.total += count;
             }
         });
 
@@ -102,9 +104,10 @@ class PrismaDashboardRepository extends DashboardRepository {
 
         datos.forEach((item) => {
             const rol = item[campo];
+            const count = this._countFromGroupBy(item);
             if (rolesValidos.includes(rol)) {
-                resultado[rol] += item._count || 1;
-                resultado.total += item._count || 1;
+                resultado[rol] += count;
+                resultado.total += count;
             }
         });
 
@@ -123,10 +126,12 @@ class PrismaDashboardRepository extends DashboardRepository {
         });
 
         datos.forEach((item) => {
-            const estado = item[campo];
+            const estadoOriginal = item[campo];
+            const estado = this._mapearEstadoConversacion(estadoOriginal);
+            const count = this._countFromGroupBy(item);
             if (estadosValidos.includes(estado)) {
-                resultado[estado] += item._count || 1;
-                resultado.total += item._count || 1;
+                resultado[estado] += count;
+                resultado.total += count;
             }
         });
 
@@ -179,7 +184,7 @@ class PrismaDashboardRepository extends DashboardRepository {
         // Últimas conversaciones
         const conversaciones = await prisma.conversationSession.findMany({
             where: { empresaId },
-            orderBy: { createdAt: "desc" },
+            orderBy: { creadoEn: "desc" },
             take: 3,
         });
 
@@ -190,13 +195,43 @@ class PrismaDashboardRepository extends DashboardRepository {
                 empresaId: conversacion.empresaId,
                 usuario: "cliente",
                 datos: { estado: conversacion.estado },
-                timestamp: conversacion.createdAt,
+                timestamp: conversacion.creadoEn,
             });
         });
 
         // Ordenar por timestamp descendente y limitar
         actividades.sort((a, b) => b.timestamp - a.timestamp);
         return actividades.slice(0, limit);
+    }
+
+    _countFromGroupBy(item) {
+        if (!item || item._count === undefined || item._count === null) {
+            return 0;
+        }
+        if (typeof item._count === "number") {
+            return item._count;
+        }
+        if (typeof item._count._all === "number") {
+            return item._count._all;
+        }
+        const firstNumeric = Object.values(item._count).find((value) => typeof value === "number");
+        return firstNumeric || 0;
+    }
+
+    _mapearEstadoConversacion(estado) {
+        const mapa = {
+            BOT_ACTIVE: "INICIADA",
+            HUMAN_ACTIVE: "EN_PROGRESO",
+            BOT_RESUME_PENDING: "EN_PROGRESO",
+            HUMAN_LOCKED: "BLOQUEADA",
+            CLOSED: "FINALIZADA",
+            INICIADA: "INICIADA",
+            EN_PROGRESO: "EN_PROGRESO",
+            FINALIZADA: "FINALIZADA",
+            BLOQUEADA: "BLOQUEADA",
+        };
+
+        return mapa[estado] || "EN_PROGRESO";
     }
 }
 
