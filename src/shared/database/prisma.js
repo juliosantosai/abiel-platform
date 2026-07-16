@@ -9,8 +9,13 @@ const pool = new Pool({
 
 const adapter = new PrismaPg(pool);
 
-// Aquí es donde le pasamos el adaptador con la URL, 
+// Aquí es donde le pasamos el adaptador con la URL,
 // cumpliendo con la nueva normativa de Prisma 7
 const prisma = new PrismaClient({ adapter });
+
+prisma.disconnect = async () => {
+  await prisma.$disconnect();
+  await pool.end();
+};
 
 module.exports = prisma;

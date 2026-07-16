@@ -6,9 +6,6 @@ const UuidGenerator = require("../uuid/UuidGenerator");
 
 const uuid = new UuidGenerator();
 
-id: uuid.generate();
-
-
 class EventPublisher {
 
 
@@ -39,11 +36,6 @@ class EventPublisher {
         EventBus.publish(event);
 
     }
-
 }
-afterAll(async () => {
-  // Fuerza el cierre de cualquier proceso abierto
-  await new Promise(resolve => setTimeout(resolve, 500));
-});
 
 module.exports = new EventPublisher();

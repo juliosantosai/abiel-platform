@@ -1,5 +1,4 @@
 class EmpresaRepository {
-
     async guardar(empresa) {
         throw new Error("Método guardar() no implementado.");
     }
@@ -23,7 +22,6 @@ class EmpresaRepository {
     async eliminar(id) {
         throw new Error("Método eliminar() no implementado.");
     }
-
 }
 
 module.exports = EmpresaRepository;

@@ -238,6 +238,15 @@ La Empresa es una Entidad de Dominio.
 
 Tiene:
 
+- Identidad
+- Reglas
+- Estados
+- Comportamiento
+
+## Documentación adicional
+
+- `10-manejo-de-errores.md` — Manejo de errores del módulo Empresa
+
 - Identidad propia.
 - Ciclo de vida.
 - Reglas de negocio.

@@ -15,3 +15,11 @@ describe('Prisma Client Initialization', () => {
     expect(result[0].connected).toBe(1);
   });
 });
+
+afterAll(async () => {
+  await prisma.disconnect();
+});
+
+afterAll(async () => {
+  await prisma.$disconnect();
+});

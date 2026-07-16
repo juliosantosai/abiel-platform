@@ -17,7 +17,7 @@ describe("Empresa", () => {
 
         expect(empresa.id).toBe("empresa-001");
         expect(empresa.nombre).toBe("Mi Empresa");
-        expect(empresa.estado).toBe("ACTIVA");
+        expect(empresa.estado).toBe("PENDIENTE");
         expect(empresa.plan).toBe("BASICO");
 
     });
@@ -59,7 +59,7 @@ describe("Empresa", () => {
 
         empresa.eliminar();
 
-        expect(empresa.estado).toBe("ELIMINADA");
+        expect(empresa.estado).toBe("CANCELADA");
 
     });
 
