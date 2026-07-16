@@ -1,4 +1,4 @@
-const ExpressApp = require("./ExpressApp");
+module.exports = require("../../../infrastructure/api/infrastructure/runApiMock");const ExpressApp = require("./ExpressApp");
 const PrismaDashboardRepository = require("../../dashboard/infrastructure/persistence/PrismaDashboardRepository");
 const ObtenerMetricasGlobales = require("../../dashboard/application/use-cases/ObtenerMetricasGlobales");
 const ObtenerActividadReciente = require("../../dashboard/application/use-cases/ObtenerActividadReciente");

@@ -1,4 +1,4 @@
-const express = require("express");
+module.exports = require("../../../infrastructure/api/infrastructure/ExpressApp");const express = require("express");
 const path = require("path");
 const jwt = require("jsonwebtoken");
 const EmpresaController = require("../interfaces/controllers/EmpresaController");

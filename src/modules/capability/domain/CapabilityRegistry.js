@@ -1,4 +1,4 @@
-const Capability = require("./Capability");
+module.exports = require("../../../core/capability/domain/CapabilityRegistry");const Capability = require("./Capability");
 const ValidationError = require("../../../shared/errors/ValidationError");
 
 class CapabilityRegistry {

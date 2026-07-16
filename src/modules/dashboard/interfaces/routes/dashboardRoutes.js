@@ -1,4 +1,4 @@
-/**
+module.exports = require("../../../../infrastructure/api/interfaces/routes/dashboardRoutes");/**
  * Rutas del módulo Dashboard
  */
 function crearRutasDashboard(dashboardController) {

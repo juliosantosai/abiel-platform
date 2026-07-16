@@ -1,6 +1,6 @@
 const ConversationFlow = require("../../domain/entities/ConversationFlow");
-const ValidationError = require("../../../../shared/errors/ValidationError");
-const DomainError = require("../../../../shared/errors/DomainError");
+const ValidationError = require("../../../../../shared/errors/ValidationError");
+const DomainError = require("../../../../../shared/errors/DomainError");
 const FlujoIniciado = require("../../domain/events/FlujoIniciado");
 const EtapaAvanzada = require("../../domain/events/EtapaAvanzada");
 const FlujoFinalizado = require("../../domain/events/FlujoFinalizado");
@@ -8,7 +8,7 @@ const FakeConversationFlowRepository = require("../../infrastructure/persistence
 const IniciarFlujoUseCase = require("../../application/use-cases/IniciarFlujoUseCase");
 const AvanzarEtapaUseCase = require("../../application/use-cases/AvanzarEtapaUseCase");
 const FinalizarFlujoUseCase = require("../../application/use-cases/FinalizarFlujoUseCase");
-const NotFoundError = require("../../../../shared/errors/NotFoundError");
+const NotFoundError = require("../../../../../shared/errors/NotFoundError");
 
 const base = (extra = {}) => ({ id: "f-1", empresaId: "e-1", conversationId: "c-1", ...extra });
 

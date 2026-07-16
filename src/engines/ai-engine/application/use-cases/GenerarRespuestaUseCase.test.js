@@ -1,5 +1,5 @@
 const GenerarRespuestaUseCase = require("./GenerarRespuestaUseCase");
-const FakeLLMProvider = require("../../infrastructure/adapters/FakeLLMProvider");
+const FakeLLMProvider = require("../../../../modules/ai/infrastructure/adapters/FakeLLMProvider");
 const AIRequest = require("../../domain/entities/AIRequest");
 const RespuestaGenerada = require("../../domain/events/RespuestaGenerada");
 const GeneracionFallida = require("../../domain/events/GeneracionFallida");

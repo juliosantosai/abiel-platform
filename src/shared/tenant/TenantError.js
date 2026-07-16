@@ -1,9 +1,1 @@
-class TenantError extends Error {
-    constructor(message, details = {}) {
-        super(message);
-        this.name = "TenantError";
-        this.details = details;
-    }
-}
-
-module.exports = TenantError;
+module.exports = require("../../core/security/TenantError");

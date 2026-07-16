@@ -1,4 +1,4 @@
-const ExecutionContext = require("../domain/ExecutionContext");
+module.exports = require("../../../engines/agent-runtime/application/RuntimeEngine");const ExecutionContext = require("../domain/ExecutionContext");
 const ExecutionLifecycle = require("../domain/ExecutionLifecycle");
 const ErrorClassifier = require("../../execution-policy/domain/ErrorClassifier");
 const PermissionChecker = require("../../execution-policy/domain/PermissionChecker");

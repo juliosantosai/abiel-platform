@@ -1,4 +1,4 @@
-const TenantContext = require("./TenantContext");
+module.exports = require("../../core/security/TenantGuard");const TenantContext = require("./TenantContext");
 const TenantError = require("./TenantError");
 
 class TenantGuard {

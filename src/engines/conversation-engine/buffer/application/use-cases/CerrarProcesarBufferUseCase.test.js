@@ -4,7 +4,7 @@ const FakeMessageBufferRepository = require("../../infrastructure/persistence/Fa
 const MessageBuffer = require("../../domain/entities/MessageBuffer");
 const BufferListo = require("../../domain/events/BufferListo");
 const BufferProcesado = require("../../domain/events/BufferProcesado");
-const NotFoundError = require("../../../../shared/errors/NotFoundError");
+const NotFoundError = require("../../../../../shared/errors/NotFoundError");
 
 const makeBuffer = (extra = {}) => new MessageBuffer({ id: "buf-1", empresaId: "e-1", conversationId: "c-1", ...extra });
 

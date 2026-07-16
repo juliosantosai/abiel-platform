@@ -1,4 +1,4 @@
-// src/shared/events/EventBus.js
+module.exports = require("../../core/kernel/events/EventBus");// src/shared/events/EventBus.js
 
 class EventBus {
     constructor() {

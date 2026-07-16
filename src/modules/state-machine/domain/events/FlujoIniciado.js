@@ -1,10 +1,1 @@
-const DomainEvent = require("../../../../shared/events/DomainEvent");
-
-class FlujoIniciado extends DomainEvent {
-    static eventName = "FlujoIniciado";
-    constructor({ flowId, conversationId, empresaId, etapa }) {
-        super();
-        this.data = { flowId, conversationId, empresaId, etapa };
-    }
-}
-module.exports = FlujoIniciado;
+module.exports = require("../../../../engines/conversation-engine/state-machine/domain/events/FlujoIniciado");

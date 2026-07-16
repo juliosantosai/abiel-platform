@@ -1,8 +1,8 @@
-const globalEventBus = require("./src/shared/events/EventBus");
-const { EventBus } = require("./src/shared/events/EventBus");
-const EventDispatcher = require("./src/modules/runtime/infrastructure/EventDispatcher");
-const RuntimeEngine = require("./src/modules/runtime/application/RuntimeEngine");
-const { run: runApiMock } = require("./src/modules/api/infrastructure/runApiMock");
+const globalEventBus = require("./src/core/kernel/events/EventBus");
+const { EventBus } = require("./src/core/kernel/events/EventBus");
+const EventDispatcher = require("./src/engines/agent-runtime/infrastructure/EventDispatcher");
+const RuntimeEngine = require("./src/engines/agent-runtime/application/RuntimeEngine");
+const { run: runApiMock } = require("./src/infrastructure/api/infrastructure/runApiMock");
 
 function boot() {
     const startedAt = new Date().toISOString();

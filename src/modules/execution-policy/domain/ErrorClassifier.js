@@ -1,4 +1,4 @@
-class ErrorClassifier {
+module.exports = require("../../../core/execution-policy/domain/ErrorClassifier");class ErrorClassifier {
     classify(error) {
         if (!error) {
             return "validation_error";

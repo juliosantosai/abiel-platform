@@ -1,4 +1,4 @@
-const BufferState = require("../valueObjects/BufferState");
+module.exports = require("../../../../engines/conversation-engine/buffer/domain/entities/MessageBuffer");const BufferState = require("../valueObjects/BufferState");
 const ValidationError = require("../../../../shared/errors/ValidationError");
 const DomainError = require("../../../../shared/errors/DomainError");
 

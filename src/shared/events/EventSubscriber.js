@@ -1,7 +1,7 @@
 // src/shared/events/EventSubscriber.js
 // Mantenido por compatibilidad. Usar EventBus directamente para nuevos módulos.
 
-const globalBus = require("./EventBus");
+const globalBus = require("../../core/kernel/events/EventBus");
 
 class EventSubscriber {
     subscribe(eventName, handler) {

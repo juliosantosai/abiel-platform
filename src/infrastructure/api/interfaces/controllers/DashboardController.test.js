@@ -1,5 +1,5 @@
 const DashboardController = require("./DashboardController");
-const DashboardMetrics = require("../../domain/entities/DashboardMetrics");
+const DashboardMetrics = require("../../../../modules/dashboard/domain/entities/DashboardMetrics");
 
 describe("DashboardController", () => {
     let controller;

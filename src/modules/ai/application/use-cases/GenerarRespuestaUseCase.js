@@ -1,4 +1,4 @@
-const AIRequest = require("../../domain/entities/AIRequest");
+module.exports = require("../../../../engines/ai-engine/application/use-cases/GenerarRespuestaUseCase");const AIRequest = require("../../domain/entities/AIRequest");
 const RespuestaGenerada = require("../../domain/events/RespuestaGenerada");
 const GeneracionFallida = require("../../domain/events/GeneracionFallida");
 

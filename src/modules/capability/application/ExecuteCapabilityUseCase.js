@@ -1,4 +1,4 @@
-const ErrorClassifier = require("../../execution-policy/domain/ErrorClassifier");
+module.exports = require("../../../core/capability/application/ExecuteCapabilityUseCase");const ErrorClassifier = require("../../execution-policy/domain/ErrorClassifier");
 const PermissionChecker = require("../../execution-policy/domain/PermissionChecker");
 
 class ExecuteCapabilityUseCase {

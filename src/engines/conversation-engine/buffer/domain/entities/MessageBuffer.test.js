@@ -1,6 +1,6 @@
 const MessageBuffer = require("./MessageBuffer");
-const ValidationError = require("../../../../shared/errors/ValidationError");
-const DomainError = require("../../../../shared/errors/DomainError");
+const ValidationError = require("../../../../../shared/errors/ValidationError");
+const DomainError = require("../../../../../shared/errors/DomainError");
 
 const base = (extra = {}) => ({
     id: "buf-1", empresaId: "e-1", conversationId: "c-1", ...extra

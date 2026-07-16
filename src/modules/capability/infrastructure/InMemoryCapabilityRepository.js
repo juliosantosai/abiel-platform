@@ -1,4 +1,4 @@
-class InMemoryCapabilityRepository {
+module.exports = require("../../../core/capability/infrastructure/InMemoryCapabilityRepository");class InMemoryCapabilityRepository {
     constructor() {
         this.capabilities = new Map();
     }

@@ -1,4 +1,4 @@
-class TenantContext {
+module.exports = require("../../core/security/TenantContext");class TenantContext {
     constructor({ tenantId, source = "unknown" } = {}) {
         if (!tenantId) {
             throw new Error("El tenantId es obligatorio.");

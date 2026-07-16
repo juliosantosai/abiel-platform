@@ -1,10 +1,1 @@
-const DomainEvent = require("../../../../shared/events/DomainEvent");
-
-class BufferListo extends DomainEvent {
-    static eventName = "BufferListo";
-    constructor({ bufferId, conversationId, empresaId, mensajes }) {
-        super();
-        this.data = { bufferId, conversationId, empresaId, mensajes };
-    }
-}
-module.exports = BufferListo;
+module.exports = require("../../../../engines/conversation-engine/buffer/domain/events/BufferListo");

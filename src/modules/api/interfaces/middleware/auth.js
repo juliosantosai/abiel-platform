@@ -1,4 +1,4 @@
-const jwt = require("jsonwebtoken");
+module.exports = require("../../../../infrastructure/api/interfaces/middleware/auth");const jwt = require("jsonwebtoken");
 const path = require("path");
 
 // Usar require.resolve para obtener el path correcto

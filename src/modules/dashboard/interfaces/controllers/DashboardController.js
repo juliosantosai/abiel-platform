@@ -1,4 +1,4 @@
-/**
+module.exports = require("../../../../infrastructure/api/interfaces/controllers/DashboardController");/**
  * Controller: DashboardController
  * Maneja endpoints del dashboard
  */
