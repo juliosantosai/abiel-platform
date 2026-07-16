@@ -1,17 +1,23 @@
 const NotFoundError = require("../../../../shared/errors/NotFoundError");
-
+const TenantGuard = require("../../../../shared/tenant/TenantGuard");
 const EmpresaSuspendida = require("../../domain/events/EmpresaSuspendida");
 
 class SuspenderEmpresaUseCase {
-    constructor({ empresaRepository, eventPublisher }) {
+    constructor({ empresaRepository, eventPublisher, tenantGuard = new TenantGuard() }) {
         this.empresaRepository = empresaRepository;
         this.eventPublisher = eventPublisher;
+        this.tenantGuard = tenantGuard;
     }
 
-    async execute({ id }) {
+    async execute({ id, tenantContext }) {
         const empresa = await this.empresaRepository.buscarPorId(id);
         if (!empresa) {
             throw new NotFoundError("Empresa", id);
+        }
+
+        const effective = tenantContext ?? this.tenantGuard.tenantContext;
+        if (effective !== undefined && effective !== null) {
+            this.tenantGuard.ensureSameTenant(empresa.id, effective);
         }
 
         empresa.suspender();

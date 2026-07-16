@@ -1,41 +1,31 @@
 // src/shared/events/EventPublisher.js
 
-const EventBus = require("./EventBus");
+const { EventBus } = require("./EventBus");
+const globalBus = require("./EventBus");
 const Logger = require("../logger/Logger");
-const UuidGenerator = require("../uuid/UuidGenerator");
-
-const uuid = new UuidGenerator();
 
 class EventPublisher {
-    publish(eventOrName, data) {
-        let event;
+    /**
+     * @param {object} [opts]
+     * @param {EventBus} [opts.bus] - bus a usar; si se omite usa el singleton global
+     */
+    constructor({ bus } = {}) {
+        this.bus = bus || globalBus;
+    }
 
-        if (typeof eventOrName === "string") {
-            event = {
-                id: uuid.generate(),
-                name: eventOrName,
-                data,
-                occurredAt: new Date()
-            };
-        } else {
-            event = eventOrName;
-            if (!event || !event.name) {
-                throw new Error("EventPublisher.publish requiere un evento con nombre.");
-            }
-
-            event.id = event.id || uuid.generate();
-            event.occurredAt = event.occurredAt || new Date();
+    async publish(event) {
+        if (!event || !event.name) {
+            throw new Error("EventPublisher.publish requiere un evento con propiedad 'name'.");
         }
 
-        Logger.info(
-            `Evento publicado: ${event.name}`,
-            {
-                eventId: event.id
-            }
-        );
+        Logger.info(`Evento publicado: ${event.name}`, { eventId: event.id });
 
-        EventBus.publish(event);
+        await this.bus.publish(event);
     }
 }
 
-module.exports = new EventPublisher();
+// Singleton global para quienes no necesitan inyección
+const globalPublisher = new EventPublisher();
+
+module.exports = globalPublisher;
+module.exports.EventPublisher = EventPublisher;

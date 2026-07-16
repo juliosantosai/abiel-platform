@@ -1,6 +1,6 @@
-jest.mock("../../../shared/database/prisma", () => ({
+jest.mock("../../../../shared/database/prisma", () => ({
     usuario: {
-        create: jest.fn(),
+        upsert: jest.fn(),
         findUnique: jest.fn(),
         findFirst: jest.fn(),
         findMany: jest.fn(),
@@ -9,7 +9,7 @@ jest.mock("../../../shared/database/prisma", () => ({
     }
 }), { virtual: true });
 
-const prisma = require("../../../shared/database/prisma");
+const prisma = require("../../../../shared/database/prisma");
 const PrismaUsuarioRepository = require("./PrismaUsuarioRepository");
 const Usuario = require("../../domain/entities/Usuario");
 
@@ -18,15 +18,10 @@ describe("PrismaUsuarioRepository", () => {
 
     beforeEach(() => {
         repository = new PrismaUsuarioRepository();
-        prisma.usuario.create.mockReset();
-        prisma.usuario.findUnique.mockReset();
-        prisma.usuario.findFirst.mockReset();
-        prisma.usuario.findMany.mockReset();
-        prisma.usuario.update.mockReset();
-        prisma.usuario.delete.mockReset();
+        jest.clearAllMocks();
     });
 
-    test("guardar() debe llamar a prisma.usuario.create con los datos correctos", async () => {
+    test("guardar() debe llamar a prisma.usuario.upsert", async () => {
         const usuario = new Usuario({
             id: "usuario-20",
             empresaId: "empresa-1",
@@ -35,13 +30,24 @@ describe("PrismaUsuarioRepository", () => {
             rol: "ADMIN"
         });
 
-        prisma.usuario.create.mockResolvedValue(usuario);
+        prisma.usuario.upsert.mockResolvedValue(usuario);
 
         const result = await repository.guardar(usuario);
 
-        expect(prisma.usuario.create).toHaveBeenCalledTimes(1);
-        expect(prisma.usuario.create).toHaveBeenCalledWith({
-            data: {
+        expect(prisma.usuario.upsert).toHaveBeenCalledTimes(1);
+        expect(prisma.usuario.upsert).toHaveBeenCalledWith({
+            where: { id: usuario.id },
+            update: {
+                id: usuario.id,
+                empresaId: usuario.empresaId,
+                nombre: usuario.nombre,
+                email: usuario.email,
+                rol: usuario.rol,
+                estado: usuario.estado,
+                createdAt: usuario.createdAt,
+                updatedAt: usuario.updatedAt
+            },
+            create: {
                 id: usuario.id,
                 empresaId: usuario.empresaId,
                 nombre: usuario.nombre,

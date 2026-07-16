@@ -1,4 +1,4 @@
-const DomainEvent = require("../../../shared/events/DomainEvent");
+const DomainEvent = require("../../../../shared/events/DomainEvent");
 
 class EmpresaCancelada extends DomainEvent {
     static eventName = "EmpresaCancelada";

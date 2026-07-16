@@ -1,5 +1,5 @@
 const EmpresaRepository = require("../../domain/repositories/EmpresaRepository");
-const prisma = require("../../../shared/database/prisma");
+const prisma = require("../../../../shared/database/prisma");
 const Empresa = require("../../domain/entities/Empresa");
 
 class PrismaEmpresaRepository extends EmpresaRepository {
@@ -16,7 +16,11 @@ class PrismaEmpresaRepository extends EmpresaRepository {
             updatedAt: empresa.updatedAt
         };
 
-        return prisma.empresa.create({ data });
+        return prisma.empresa.upsert({
+            where: { id: empresa.id },
+            update: data,
+            create: data,
+        });
     }
 
     async buscarPorId(id) {

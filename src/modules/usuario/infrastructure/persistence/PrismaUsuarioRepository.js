@@ -1,5 +1,5 @@
 const UsuarioRepository = require("../../domain/repositories/UsuarioRepository");
-const prisma = require("../../../shared/database/prisma");
+const prisma = require("../../../../shared/database/prisma");
 const Usuario = require("../../domain/entities/Usuario");
 
 class PrismaUsuarioRepository extends UsuarioRepository {
@@ -15,7 +15,11 @@ class PrismaUsuarioRepository extends UsuarioRepository {
             updatedAt: usuario.updatedAt
         };
 
-        return prisma.usuario.create({ data });
+        return prisma.usuario.upsert({
+            where: { id: usuario.id },
+            update: data,
+            create: data,
+        });
     }
 
     async buscarPorId(id) {

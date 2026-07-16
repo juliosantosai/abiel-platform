@@ -32,3 +32,64 @@ model Usuario {
   @@index([empresaId])
   @@index([email])
 }
+
+model ConversationSession {
+  id                      String    @id @default(uuid())
+  empresaId               String
+  clienteId               String
+  estado                  String    @default("BOT_ACTIVE")
+  ultimaIntervencionHumana DateTime?
+  creadoEn                DateTime  @default(now())
+  actualizadoEn           DateTime  @updatedAt
+
+  @@index([empresaId])
+  @@index([clienteId])
+  @@index([empresaId, clienteId])
+}
+
+model MessageBuffer {
+  id             String    @id @default(uuid())
+  empresaId      String
+  conversationId String
+  mensajes       Json      @default("[]")
+  estado         String    @default("COLLECTING")
+  ventanaMs      Int       @default(3000)
+  maxMensajes    Int       @default(10)
+  expiraEn       DateTime
+  creadoEn       DateTime  @default(now())
+  actualizadoEn  DateTime  @updatedAt
+
+  @@index([empresaId])
+  @@index([conversationId])
+  @@index([estado, expiraEn])
+}
+
+model ConversationFlow {
+  id             String   @id @default(uuid())
+  empresaId      String
+  conversationId String
+  etapa          String
+  etapaAnterior  String?
+  contexto       Json     @default("{}")
+  creadoEn       DateTime @default(now())
+  actualizadoEn  DateTime @updatedAt
+
+  @@index([empresaId])
+  @@index([conversationId])
+}
+
+model OutboundMessage {
+  id             String    @id @default(uuid())
+  empresaId      String
+  conversationId String?
+  clienteId      String
+  contenido      String
+  tipo           String    @default("TEXT")
+  estado         String    @default("PENDING")
+  intentos       Int       @default(0)
+  creadoEn       DateTime  @default(now())
+  enviadoEn      DateTime?
+
+  @@index([empresaId])
+  @@index([estado])
+}

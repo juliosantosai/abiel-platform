@@ -1,16 +1,9 @@
-jest.mock("../../domain/events/EmpresaSuspendida", () => {
-    return class EmpresaSuspendida {
-        constructor(data) {
-            this.data = data;
-        }
-        static eventName = "EmpresaSuspendida";
-    };
-});
-
 const SuspenderEmpresaUseCase = require("./SuspenderEmpresaUseCase");
 const EmpresaSuspendida = require("../../domain/events/EmpresaSuspendida");
 const Empresa = require("../../domain/entities/Empresa");
 const NotFoundError = require("../../../../shared/errors/NotFoundError");
+const TenantGuard = require("../../../../shared/tenant/TenantGuard");
+const TenantError = require("../../../../shared/tenant/TenantError");
 
 describe("SuspenderEmpresaUseCase", () => {
     test("debe suspender la empresa y publicar el evento EmpresaSuspendida", async () => {
@@ -70,5 +63,24 @@ describe("SuspenderEmpresaUseCase", () => {
 
         expect(fakeRepository.actualizar).not.toHaveBeenCalled();
         expect(fakePublisher.publish).not.toHaveBeenCalled();
+    });
+
+    test("debe rechazar si el tenant no coincide con la empresa", async () => {
+        const empresa = new Empresa({ id: "empresa-A", nombre: "Empresa A" });
+        empresa.activar();
+        const fakeRepository = {
+            buscarPorId: jest.fn(async () => empresa),
+            actualizar: jest.fn()
+        };
+        const tenantGuard = new TenantGuard({ tenantContext: "empresa-B" });
+        const useCase = new SuspenderEmpresaUseCase({
+            empresaRepository: fakeRepository,
+            eventPublisher: { publish: jest.fn() },
+            tenantGuard
+        });
+
+        await expect(useCase.execute({ id: "empresa-A", tenantContext: "empresa-B" }))
+            .rejects.toThrow(TenantError);
+        expect(fakeRepository.actualizar).not.toHaveBeenCalled();
     });
 });

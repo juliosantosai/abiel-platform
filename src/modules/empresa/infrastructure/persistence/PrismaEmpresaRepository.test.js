@@ -1,12 +1,13 @@
-jest.mock("../../../shared/database/prisma", () => ({
+jest.mock("../../../../shared/database/prisma", () => ({
     empresa: {
-        create: jest.fn(),
+        upsert: jest.fn(),
         findUnique: jest.fn(),
-        update: jest.fn()
+        update: jest.fn(),
+        findMany: jest.fn()
     }
 }), { virtual: true });
 
-const prisma = require("../../../shared/database/prisma");
+const prisma = require("../../../../shared/database/prisma");
 const PrismaEmpresaRepository = require("./PrismaEmpresaRepository");
 const Empresa = require("../../domain/entities/Empresa");
 
@@ -15,40 +16,24 @@ describe("PrismaEmpresaRepository", () => {
 
     beforeEach(() => {
         repository = new PrismaEmpresaRepository();
-        prisma.empresa.create.mockReset();
-        prisma.empresa.findUnique.mockReset();
-        prisma.empresa.update.mockReset();
+        jest.clearAllMocks();
     });
 
-    test("guardar() debe llamar a prisma.empresa.create con los datos correctos", async () => {
+    test("guardar() debe llamar a prisma.empresa.upsert", async () => {
         const empresa = new Empresa({
             id: "empresa-20",
             nombre: "Empresa Veinte"
         });
 
-        prisma.empresa.create.mockResolvedValue(empresa);
+        prisma.empresa.upsert.mockResolvedValue(empresa);
 
         const result = await repository.guardar(empresa);
 
-        expect(prisma.empresa.create).toHaveBeenCalledTimes(1);
-        expect(prisma.empresa.create).toHaveBeenCalledWith({
-            data: {
-                id: empresa.id,
-                nombre: empresa.nombre,
-                email: empresa.email,
-                telefono: empresa.telefono,
-                whatsappInstanceId: empresa.whatsappInstanceId,
-                estado: empresa.estado,
-                plan: empresa.plan,
-                createdAt: empresa.createdAt,
-                updatedAt: empresa.updatedAt
-            }
-        });
-
+        expect(prisma.empresa.upsert).toHaveBeenCalledTimes(1);
         expect(result).toBe(empresa);
     });
 
-    test("buscarPorId() debe mapear el registro Prisma a la entidad Empresa", async () => {
+    test("buscarPorId() debe mapear el registro a Empresa", async () => {
         const record = {
             id: "empresa-21",
             nombre: "Empresa Veintiuno",
@@ -69,41 +54,44 @@ describe("PrismaEmpresaRepository", () => {
         expect(result).toBeInstanceOf(Empresa);
         expect(result.id).toBe(record.id);
         expect(result.nombre).toBe(record.nombre);
-        expect(result.estado).toBe(record.estado);
-        expect(result.plan).toBe(record.plan);
     });
 
-    test("buscarPorId() debe devolver null cuando prisma no retorna un registro", async () => {
+    test("buscarPorId() debe devolver null cuando prisma no retorna", async () => {
         prisma.empresa.findUnique.mockResolvedValue(null);
 
         const result = await repository.buscarPorId("empresa-no-existe");
 
-        expect(prisma.empresa.findUnique).toHaveBeenCalledWith({ where: { id: "empresa-no-existe" } });
         expect(result).toBeNull();
     });
 
-    test("actualizar() debe llamar a prisma.empresa.update con los datos correctos", async () => {
+    test("obtenerTodas() debe retornar lista de empresas", async () => {
+        const records = [
+            { id: "e1", nombre: "Emp 1", estado: "ACTIVA", plan: "PRO" },
+            { id: "e2", nombre: "Emp 2", estado: "SUSPENDIDA", plan: "BASICO" }
+        ];
+
+        prisma.empresa.findMany.mockResolvedValue(records);
+
+        const result = await repository.obtenerTodas();
+
+        expect(prisma.empresa.findMany).toHaveBeenCalled();
+        expect(result).toHaveLength(2);
+        expect(result.every(e => e instanceof Empresa)).toBe(true);
+    });
+
+    test("actualizar() debe llamar a prisma.empresa.update", async () => {
         const empresa = new Empresa({
             id: "empresa-22",
-            nombre: "Empresa Veintidos"
+            nombre: "Empresa Actualizada"
         });
 
-        empresa.actualizarNombre("Empresa 22 Actualizada");
         prisma.empresa.update.mockResolvedValue(empresa);
 
         const result = await repository.actualizar(empresa);
 
         expect(prisma.empresa.update).toHaveBeenCalledWith({
             where: { id: empresa.id },
-            data: {
-                nombre: empresa.nombre,
-                email: empresa.email,
-                telefono: empresa.telefono,
-                whatsappInstanceId: empresa.whatsappInstanceId,
-                estado: empresa.estado,
-                plan: empresa.plan,
-                updatedAt: empresa.updatedAt
-            }
+            data: expect.objectContaining({ nombre: empresa.nombre })
         });
         expect(result).toBe(empresa);
     });

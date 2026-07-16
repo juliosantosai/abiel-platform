@@ -1,39 +1,16 @@
-// src/shared/logger/Logger.test.js
-
-const Logger = require("./Logger");
+const { Logger } = require("./Logger");
 
 describe("Logger", () => {
-
-    test("info no debe lanzar errores", () => {
-
-        expect(() => {
-
-            Logger.info("hola");
-
-        }).not.toThrow();
-
+    test("no lanza errores al llamar info, error y warn", () => {
+        const logger = new Logger({ silent: true });
+        expect(() => logger.info("mensaje")).not.toThrow();
+        expect(() => logger.error("error")).not.toThrow();
+        expect(() => logger.warn("advertencia")).not.toThrow();
     });
 
-
-    test("warn no debe lanzar errores", () => {
-
-        expect(() => {
-
-            Logger.warn("hola");
-
-        }).not.toThrow();
-
+    test("el singleton por defecto es silencioso en NODE_ENV=test", () => {
+        const singleton = require("./Logger");
+        // Si NODE_ENV=test (como en Jest), silent debe ser true
+        expect(singleton.silent).toBe(true);
     });
-
-
-    test("error no debe lanzar errores", () => {
-
-        expect(() => {
-
-            Logger.error("hola");
-
-        }).not.toThrow();
-
-    });
-
 });

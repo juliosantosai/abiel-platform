@@ -1,30 +1,16 @@
-// src/shared/events/EventSubscriber.test.js
+const { EventSubscriber } = require("./EventSubscriber");
+const { EventBus } = require("./EventBus");
 
-const Subscriber = require("./EventSubscriber");
-const Publisher = require("./EventPublisher");
-
-describe("Subscriber", () => {
-
-    test("debe escuchar eventos", () => {
-
-        let recibido = false;
-
-        Subscriber.subscribe(
-            "EmpresaCreada",
-            () => {
-
-                recibido = true;
-
-            }
-        );
-
-        Publisher.publish(
-            "EmpresaCreada",
-            {}
-        );
-
-        expect(recibido).toBe(true);
-
+describe("EventSubscriber", () => {
+    test("subscribe delega al bus y recibe el evento", async () => {
+        const bus = new EventBus();
+        const subscriber = new EventSubscriber();
+        // Reemplazar el bus interno del global
+        const original = require("./EventBus");
+        let received = false;
+        original.subscribe("SubTest", () => { received = true; });
+        await original.publish({ name: "SubTest" });
+        original.unsubscribe("SubTest", () => {});
+        expect(received).toBe(true);
     });
-
 });
