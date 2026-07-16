@@ -5,30 +5,19 @@
 ```
 abiel-core/
 ├── src/
+│   ├── core/
+│   ├── engines/
 │   ├── modules/
-│   │   ├── empresa/
-│   │   ├── usuario/
-│   │   ├── human-intervention/
-│   │   ├── runtime/
-│   │   │   ├── application/
-│   │   │   ├── domain/
-│   │   │   └── infrastructure/
-│   │   └── execution-policy/
-│   │       └── domain/
+│   ├── plugins/
+│   ├── infrastructure/
 │   └── shared/
-│       ├── config/
-│       ├── database/
-│       ├── errors/
-│       ├── events/
-│       ├── logger/
-│       ├── tenant/
-│       └── uuid/
-├── prisma/
-│   ├── schema.prisma
-│   └── migrations/
+├── tools/architecture/
 ├── docs/
-├── package.json
-└── ROADMAP.md
+│   ├── arquitectura/
+│   └── adr/
+├── .github/workflows/
+├── prisma/
+└── package.json
 ```
 
 ## Estructura interna de un módulo
@@ -72,6 +61,17 @@ require("../../domain/entities/MiEntidad")           // dominio propio
 require("../../domain/events/MiEvento")              // eventos propios
 require("../../infrastructure/persistence/FakeRepo") // infra propia (solo tests)
 ```
+
+## Reglas de dependencia por capa
+
+- core -> core
+- engines -> core, engines, shared
+- modules -> core, engines, modules, shared
+- plugins -> core, engines, plugins, shared
+- infrastructure -> core, engines, modules, plugins, infrastructure, shared
+- shared -> core, shared
+
+Estas reglas se validan automaticamente en CI.
 
 ## Modelos Prisma actuales
 

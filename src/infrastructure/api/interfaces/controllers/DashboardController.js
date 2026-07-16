@@ -2,6 +2,10 @@
  * Controller: DashboardController
  * Maneja endpoints del dashboard
  */
+const { ApiResponse } = require("../../contracts");
+const { validateDashboardTenant, validateDashboardLimit } = require("../../validators/dashboardValidators");
+const { toDashboardMetricsDto, toDashboardActivityDto } = require("../../mappers/dashboardHttpMapper");
+
 class DashboardController {
     constructor({ obtenerMetricasGlobalesUseCase, obtenerActividadRecienteUseCase }) {
         this.obtenerMetricasGlobalesUseCase = obtenerMetricasGlobalesUseCase;
@@ -14,24 +18,15 @@ class DashboardController {
      */
     async obtenerMetricas(req, res, next) {
         try {
-            // Obtener empresaId del token JWT (via TenantContext)
-            const empresaId = req.tenantContext?.tenantId;
-
-            if (!empresaId) {
-                return res.status(401).json({
-                    success: false,
-                    error: "No se pudo determinar la empresa del usuario.",
-                });
-            }
+            const empresaId = validateDashboardTenant(req);
 
             const metricas = await this.obtenerMetricasGlobalesUseCase.execute(empresaId);
-
-            return res.status(200).json({
-                success: true,
-                data: metricas.toJSON(),
-            });
+            return res.status(200).json(ApiResponse.ok({ req, data: toDashboardMetricsDto(metricas) }));
         } catch (err) {
-            next(err);
+            if (typeof next === "function") {
+                return next(err);
+            }
+            throw err;
         }
     }
 
@@ -41,25 +36,16 @@ class DashboardController {
      */
     async obtenerActividad(req, res, next) {
         try {
-            const empresaId = req.tenantContext?.tenantId;
-
-            if (!empresaId) {
-                return res.status(401).json({
-                    success: false,
-                    error: "No se pudo determinar la empresa del usuario.",
-                });
-            }
-
-            const limit = req.query.limit ? parseInt(req.query.limit, 10) : 10;
+            const empresaId = validateDashboardTenant(req);
+            const limit = validateDashboardLimit(req.query);
 
             const actividad = await this.obtenerActividadRecienteUseCase.execute(empresaId, limit);
-
-            return res.status(200).json({
-                success: true,
-                data: actividad,
-            });
+            return res.status(200).json(ApiResponse.ok({ req, data: toDashboardActivityDto(actividad) }));
         } catch (err) {
-            next(err);
+            if (typeof next === "function") {
+                return next(err);
+            }
+            throw err;
         }
     }
 }

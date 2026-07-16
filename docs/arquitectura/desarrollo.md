@@ -1,5 +1,26 @@
 # Reglas de desarrollo
 
+## Guardrails de arquitectura (obligatorio)
+
+Antes de mergear un PR:
+
+```bash
+npm run arch:inventory:wrappers
+npm run arch:check
+npm run arch:check:strict
+```
+
+El modo estricto bloquea:
+
+- imports prohibidos por capa
+- ciclos de dependencia
+- violaciones domain/application -> infrastructure
+
+Tambien reporta (no bloqueante por ahora):
+
+- contratos implicitos por imports profundos
+- wrappers contaminados
+
 ## Orden obligatorio al crear un módulo
 
 1. **Dominio** → entidad, value objects, invariantes, eventos, repositorio abstracto
@@ -38,6 +59,13 @@
 - `FakeRepository` implementa el mismo contrato con un `Map` en memoria.
 - Ningún repositorio contiene lógica de negocio.
 - **Patrón upsert** (idempotente): `guardar()` usa `prisma.model.upsert({ where: { id }, update: data, create: data })` para ser idempotente (crea si no existe, actualiza si existe).
+
+## Politica de wrappers legacy
+
+- No eliminar wrappers en PRs de hardening.
+- Si un wrapper esta contaminado, limpiarlo a reexport puro en PR dedicado de higiene.
+- Mantener compatibilidad V1 hasta retiro planificado.
+- Toda excepcion de capa debe declararse en `tools/architecture/layer-rules.json` con motivo.
 
 ## Estrategia de pruebas
 

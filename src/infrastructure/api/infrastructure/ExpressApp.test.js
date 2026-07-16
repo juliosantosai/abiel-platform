@@ -35,7 +35,12 @@ describe("Express App Integration Tests", () => {
         test("GET / debe retornar señal de vida", async () => {
             const res = await request(app).get("/");
             expect(res.status).toBe(200);
-            expect(res.body).toEqual({ success: true, message: "API Root OK" });
+            expect(res.body).toEqual(
+                expect.objectContaining({
+                    success: true,
+                    data: expect.objectContaining({ message: "API Root OK" }),
+                })
+            );
         });
 
         test("GET /api/demo-token debe retornar token JWT válido", async () => {
@@ -50,6 +55,13 @@ describe("Express App Integration Tests", () => {
             expect(decoded.usuarioId).toBe("user-demo");
         });
 
+        test("GET /api/v1/demo-token debe retornar token JWT válido", async () => {
+            const res = await request(app).get("/api/v1/demo-token");
+            expect(res.status).toBe(200);
+            expect(res.body.success).toBe(true);
+            expect(typeof res.body.data.token).toBe("string");
+        });
+
         test("GET /dashboard debe retornar HTML", async () => {
             const res = await request(app).get("/dashboard");
             expect(res.status).toBe(200);
@@ -59,7 +71,23 @@ describe("Express App Integration Tests", () => {
         test("GET /health debe retornar estado OK", async () => {
             const res = await request(app).get("/health");
             expect(res.status).toBe(200);
-            expect(res.body).toEqual({ success: true, message: "API Health OK" });
+            expect(res.body).toEqual(
+                expect.objectContaining({
+                    success: true,
+                    data: expect.objectContaining({ status: "ok" }),
+                })
+            );
+        });
+
+        test("GET /api/internal/health debe retornar estado OK", async () => {
+            const res = await request(app).get("/api/internal/health");
+            expect(res.status).toBe(200);
+            expect(res.body).toEqual(
+                expect.objectContaining({
+                    success: true,
+                    data: expect.objectContaining({ transport: "http" }),
+                })
+            );
         });
     });
 
@@ -73,7 +101,12 @@ describe("Express App Integration Tests", () => {
                 .send({ nombre: "Acme", email: "contact@acme.com", telefono: "555-1234" });
 
             expect(res.status).toBe(201);
-            expect(res.body).toEqual({ success: true, data: empresa });
+            expect(res.body).toEqual(
+                expect.objectContaining({
+                    success: true,
+                    data: expect.objectContaining({ id: "e1" }),
+                })
+            );
         });
 
         test("PUT /api/empresas/:id debe requerir autenticación", async () => {
@@ -95,7 +128,12 @@ describe("Express App Integration Tests", () => {
                 .send({ nombre: "Acme Corp", email: "new@acme.com" });
 
             expect(res.status).toBe(200);
-            expect(res.body).toEqual({ success: true, data: empresa });
+            expect(res.body).toEqual(
+                expect.objectContaining({
+                    success: true,
+                    data: expect.objectContaining({ id: "e1" }),
+                })
+            );
         });
 
         test("POST /api/empresas/:id/activar debe requerir autenticación", async () => {
@@ -114,7 +152,12 @@ describe("Express App Integration Tests", () => {
                 .set("Authorization", `Bearer ${token}`);
 
             expect(res.status).toBe(200);
-            expect(res.body).toEqual({ success: true, data: empresa });
+            expect(res.body).toEqual(
+                expect.objectContaining({
+                    success: true,
+                    data: expect.objectContaining({ id: "e1" }),
+                })
+            );
         });
     });
 
@@ -138,7 +181,12 @@ describe("Express App Integration Tests", () => {
                 .send({ empresaId: "e1", nombre: "Juan", email: "juan@acme.com", rol: "OPERADOR" });
 
             expect(res.status).toBe(201);
-            expect(res.body).toEqual({ success: true, data: usuario });
+            expect(res.body).toEqual(
+                expect.objectContaining({
+                    success: true,
+                    data: expect.objectContaining({ id: "u1" }),
+                })
+            );
         });
     });
 
@@ -159,7 +207,12 @@ describe("Express App Integration Tests", () => {
                 .set("Authorization", `Bearer ${token}`);
 
             expect(res.status).toBe(200);
-            expect(res.body).toEqual({ success: true, data: resultado });
+            expect(res.body).toEqual(
+                expect.objectContaining({
+                    success: true,
+                    data: expect.objectContaining({ conversacionId: "c1" }),
+                })
+            );
         });
     });
 
@@ -168,7 +221,13 @@ describe("Express App Integration Tests", () => {
             const res = await request(app).get("/api/nonexistent");
 
             expect(res.status).toBe(404);
-            expect(res.body).toEqual({ success: false, error: "Ruta no encontrada" });
+            expect(res.body).toEqual(
+                expect.objectContaining({
+                    success: false,
+                    code: "ROUTE_NOT_FOUND",
+                    problem: expect.objectContaining({ status: 404 }),
+                })
+            );
         });
 
         test("debe retornar 500 para errores internos", async () => {

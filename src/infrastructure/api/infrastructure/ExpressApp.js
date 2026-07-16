@@ -1,6 +1,12 @@
 const express = require("express");
 const path = require("path");
 const jwt = require("jsonwebtoken");
+const { ApiResponse } = require("../contracts");
+const ApiHttpException = require("../errors/ApiHttpException");
+const { registerApiPipeline } = require("../middleware/pipeline");
+const { getApiV1Paths } = require("../versioning/ApiVersioning");
+const { health } = require("../health/healthController");
+const { getOpenApiJson, getOpenApiYaml, getSwaggerUi } = require("../openapi/OpenApiController");
 const EmpresaController = require("../interfaces/controllers/EmpresaController");
 const UsuarioController = require("../interfaces/controllers/UsuarioController");
 const ConversationControlController = require("../interfaces/controllers/ConversationControlController");
@@ -36,7 +42,7 @@ class ExpressApp {
 
         // Rate limiter: 100 requests per minute per IP
         const apiLimiter = crearRateLimiter(100, 60000);
-        this.app.use("/api/", apiLimiter.middleware());
+        registerApiPipeline(this.app, { rateLimiter: apiLimiter });
 
         // Inyectar controllers con use cases
         const empresaController = new EmpresaController({
@@ -65,22 +71,25 @@ class ExpressApp {
             obtenerActividadRecienteUseCase,
         });
 
-        // Montar rutas
-        this.app.use("/api/empresas", crearRutasEmpresas(empresaController));
-        this.app.use("/api/usuarios", crearRutasUsuarios(usuarioController));
-        this.app.use("/api/conversaciones", crearRutasConversaciones(conversationControlController));
-        this.app.use("/api/dashboard", autenticar, crearRutasDashboard(dashboardController));
+        // Montar rutas v1 (incluye alias /api para compatibilidad)
+        const apiV1Paths = getApiV1Paths();
+        apiV1Paths.forEach((basePath) => {
+            this.app.use(`${basePath}/empresas`, crearRutasEmpresas(empresaController));
+            this.app.use(`${basePath}/usuarios`, crearRutasUsuarios(usuarioController));
+            this.app.use(`${basePath}/conversaciones`, crearRutasConversaciones(conversationControlController));
+            this.app.use(`${basePath}/dashboard`, autenticar, crearRutasDashboard(dashboardController));
+        });
 
         // Health check
         this.app.get("/", (req, res) => {
-            res.json({ success: true, message: "API Root OK" });
+            res.json(ApiResponse.ok({ req, data: { message: "API Root OK" } }));
         });
 
         this.app.get("/dashboard", (req, res) => {
             res.sendFile(path.resolve(__dirname, "../interfaces/web/dashboard.html"));
         });
 
-        this.app.get("/api/demo-token", (req, res) => {
+        const demoTokenHandler = (req, res) => {
             const secret = process.env.JWT_SECRET || "dev-secret";
             const requestedEmpresaId = req.query.empresaId;
 
@@ -111,17 +120,29 @@ class ExpressApp {
                     { expiresIn: "12h" }
                 );
 
-                res.json({ success: true, data: { token, empresaId } });
+                res.json(ApiResponse.ok({ req, data: { token, empresaId } }));
             });
-        });
+        };
 
-        this.app.get("/health", (req, res) => {
-            res.json({ success: true, message: "API Health OK" });
-        });
+        this.app.get("/api/demo-token", demoTokenHandler);
+        this.app.get("/api/v1/demo-token", demoTokenHandler);
+
+        this.app.get("/health", health);
+        this.app.get("/api/internal/health", health);
+
+        this.app.get("/api/openapi.json", getOpenApiJson);
+        this.app.get("/api/v1/openapi.json", getOpenApiJson);
+        this.app.get("/api/openapi.yaml", getOpenApiYaml);
+        this.app.get("/api/v1/openapi.yaml", getOpenApiYaml);
+        this.app.get("/api/internal/docs", getSwaggerUi);
 
         // 404
         this.app.use((req, res) => {
-            res.status(404).json({ success: false, error: "Ruta no encontrada" });
+            throw new ApiHttpException({
+                status: 404,
+                code: "ROUTE_NOT_FOUND",
+                message: "Ruta no encontrada",
+            });
         });
 
         // Middleware de manejo de errores (al final)

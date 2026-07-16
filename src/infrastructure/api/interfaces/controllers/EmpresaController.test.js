@@ -36,7 +36,12 @@ describe("EmpresaController", () => {
                 telefono: "555-1234",
             });
             expect(res.status).toHaveBeenCalledWith(201);
-            expect(res.json).toHaveBeenCalledWith({ success: true, data: empresa });
+            expect(res.json).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    success: true,
+                    data: expect.objectContaining({ id: "e1" }),
+                })
+            );
         });
 
         test("debe propagar ValidationError", async () => {
@@ -75,7 +80,12 @@ describe("EmpresaController", () => {
                 email: "new@acme.com",
                 tenantContext: { tenantId: "e1" },
             });
-            expect(res.json).toHaveBeenCalledWith({ success: true, data: empresa });
+            expect(res.json).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    success: true,
+                    data: expect.objectContaining({ id: "e1" }),
+                })
+            );
         });
 
         test("debe propagar NotFoundError", async () => {
@@ -108,7 +118,12 @@ describe("EmpresaController", () => {
                 id: "e1",
                 tenantContext: { tenantId: "e1" },
             });
-            expect(res.json).toHaveBeenCalledWith({ success: true, data: empresa });
+            expect(res.json).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    success: true,
+                    data: expect.objectContaining({ id: "e1" }),
+                })
+            );
         });
 
         test("debe propagar DomainError si la transición es inválida", async () => {
@@ -136,7 +151,12 @@ describe("EmpresaController", () => {
 
             await controller.suspender(req, res, next);
 
-            expect(res.json).toHaveBeenCalledWith({ success: true, data: empresa });
+            expect(res.json).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    success: true,
+                    data: expect.objectContaining({ id: "e1" }),
+                })
+            );
         });
     });
 
@@ -151,7 +171,12 @@ describe("EmpresaController", () => {
 
             await controller.cancelar(req, res, next);
 
-            expect(res.json).toHaveBeenCalledWith({ success: true, data: empresa });
+            expect(res.json).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    success: true,
+                    data: expect.objectContaining({ id: "e1" }),
+                })
+            );
         });
     });
 });

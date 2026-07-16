@@ -17,25 +17,37 @@ describe("Middleware: autenticar", () => {
     test("debe rechazar sin token", () => {
         const req = { headers: {} };
         const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
-        const next = jest.fn();
+        const next = jest.fn((err) => manejarErrores(err, req, res, () => {}));
 
         autenticar(req, res, next);
 
         expect(res.status).toHaveBeenCalledWith(401);
-        expect(res.json).toHaveBeenCalledWith({ success: false, error: expect.stringContaining("No se proporcionó") });
-        expect(next).not.toHaveBeenCalled();
+        expect(res.json).toHaveBeenCalledWith(
+            expect.objectContaining({
+                success: false,
+                code: "AUTH_REQUIRED",
+                problem: expect.objectContaining({ status: 401 }),
+            })
+        );
+        expect(next).toHaveBeenCalled();
     });
 
     test("debe rechazar token inválido", () => {
         const req = { headers: { authorization: "Bearer invalid-token" } };
         const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
-        const next = jest.fn();
+        const next = jest.fn((err) => manejarErrores(err, req, res, () => {}));
 
         autenticar(req, res, next);
 
         expect(res.status).toHaveBeenCalledWith(401);
-        expect(res.json).toHaveBeenCalledWith({ success: false, error: expect.stringContaining("Token inválido") });
-        expect(next).not.toHaveBeenCalled();
+        expect(res.json).toHaveBeenCalledWith(
+            expect.objectContaining({
+                success: false,
+                code: "AUTH_INVALID_TOKEN",
+                problem: expect.objectContaining({ status: 401 }),
+            })
+        );
+        expect(next).toHaveBeenCalled();
     });
 
     test("debe aceptar token válido y extraer tenantContext", () => {
@@ -63,11 +75,14 @@ describe("Middleware: manejarErrores", () => {
         manejarErrores(err, req, res, next);
 
         expect(res.status).toHaveBeenCalledWith(400);
-        expect(res.json).toHaveBeenCalledWith({
-            success: false,
-            error: "Datos inválidos",
-            fields: { email: "Email requerido" },
-        });
+        expect(res.json).toHaveBeenCalledWith(
+            expect.objectContaining({
+                success: false,
+                code: "VALIDATION_ERROR",
+                fields: { email: "Email requerido" },
+                problem: expect.objectContaining({ status: 400 }),
+            })
+        );
     });
 
     test("debe mapear NotFoundError a 404", () => {
@@ -79,7 +94,13 @@ describe("Middleware: manejarErrores", () => {
         manejarErrores(err, req, res, next);
 
         expect(res.status).toHaveBeenCalledWith(404);
-        expect(res.json).toHaveBeenCalledWith({ success: false, error: "Empresa no encontrado" });
+        expect(res.json).toHaveBeenCalledWith(
+            expect.objectContaining({
+                success: false,
+                code: "NOT_FOUND",
+                problem: expect.objectContaining({ status: 404 }),
+            })
+        );
     });
 
     test("debe mapear DomainError a 422", () => {
@@ -91,7 +112,13 @@ describe("Middleware: manejarErrores", () => {
         manejarErrores(err, req, res, next);
 
         expect(res.status).toHaveBeenCalledWith(422);
-        expect(res.json).toHaveBeenCalledWith({ success: false, error: expect.stringContaining("No se puede activar") });
+        expect(res.json).toHaveBeenCalledWith(
+            expect.objectContaining({
+                success: false,
+                code: "DOMAIN_ERROR",
+                problem: expect.objectContaining({ status: 422 }),
+            })
+        );
     });
 
     test("debe mapear TenantError a 403", () => {
@@ -103,7 +130,13 @@ describe("Middleware: manejarErrores", () => {
         manejarErrores(err, req, res, next);
 
         expect(res.status).toHaveBeenCalledWith(403);
-        expect(res.json).toHaveBeenCalledWith({ success: false, error: expect.stringContaining("Acceso denegado") });
+        expect(res.json).toHaveBeenCalledWith(
+            expect.objectContaining({
+                success: false,
+                code: "TENANT_FORBIDDEN",
+                problem: expect.objectContaining({ status: 403 }),
+            })
+        );
     });
 
     test("debe mapear generic Error a 500", () => {
@@ -115,6 +148,12 @@ describe("Middleware: manejarErrores", () => {
         manejarErrores(err, req, res, next);
 
         expect(res.status).toHaveBeenCalledWith(500);
-        expect(res.json).toHaveBeenCalledWith({ success: false, error: "Error inesperado" });
+        expect(res.json).toHaveBeenCalledWith(
+            expect.objectContaining({
+                success: false,
+                code: "INTERNAL_ERROR",
+                problem: expect.objectContaining({ status: 500 }),
+            })
+        );
     });
 });

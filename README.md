@@ -1,53 +1,60 @@
 # Abiel Core
 
-Event-driven framework for building intelligent multi-tenant conversational systems.
+Abiel Core is a long-term framework for multi-tenant conversational orchestration.
 
-## Status: 330/334 Tests Passing ✅
+## Current Focus
 
-**Database:** PostgreSQL with Prisma ORM  
-**Testing:** Jest  
-**Architecture:** Domain-Driven Design + Hexagonal + Event-Driven  
+- Framework-first architecture (not app-first)
+- Stable boundaries between layers
+- Backward compatibility for V1 imports
+- Automated architecture governance in CI
 
-## Features
+## Architecture
 
-- ✅ Event Bus (refactored, exportable class)
-- ✅ Core Runtime V1 (RuntimeEngine + ExecutionContext + ExecutionLifecycle + EventDispatcher)
-- ✅ Execution Policy V1 (RetryPolicy + TimeoutPolicy + ErrorClassifier + PermissionChecker)
-- ✅ Runtime cancellation flow (ExecutionCancelled + ResultEvent(cancelled))
-- ✅ Message Buffer
-- ✅ State Machine (ConversationSession states)
-- ✅ Multi-Tenant (TenantContext + TenantGuard)
-- ✅ AI Agnostic (LLMProvider contract)
-- ✅ PostgreSQL (Prisma migrations applied)
-- ✅ Prisma Repositories (idempotent upsert pattern)
-- ✅ Runtime unit, contract and integration tests (including cancellation)
-- ⚠️ JWT Authentication (hardcoded secret, needs env var)
-- ⚠️ Input Validation (security gap)
-- ❌ Dashboard (not started)
+Main layers in `src`:
+
+- `core` -> reusable kernel (events, capability, policy, security)
+- `engines` -> orchestration engines (runtime, conversation, ai)
+- `modules` -> business bounded contexts
+- `plugins` -> extension points (currently empty, reserved)
+- `infrastructure` -> http/adapters/wiring
+- `shared` -> transitional shared utilities and compatibility wrappers
+
+## Architecture Fitness Checks
+
+This repository includes automated architecture checks:
+
+```bash
+npm run arch:inventory:wrappers
+npm run arch:check
+npm run arch:check:strict
+```
+
+What is enforced:
+
+- layer dependency rules
+- circular dependency detection
+- clean architecture violations (domain/application -> infrastructure)
+- wrappers inventory and contamination detection
+
+Reference docs:
+
+- [docs/arquitectura/fitness-checks.md](docs/arquitectura/fitness-checks.md)
+- [docs/adr/0001-core-boundary-hardening.md](docs/adr/0001-core-boundary-hardening.md)
+- [docs/arquitectura/politica-deprecacion-wrappers.md](docs/arquitectura/politica-deprecacion-wrappers.md)
 
 ## Quick Start
 
 ```bash
-# Install dependencies
 npm install
-
-# Generate Prisma Client
 npx prisma generate
-
-# Apply migrations to PostgreSQL
 npx prisma migrate deploy
-
-# Run all tests
-npm test
-
-# Run specific module tests
-npm test -- src/modules/empresa --runInBand
+npm test -- --runInBand
 ```
 
-## Documentation
+## Documentation Index
 
-See [docs/README.md](docs/README.md) for architecture and module documentation.
-Core runtime implementation spec: [ARCHITECTURE_CORE_SPEC_V2.md](ARCHITECTURE_CORE_SPEC_V2.md).
+See [docs/README.md](docs/README.md) for updated architectural and module documentation.
 
 ## License
 

@@ -1,0 +1,5 @@
+description: Error response envelope
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/ApiError.yaml'

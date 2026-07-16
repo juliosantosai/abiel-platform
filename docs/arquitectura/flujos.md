@@ -45,6 +45,13 @@ Notas:
 - `EventDispatcher` publica `ExecutionStarted` y `ResultEvent`.
 - `RetryPolicy`, `TimeoutPolicy` y `ErrorClassifier` se aplican dentro del runtime.
 
+## Gobernanza de flujos
+
+Los flujos documentados deben respetar reglas de dependencia entre capas y se validan automaticamente con:
+
+- `npm run arch:check`
+- `npm run arch:check:strict`
+
 ## Flujo de eventos de dominio
 
 Un evento de dominio representa algo que **ocurrió**, no una orden.

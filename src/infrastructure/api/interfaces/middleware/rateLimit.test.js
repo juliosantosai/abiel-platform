@@ -43,11 +43,12 @@ describe("RateLimiter", () => {
         middleware(req, res, next);
         middleware(req, res, next); // Este debe ser rechazado
 
-        expect(res.status).toHaveBeenCalledWith(429);
-        expect(res.json).toHaveBeenCalledWith({
-            success: false,
-            error: expect.stringContaining("Too many requests"),
-        });
+        expect(res.status).not.toHaveBeenCalled();
+        expect(next).toHaveBeenCalledTimes(4);
+        const rateLimitError = next.mock.calls[3][0];
+        expect(rateLimitError).toBeDefined();
+        expect(rateLimitError.status).toBe(429);
+        expect(rateLimitError.code).toBe("RATE_LIMIT_EXCEEDED");
     });
 
     test("debe diferenciar entre diferentes IPs", async () => {

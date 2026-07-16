@@ -1,0 +1,18 @@
+post:
+  summary: Crear empresa
+  tags: [empresa]
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../schemas/EmpresaCreateRequest.yaml'
+  responses:
+    '201':
+      description: Empresa creada
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/ApiResponse.yaml'
+    default:
+      $ref: '../responses/ApiErrorResponse.yaml'

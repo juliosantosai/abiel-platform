@@ -2,6 +2,7 @@
  * Simple in-memory rate limiter middleware
  * Tracks requests per client (by IP address) within time windows
  */
+const ApiHttpException = require("../../errors/ApiHttpException");
 
 class RateLimiter {
     constructor(maxRequests = 100, windowMs = 60000) {
@@ -26,10 +27,13 @@ class RateLimiter {
             this.requests.set(key, recentRequests);
 
             if (recentRequests.length >= this.maxRequests) {
-                return res.status(429).json({
-                    success: false,
-                    error: `Too many requests. Maximum ${this.maxRequests} requests per ${this.windowMs / 1000} seconds.`,
-                });
+                return next(
+                    new ApiHttpException({
+                        status: 429,
+                        code: "RATE_LIMIT_EXCEEDED",
+                        message: `Too many requests. Maximum ${this.maxRequests} requests per ${this.windowMs / 1000} seconds.`,
+                    })
+                );
             }
 
             recentRequests.push(now);

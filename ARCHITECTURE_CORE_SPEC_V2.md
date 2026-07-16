@@ -1,5 +1,11 @@
 # ABIEL CORE v1 - CORE SPEC IMPLEMENTABLE (V2)
 
+> Documento de especificacion tecnica base.
+> Para enforcement actual de fronteras y validaciones automaticas revisar tambien:
+> - `docs/arquitectura/fitness-checks.md`
+> - `docs/adr/0001-core-boundary-hardening.md`
+> - `tools/architecture/layer-rules.json`
+
 ## Estado del documento
 
 - Tipo: Especificacion tecnica de implementacion.

@@ -1,7 +1,21 @@
 # 🎯 ARCHITECTURE DOCUMENTATION GUIDE
 
 **Status**: 2026-07-16  
-**Current Phase**: Architecture Complete → Ready for Implementation  
+**Current Phase**: Migration complete + architecture hardening active  
+
+---
+
+## ✅ CURRENT SOURCE OF TRUTH FOR EXECUTION
+
+For day-to-day development and review, use these first:
+
+1. `docs/README.md`
+2. `docs/arquitectura/fitness-checks.md`
+3. `docs/adr/0001-core-boundary-hardening.md`
+4. `tools/architecture/layer-rules.json`
+5. `tools/architecture/check-architecture.js`
+
+These documents reflect the enforced architecture boundaries and CI validations.
 
 ---
 
@@ -53,7 +67,7 @@
 
 ---
 
-### 3. ARCHITECTURE_CORE_SPEC.md (Approved Specification — USE THIS)
+### 3. ARCHITECTURE_CORE_SPEC.md (Approved Specification — Core Design Reference)
 
 **Purpose**: Production-ready technical specification  
 **Status**: ✅ APPROVED FOR IMPLEMENTATION  
@@ -75,7 +89,7 @@
 - Project Structure
 - Implementation Roadmap
 
-**→ This is the source of truth for all development**
+**→ Use as core design reference, complemented by architecture hardening docs in /docs and /tools/architecture**
 
 ---
 

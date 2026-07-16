@@ -1,50 +1,74 @@
-## ✅ ARQUITECTURA FINAL (10/10) — COMPLETADA
+# Abiel Core - Roadmap (Framework Horizon)
 
-La arquitectura ha alcanzado 10/10 con la especificación completa en **ARCHITECTURE_FINAL.md**.
+## Guiding Rule
 
-### Especificaciones Definidas:
-1. ✅ Runtime Contract (flujo completo de ejecución)
-2. ✅ Scheduler Engine (durable workflows, retries, cron)
-3. ✅ Capability Registry (descubrimiento y desacoplamiento)
-4. ✅ Planner Architecture (multi-paso, optimización)
-5. ✅ Workflow Engine (procesos de larga duración)
-6. ✅ Memory Contract (short-term, episodic, semantic, cache)
-7. ✅ Security Model (RBAC, sandboxing, audit logging)
-8. ✅ Governance & Versioning (plugin compatibility, deprecation)
-9. ✅ Plugin SDK Specification (desarrollo simplificado)
-10. ✅ Observability Blueprint (OpenTelemetry, tracing, metrics)
-11. ✅ Deployment Modes (Single, Cluster, Kubernetes)
-
-**Próxima Fase**: Implementación Phase 2 (Q4 2026)
+No unnecessary folder moves. Prioritize architectural safety, contracts, and long-term maintainability.
 
 ---
 
-## ✅ MÓDULOS IMPLEMENTADOS (9/9)
+## Completed
 
-## DEUDA TÉCNICA
+### Migration PRs
 
-### ✅ BLOCKER (Completado)
-- ✅ Prisma migrations creadas y aplicadas
-- ✅ PrismaEmpresaRepository + PrismaUsuarioRepository implementados
-- ✅ E2E tests con DB real (13/17 passing, 4 skipped)
-- ✅ Test mocks corregidos para usar upsert() pattern
-- ✅ 266/270 tests pasando
+- PR1: infrastructure separation + compatibility wrappers
+- PR2: core promotion (capability, execution-policy, events, tenant)
+- PR3: engines separation (runtime, conversation, ai)
+- PR4: modules cleanup and legacy compatibility continuity
 
-### ⚠️ IMPORTANTE (Security + Validation)
-- ⚠️ Input validation en API controllers (RequestValidators)
-- ⚠️ JWT_SECRET from environment variable (actualmente fallback a "dev-secret")
-- ⚠️ Rate limiting middleware no implementado
+### Governance PR
 
-### 📋 NICE-TO-HAVE (Code Quality)
-- State Machine, AI, WhatsApp Sender: 1 test file integrado (separar por layer)
-- Buffer: 4 tests pero sin tests unitarios separados
-- API E2E tests: 6 tests skipped (esqueleto completo, falta implementación)
+- Core Boundary Hardening + Architecture Fitness Checks
+	- layer rules
+	- strict architecture checks
+	- wrappers inventory
+	- wrappers deprecation policy
+	- architecture ADR
+	- CI validation workflow
 
-### ESTADO ACTUAL
-- ✅ 266/270 tests pasando (98.5%)
-- ✅ Database migrations applied successfully
-- ✅ E2E test suite validating Prisma integration
-- ✅ 115+ archivos impl + 56 tests
-- ✅ 20 docs files
-- ✅ 80% feature complete (8/10 modules)
-- ✅ PrismaRepositories idempotent (upsert pattern)
+---
+
+## Next PR Queue
+
+### PR-A: Wrapper Hygiene Safety Pass (low risk, high return)
+
+- Convert contaminated wrappers to pure re-exports
+- Keep all V1 paths
+- No behavior changes
+
+### PR-B: Public Contracts Surface
+
+- Define stable public contracts for core and engines
+- Reduce deep-path imports and implicit contracts
+- Keep internals encapsulated
+
+### PR-C: Plugin Boundary Bootstrapping
+
+- Establish plugin contracts in `src/plugins`
+- Keep providers decoupled from core and engines
+- Avoid plugin logic leaking into modules/infrastructure
+
+### PR-D: Runtime Observability Baseline
+
+- Add minimal tracing and execution metrics contracts
+- Keep transport/storage adapters out of core
+- Preserve zero behavior change at API level
+
+---
+
+## Known Technical Debt (Tracked, Not Auto-Fixed)
+
+- wrappers: 58
+- contaminated wrappers: 17
+- implicit contracts: 57
+- pre-existing env test drift (PORT expectation)
+- pre-existing Jest open handles warning
+
+---
+
+## Success Criteria for the Next 12 Months
+
+- zero new boundary violations in CI
+- progressive wrapper reduction with V1 compatibility maintained
+- public contracts versioned and documented
+- plugin boundaries active and testable
+- architectural drift detectable within a single PR cycle

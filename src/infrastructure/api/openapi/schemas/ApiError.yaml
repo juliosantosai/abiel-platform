@@ -1,0 +1,12 @@
+type: object
+properties:
+  success:
+    type: boolean
+    enum: [false]
+  error:
+    type: string
+  code:
+    type: string
+  problem:
+    $ref: './ProblemDetails.yaml'
+required: [success, error]

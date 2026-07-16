@@ -1,0 +1,59 @@
+{
+  "layers": [
+    "core",
+    "engines",
+    "modules",
+    "plugins",
+    "infrastructure",
+    "shared"
+  ],
+  "pathToLayer": {
+    "src/core/": "core",
+    "src/engines/": "engines",
+    "src/modules/": "modules",
+    "src/plugins/": "plugins",
+    "src/infrastructure/": "infrastructure",
+    "src/shared/": "shared"
+  },
+  "allowedDependencies": {
+    "core": ["core"],
+    "engines": ["core", "engines", "shared"],
+    "modules": ["core", "engines", "modules", "shared"],
+    "plugins": ["core", "engines", "plugins", "shared"],
+    "infrastructure": ["core", "engines", "modules", "plugins", "infrastructure", "shared"],
+    "shared": ["core", "shared"]
+  },
+  "excludePatterns": [
+    ".test.js",
+    ".contract.test.js",
+    ".integration.test.js",
+    ".e2e.test.js"
+  ],
+  "allowedImportExceptions": [
+    {
+      "from": "src/core/capability/domain/Capability.js",
+      "to": "src/shared/errors/ValidationError.js",
+      "reason": "baseline shared validation error dependency"
+    },
+    {
+      "from": "src/core/capability/domain/CapabilityRegistry.js",
+      "to": "src/shared/errors/ValidationError.js",
+      "reason": "baseline shared validation error dependency"
+    },
+    {
+      "from": "src/core/kernel/events/EventPublisher.js",
+      "to": "src/shared/logger/Logger.js",
+      "reason": "baseline shared logger dependency"
+    },
+    {
+      "fromPrefix": "src/modules/api/",
+      "toPrefix": "src/infrastructure/api/",
+      "reason": "legacy V1 wrapper compatibility"
+    },
+    {
+      "fromPrefix": "src/modules/dashboard/interfaces/",
+      "toPrefix": "src/infrastructure/api/interfaces/",
+      "reason": "legacy V1 dashboard wrapper compatibility"
+    }
+  ]
+}

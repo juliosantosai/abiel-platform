@@ -1,3 +1,7 @@
+const { ApiResponse } = require("../../contracts");
+const { validateConversationId } = require("../../validators/conversationValidators");
+const { toConversationControlDto } = require("../../mappers/conversationHttpMapper");
+
 class ConversationControlController {
     constructor({ bloquearConversacionUseCase, cerrarConversacionUseCase }) {
         this.bloquearConversacionUseCase = bloquearConversacionUseCase;
@@ -6,15 +10,9 @@ class ConversationControlController {
 
     async bloquear(req, res, next) {
         try {
-            const { id } = req.params;
-            
-            // Validate id
-            if (!id || typeof id !== "string" || id.trim().length === 0) {
-                return res.status(400).json({ success: false, error: "id en params es requerido." });
-            }
-            
+            const { id } = validateConversationId(req.params);
             const resultado = await this.bloquearConversacionUseCase.execute({ id, tenantContext: req.tenantContext });
-            res.json({ success: true, data: resultado });
+            return res.json(ApiResponse.ok({ req, data: toConversationControlDto(resultado) }));
         } catch (err) {
             next(err);
         }
@@ -22,15 +20,9 @@ class ConversationControlController {
 
     async cerrar(req, res, next) {
         try {
-            const { id } = req.params;
-            
-            // Validate id
-            if (!id || typeof id !== "string" || id.trim().length === 0) {
-                return res.status(400).json({ success: false, error: "id en params es requerido." });
-            }
-            
+            const { id } = validateConversationId(req.params);
             const resultado = await this.cerrarConversacionUseCase.execute({ id, tenantContext: req.tenantContext });
-            res.json({ success: true, data: resultado });
+            return res.json(ApiResponse.ok({ req, data: toConversationControlDto(resultado) }));
         } catch (err) {
             next(err);
         }

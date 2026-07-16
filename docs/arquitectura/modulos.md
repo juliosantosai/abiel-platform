@@ -1,59 +1,39 @@
-# Módulos del sistema
+# Modulos del sistema
 
-## Módulos implementados
+## Estado por dominio/capa
 
-### Runtime Core V1 ✅
-Orquesta la ejecución del flujo principal de Abiel Core.
+### Core (framework kernel)
 
-- Componentes: `RuntimeEngine`, `ExecutionContext`, `ExecutionLifecycle`, `EventDispatcher`
-- Flujo: `Event -> Runtime -> Decision Context -> Policy Check -> Execution Pipeline -> Capability -> Result Event`
-- Cobertura: tests unitarios, de contrato y de integración sobre EventBus
+- Capability: en `src/core/capability`
+- Execution policy: en `src/core/execution-policy`
+- Event kernel: en `src/core/kernel/events`
+- Tenant/security: en `src/core/security`
 
-### Execution Policy ✅
-Centraliza reglas de ejecución y control de errores/permisos.
+### Engines (orquestacion)
 
-- Componentes: `RetryPolicy`, `TimeoutPolicy`, `ErrorClassifier`, `PermissionChecker`
-- Rol: fuente única de verdad para retry, timeout, permisos y clasificación de errores
-- Integración: consumido por `RuntimeEngine`
+- Agent runtime: `src/engines/agent-runtime`
+- Conversation engine (buffer + state machine): `src/engines/conversation-engine`
+- AI engine (application/domain): `src/engines/ai-engine`
 
-### Empresa ✅
-Tenant raíz del sistema. Administra información y estado de cada cliente SaaS.
+### Modules (bounded contexts)
 
-- Entidad: `Empresa`
-- Estados: `PENDIENTE → ACTIVA → SUSPENDIDA → CANCELADA`
-- Eventos: `EmpresaCreada`, `EmpresaActualizada`, `EmpresaActivada`, `EmpresaSuspendida`, `EmpresaCancelada`
-- Tenant isolation: aplicada en Actualizar, Activar, Suspender, Cancelar
+Activos de negocio:
 
-### Usuario ✅
-Identidades de personas dentro de una empresa.
+- `empresa`
+- `usuario`
+- `human-intervention`
+- `dashboard` (dominio/application)
+- `whatsapp-sender`
 
-- Entidad: `Usuario`
-- Roles: `OWNER`, `ADMIN`, `OPERADOR`, `LECTOR`
-- Estados: `PENDIENTE → ACTIVO → SUSPENDIDO → CANCELADO`
-- Eventos: `UsuarioCreado`, `UsuarioActualizado`, `UsuarioActivado`, `UsuarioSuspendido`, `UsuarioCancelado`
-- Tenant isolation: aplicada en todos los use cases de modificación
+Compatibilidad V1 (wrappers legacy mantenidos):
 
-### Conversation Control ✅
-Decide quién responde en una conversación: bot o humano.
-
-- Entidad: `ConversationSession`
-- Estados: `BOT_ACTIVE → HUMAN_ACTIVE → BOT_RESUME_PENDING → BOT_ACTIVE` / `HUMAN_LOCKED` / `CLOSED`
-- Eventos: `ConversationCreated`, `HumanInterventionDetected`, `BotResumed`, `ConversationLocked`, `ConversationClosed`
-- Worker: `BotResumptionWorker` evalúa reanudación periódica
-- Adapter: `EvolutionWebhookAdapter` traduce webhooks externos
-
----
-
-## Módulos pendientes
-
-| Módulo | Responsabilidad |
-|--------|----------------|
-| **Buffer** | Acumula mensajes antes de procesarlos para evitar respuestas fragmentadas |
-| **State Machine** | Controla la etapa del flujo de atención dentro de una conversación |
-| **AI** | Orquesta llamadas al modelo de lenguaje y gestiona el contexto |
-| **WhatsApp Sender** | Envía mensajes salientes vía Evolution API |
-| **API** | Capa HTTP para operaciones administrativas |
-| **Dashboard** | Interfaz de gestión y monitoreo |
+- `runtime`
+- `execution-policy`
+- `capability`
+- `ai`
+- `buffer`
+- `state-machine`
+- `api` (wrappers hacia infrastructure)
 
 ---
 
@@ -79,3 +59,7 @@ Empresa ─────────────────── tenant raíz
 - Comunicación **síncrona**: un módulo llama a un use case público de otro.
 - Comunicación **asíncrona**: un módulo publica un evento; otros módulos suscriben.
 - Los **eventos de dominio** son el mecanismo principal de desacoplamiento.
+
+## Regla adicional post-hardening
+
+Toda comunicacion entre capas debe respetar las reglas de dependencia y pasar por architecture fitness checks en CI.

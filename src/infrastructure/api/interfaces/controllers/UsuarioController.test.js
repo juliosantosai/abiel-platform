@@ -33,7 +33,12 @@ describe("UsuarioController", () => {
                 rol: "OPERADOR",
             });
             expect(res.status).toHaveBeenCalledWith(201);
-            expect(res.json).toHaveBeenCalledWith({ success: true, data: usuario });
+            expect(res.json).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    success: true,
+                    data: expect.objectContaining({ id: "u1" }),
+                })
+            );
         });
     });
 
@@ -52,7 +57,12 @@ describe("UsuarioController", () => {
 
             await controller.actualizar(req, res, next);
 
-            expect(res.json).toHaveBeenCalledWith({ success: true, data: usuario });
+            expect(res.json).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    success: true,
+                    data: expect.objectContaining({ id: "u1" }),
+                })
+            );
         });
     });
 
@@ -67,7 +77,12 @@ describe("UsuarioController", () => {
 
             await controller.activar(req, res, next);
 
-            expect(res.json).toHaveBeenCalledWith({ success: true, data: usuario });
+            expect(res.json).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    success: true,
+                    data: expect.objectContaining({ id: "u1" }),
+                })
+            );
         });
     });
 
@@ -82,7 +97,12 @@ describe("UsuarioController", () => {
 
             await controller.suspender(req, res, next);
 
-            expect(res.json).toHaveBeenCalledWith({ success: true, data: usuario });
+            expect(res.json).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    success: true,
+                    data: expect.objectContaining({ id: "u1" }),
+                })
+            );
         });
     });
 
@@ -97,7 +117,12 @@ describe("UsuarioController", () => {
 
             await controller.cancelar(req, res, next);
 
-            expect(res.json).toHaveBeenCalledWith({ success: true, data: usuario });
+            expect(res.json).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    success: true,
+                    data: expect.objectContaining({ id: "u1" }),
+                })
+            );
         });
     });
 });

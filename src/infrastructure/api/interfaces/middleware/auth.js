@@ -1,5 +1,8 @@
 const jwt = require("jsonwebtoken");
 const path = require("path");
+const { ApiError, createMetadata, createProblemDetails } = require("../../contracts");
+const ApiHttpException = require("../../errors/ApiHttpException");
+const { mapErrorToHttp } = require("../../errors/mapErrorToHttp");
 
 // Usar require.resolve para obtener el path correcto
 const TenantContext = require(path.resolve(__dirname, "../../../../shared/tenant/TenantContext"));
@@ -23,7 +26,13 @@ function autenticar(req, res, next) {
     const token = auth.replace(/^Bearer\s+/i, "");
 
     if (!token) {
-        return res.status(401).json({ success: false, error: "No se proporcionó token de autenticación." });
+        return next(
+            new ApiHttpException({
+                status: 401,
+                code: "AUTH_REQUIRED",
+                message: "No se proporcionó token de autenticación.",
+            })
+        );
     }
 
     try {
@@ -33,10 +42,23 @@ function autenticar(req, res, next) {
         req.usuario = decoded;
         next();
     } catch (err) {
-        if (err.message.includes("JWT_SECRET")) {
-            return res.status(500).json({ success: false, error: "Configuration error: JWT_SECRET not set." });
+        if (err.message && err.message.includes("JWT_SECRET")) {
+            return next(
+                new ApiHttpException({
+                    status: 500,
+                    code: "AUTH_CONFIG_ERROR",
+                    message: "Configuration error: JWT_SECRET not set.",
+                })
+            );
         }
-        res.status(401).json({ success: false, error: "Token inválido o expirado." });
+
+        return next(
+            new ApiHttpException({
+                status: 401,
+                code: "AUTH_INVALID_TOKEN",
+                message: "Token inválido o expirado.",
+            })
+        );
     }
 }
 
@@ -44,25 +66,27 @@ function autenticar(req, res, next) {
  * Middleware: Mapea errores del dominio a respuestas HTTP estandarizadas.
  */
 function manejarErrores(err, req, res, next) {
-    const ValidationError = require(path.resolve(__dirname, "../../../../shared/errors/ValidationError"));
-    const DomainError = require(path.resolve(__dirname, "../../../../shared/errors/DomainError"));
-    const NotFoundError = require(path.resolve(__dirname, "../../../../shared/errors/NotFoundError"));
-    const TenantError = require(path.resolve(__dirname, "../../../../shared/tenant/TenantError"));
-
-    if (err instanceof ValidationError) {
-        return res.status(400).json({ success: false, error: err.message, fields: err.fields });
-    }
-    if (err instanceof NotFoundError) {
-        return res.status(404).json({ success: false, error: err.message });
-    }
-    if (err instanceof DomainError) {
-        return res.status(422).json({ success: false, error: err.message });
-    }
-    if (err instanceof TenantError) {
-        return res.status(403).json({ success: false, error: err.message });
+    if (res.headersSent) {
+        return next(err);
     }
 
-    res.status(500).json({ success: false, error: err.message || "Error interno del servidor." });
+    const mapped = mapErrorToHttp(err);
+    const problem = createProblemDetails({
+        title: mapped.message,
+        detail: mapped.message,
+        status: mapped.status,
+        code: mapped.code,
+        fields: mapped.fields,
+        details: mapped.details,
+        instance: req.originalUrl,
+    });
+
+    return res.status(mapped.status).json(
+        ApiError.createApiError({
+            problem,
+            metadata: createMetadata(req),
+        })
+    );
 }
 
 module.exports = { autenticar, manejarErrores };

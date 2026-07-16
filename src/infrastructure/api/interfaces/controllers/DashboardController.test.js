@@ -36,12 +36,14 @@ describe("DashboardController", () => {
             await controller.obtenerMetricas(req, res);
 
             expect(res.status).toHaveBeenCalledWith(200);
-            expect(res.json).toHaveBeenCalledWith({
-                success: true,
-                data: expect.objectContaining({
-                    empresaId: "empresa-123",
-                }),
-            });
+            expect(res.json).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    success: true,
+                    data: expect.objectContaining({
+                        empresaId: "empresa-123",
+                    }),
+                })
+            );
         });
 
         test("debe retornar 401 si no hay tenantContext", async () => {
@@ -51,12 +53,7 @@ describe("DashboardController", () => {
                 json: jest.fn(),
             };
 
-            await controller.obtenerMetricas(req, res);
-
-            expect(res.status).toHaveBeenCalledWith(401);
-            expect(res.json).toHaveBeenCalledWith(
-                expect.objectContaining({ success: false })
-            );
+            await expect(controller.obtenerMetricas(req, res)).rejects.toThrow("No se pudo determinar la empresa del usuario.");
         });
 
         test("debe llamar next(err) si hay error", async () => {
@@ -127,9 +124,7 @@ describe("DashboardController", () => {
                 json: jest.fn(),
             };
 
-            await controller.obtenerActividad(req, res);
-
-            expect(res.status).toHaveBeenCalledWith(401);
+            await expect(controller.obtenerActividad(req, res)).rejects.toThrow("No se pudo determinar la empresa del usuario.");
         });
     });
 });

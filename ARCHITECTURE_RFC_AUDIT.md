@@ -6,6 +6,9 @@
 **Rating After Audit**: 6.8/10 (HONEST)  
 **Recommendation**: **NOT READY FOR IMPLEMENTATION** 
 
+> Estado actual: los hallazgos de esta auditoria se consideran historicos.
+> El estado ejecutable vigente se valida con architecture fitness checks y ADRs en `docs/`.
+
 ---
 
 # RESUMEN EJECUTIVO

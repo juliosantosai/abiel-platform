@@ -5,6 +5,12 @@
 **Audience**: Principal Engineers, Core Contributors, Community  
 **Previous Rating**: 9.6/10 → Target: 10/10  
 
+> Nota de vigencia: este documento se mantiene como referencia de vision.
+> La gobernanza arquitectonica activa (reglas de capa, checks y CI) esta definida en:
+> - `docs/arquitectura/fitness-checks.md`
+> - `docs/adr/0001-core-boundary-hardening.md`
+> - `tools/architecture/layer-rules.json`
+
 ---
 
 # TABLA DE CONTENIDOS

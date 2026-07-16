@@ -1,0 +1,6 @@
+type: object
+properties:
+  nombre: { type: string }
+  email: { type: string, format: email }
+  telefono: { type: string }
+required: [nombre]

@@ -1,42 +1,41 @@
-# Visión y arquitectura
+# Vision y arquitectura
 
-## Qué es Abiel Core
+## Que es Abiel Core
 
-SaaS multi-tenant para automatización de atención al cliente mediante IA con supervisión humana. Cada cliente del sistema es una **Empresa** (tenant). Cada empresa tiene usuarios, conversaciones y configuraciones independientes.
+Abiel Core es un framework backend event-driven y multi-tenant para orquestar conversaciones inteligentes con controles de ejecucion, politicas y extensibilidad.
 
-## Estilo arquitectónico
+No se orienta a una unica aplicacion final; se orienta a evolucion sostenible de 10+ anos.
 
-**Monolito modular.** Una sola aplicación, una sola base de datos, módulos internamente desacoplados. Preparado para escalar hacia microservicios sin reestructuración mayor.
+## Estilo arquitectonico
 
-## Tecnologías
+Monolito modular con fronteras explicitas y gobernanza automatizada.
 
-| Capa | Tecnología |
-|------|-----------|
-| Runtime | Node.js + CommonJS |
-| Base de datos | PostgreSQL |
-| ORM | Prisma 7 con adaptador pg |
-| Tests | Jest |
-| Control de versiones | Git |
+## Capas del framework
+
+```
+src/core            kernel reusable (events, policy, capability, security)
+src/engines         motores de orquestacion (runtime, conversation, ai)
+src/modules         bounded contexts de negocio
+src/plugins         contratos/extensiones (reservado, crecimiento futuro)
+src/infrastructure  http, wiring, adapters de borde
+src/shared          utilidades y compatibilidad transicional
+```
 
 ## Principios
 
-- **DDD** — el código refleja el lenguaje del negocio.
-- **Arquitectura Hexagonal** — el dominio no depende de infraestructura.
-- **Clean Architecture** — dependencias apuntan hacia adentro.
-- **SOLID** — responsabilidad única, abierto/cerrado, inversión de dependencias.
-- **Event-Driven** — los módulos se comunican mediante eventos de dominio.
+- DDD y lenguaje ubicuo por contexto.
+- Clean Architecture y dependencias hacia adentro.
+- Event-driven para desacoplamiento entre contextos.
+- Compatibility-first para rutas V1 durante migracion.
+- Governance-first con architecture fitness checks en CI.
 
-## Capas de cada módulo
+## Guardrails activos
 
-```
-domain/         ← reglas de negocio, entidades, value objects, eventos
-application/    ← casos de uso, workers (orquestación)
-infrastructure/ ← repositorios Prisma, adapters externos
-interfaces/     ← HTTP, webhooks, consumers
-```
-
-**Regla fundamental:** ninguna capa importa de una capa exterior. El dominio no conoce Prisma, los casos de uso no conocen HTTP.
+- reglas de dependencias por capa en `tools/architecture/layer-rules.json`
+- verificaciones automaticas en `tools/architecture/check-architecture.js`
+- control estricto en CI mediante `.github/workflows/architecture-fitness.yml`
+- inventario y politica de wrappers legacy en `docs/arquitectura/`
 
 ## Tenant isolation
 
-Todo recurso pertenece a una empresa. `TenantGuard` (shared/tenant) valida en los use cases que un operador no pueda leer ni modificar recursos de otro tenant.
+Todo recurso de negocio pertenece a un tenant. Se mantiene validacion transversal por guardas de tenancy y contratos de dominio.

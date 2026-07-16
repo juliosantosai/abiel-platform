@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node app.js",
     "start:api:mock": "node src/modules/api/infrastructure/runApiMock.js",
-    "test": "npx prisma generate && jest"
+    "test": "npx prisma generate && jest",
+    "arch:check": "node tools/architecture/check-architecture.js",
+    "arch:check:strict": "node tools/architecture/check-architecture.js --strict",
+    "arch:inventory:wrappers": "node tools/architecture/check-architecture.js --write-inventory"
   },
   "devDependencies": {
     "@babel/plugin-syntax-import-meta": "^7.10.4",

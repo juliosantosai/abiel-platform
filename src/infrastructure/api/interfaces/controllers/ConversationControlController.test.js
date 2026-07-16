@@ -27,7 +27,12 @@ describe("ConversationControlController", () => {
                 id: "c1",
                 tenantContext: { tenantId: "e1" },
             });
-            expect(res.json).toHaveBeenCalledWith({ success: true, data: resultado });
+            expect(res.json).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    success: true,
+                    data: expect.objectContaining({ conversacionId: "c1" }),
+                })
+            );
         });
 
         test("debe propagar errores", async () => {
@@ -59,7 +64,12 @@ describe("ConversationControlController", () => {
                 id: "c1",
                 tenantContext: { tenantId: "e1" },
             });
-            expect(res.json).toHaveBeenCalledWith({ success: true, data: resultado });
+            expect(res.json).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    success: true,
+                    data: expect.objectContaining({ conversacionId: "c1" }),
+                })
+            );
         });
 
         test("debe propagar errores", async () => {

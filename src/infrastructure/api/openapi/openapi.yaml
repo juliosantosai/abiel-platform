@@ -1,0 +1,43 @@
+openapi: 3.0.3
+info:
+  title: Abiel Core API
+  version: 1.0.0
+  description: Transport adapter HTTP for Abiel Core framework
+servers:
+  - url: /api/v1
+    description: Versioned API
+  - url: /api
+    description: Compatibility alias
+paths:
+  /demo-token:
+    get:
+      summary: Generate demo JWT token
+      tags: [auth]
+      responses:
+        '200':
+          description: Demo token generated
+          content:
+            application/json:
+              schema:
+                $ref: './schemas/ApiResponse.yaml'
+        default:
+          $ref: './responses/ApiErrorResponse.yaml'
+  /empresas:
+    post:
+      summary: Crear empresa
+      tags: [empresa]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './schemas/EmpresaCreateRequest.yaml'
+      responses:
+        '201':
+          description: Empresa creada
+          content:
+            application/json:
+              schema:
+                $ref: './schemas/ApiResponse.yaml'
+        default:
+          $ref: './responses/ApiErrorResponse.yaml'
