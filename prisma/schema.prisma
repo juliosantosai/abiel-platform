@@ -1,0 +1,8 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  // Borra la línea 'output' por ahora, dejaremos que Prisma use su lugar estándar
+}
