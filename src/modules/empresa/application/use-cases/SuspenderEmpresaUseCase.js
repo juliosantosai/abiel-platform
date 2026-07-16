@@ -1,5 +1,7 @@
 const NotFoundError = require("../../../../shared/errors/NotFoundError");
 
+const EmpresaSuspendida = require("../../domain/events/EmpresaSuspendida");
+
 class SuspenderEmpresaUseCase {
     constructor({ empresaRepository, eventPublisher }) {
         this.empresaRepository = empresaRepository;
@@ -14,10 +16,12 @@ class SuspenderEmpresaUseCase {
 
         empresa.suspender();
         await this.empresaRepository.actualizar(empresa);
-        await this.eventPublisher.publish("EmpresaSuspendida", {
+        const event = new EmpresaSuspendida({
             empresaId: empresa.id,
             estado: empresa.estado
         });
+
+        await this.eventPublisher.publish(event);
 
         return empresa;
     }

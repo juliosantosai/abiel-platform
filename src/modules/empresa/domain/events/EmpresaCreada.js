@@ -1,8 +1,11 @@
-class EmpresaCreada {
+const DomainEvent = require("../../../shared/events/DomainEvent");
+
+class EmpresaCreada extends DomainEvent {
+    static eventName = "EmpresaCreada";
+
     constructor({ empresaId, nombre, estado }) {
-        this.name = "EmpresaCreada";
+        super();
         this.data = { empresaId, nombre, estado };
-        this.occurredAt = new Date();
     }
 }
 

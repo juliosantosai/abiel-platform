@@ -7,34 +7,34 @@ const UuidGenerator = require("../uuid/UuidGenerator");
 const uuid = new UuidGenerator();
 
 class EventPublisher {
+    publish(eventOrName, data) {
+        let event;
 
+        if (typeof eventOrName === "string") {
+            event = {
+                id: uuid.generate(),
+                name: eventOrName,
+                data,
+                occurredAt: new Date()
+            };
+        } else {
+            event = eventOrName;
+            if (!event || !event.name) {
+                throw new Error("EventPublisher.publish requiere un evento con nombre.");
+            }
 
-    publish(name, data) {
-
-
-        const event = {
-
-            id:  uuid.generate(),
-
-            name,
-
-            data,
-
-            occurredAt: new Date()
-
-        };
-
+            event.id = event.id || uuid.generate();
+            event.occurredAt = event.occurredAt || new Date();
+        }
 
         Logger.info(
-            `Evento publicado: ${name}`,
+            `Evento publicado: ${event.name}`,
             {
                 eventId: event.id
             }
         );
 
-
         EventBus.publish(event);
-
     }
 }
 

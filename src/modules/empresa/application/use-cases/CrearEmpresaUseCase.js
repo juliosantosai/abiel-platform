@@ -1,3 +1,5 @@
+const EmpresaCreada = require("../../domain/events/EmpresaCreada");
+
 class CrearEmpresaUseCase {
     constructor({ empresaRepository, eventPublisher }) {
         this.empresaRepository = empresaRepository;
@@ -16,11 +18,13 @@ class CrearEmpresaUseCase {
         });
 
         await this.empresaRepository.guardar(empresa);
-        await this.eventPublisher.publish("EmpresaCreada", {
+        const event = new EmpresaCreada({
             empresaId: empresa.id,
             nombre: empresa.nombre,
             estado: empresa.estado
         });
+
+        await this.eventPublisher.publish(event);
 
         return empresa;
     }
