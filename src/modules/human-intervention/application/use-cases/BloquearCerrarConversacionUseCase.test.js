@@ -5,7 +5,7 @@ const ConversationLocked = require("../../domain/events/ConversationLocked");
 const ConversationClosed = require("../../domain/events/ConversationClosed");
 const NotFoundError = require("../../../../shared/errors/NotFoundError");
 const TenantGuard = require("../../../../shared/tenant/TenantGuard");
-const TenantError = require("../../../../shared/tenant/TenantError");
+const TenantError = require("../../../../core/security/TenantError");
 
 const makeSession = (extra = {}) => new ConversationSession({
     id: "c-1", empresaId: "e-1", clienteId: "cl-1", ...extra

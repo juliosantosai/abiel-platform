@@ -1,7 +1,7 @@
 const CancelarUsuarioUseCase = require("./CancelarUsuarioUseCase");
 const NotFoundError = require("../../../../shared/errors/NotFoundError");
 const TenantGuard = require("../../../../shared/tenant/TenantGuard");
-const TenantError = require("../../../../shared/tenant/TenantError");
+const TenantError = require("../../../../core/security/TenantError");
 const Usuario = require("../../domain/entities/Usuario");
 const UsuarioCancelado = require("../../domain/events/UsuarioCancelado");
 

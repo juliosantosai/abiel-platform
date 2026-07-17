@@ -4,7 +4,7 @@ const ApiHttpException = require("./ApiHttpException");
 const ValidationError = require(path.resolve(__dirname, "../../../shared/errors/ValidationError"));
 const DomainError = require(path.resolve(__dirname, "../../../shared/errors/DomainError"));
 const NotFoundError = require(path.resolve(__dirname, "../../../shared/errors/NotFoundError"));
-const TenantError = require(path.resolve(__dirname, "../../../shared/tenant/TenantError"));
+const TenantError = require(path.resolve(__dirname, "../../../core/security/TenantError"));
 
 function mapErrorToHttp(err) {
   if (err instanceof ApiHttpException) {

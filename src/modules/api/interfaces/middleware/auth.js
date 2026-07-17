@@ -47,7 +47,7 @@ function manejarErrores(err, req, res, next) {
     const ValidationError = require(path.resolve(__dirname, "../../../../shared/errors/ValidationError"));
     const DomainError = require(path.resolve(__dirname, "../../../../shared/errors/DomainError"));
     const NotFoundError = require(path.resolve(__dirname, "../../../../shared/errors/NotFoundError"));
-    const TenantError = require(path.resolve(__dirname, "../../../../shared/tenant/TenantError"));
+    const TenantError = require(path.resolve(__dirname, "../../../../core/security/TenantError"));
 
     if (err instanceof ValidationError) {
         return res.status(400).json({ success: false, error: err.message, fields: err.fields });

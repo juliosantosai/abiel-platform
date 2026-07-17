@@ -1,6 +1,6 @@
 const CrearUsuarioUseCase = require("./CrearUsuarioUseCase");
 const TenantGuard = require("../../../../shared/tenant/TenantGuard");
-const TenantError = require("../../../../shared/tenant/TenantError");
+const TenantError = require("../../../../core/security/TenantError");
 const Usuario = require("../../domain/entities/Usuario");
 const UsuarioCreado = require("../../domain/events/UsuarioCreado");
 

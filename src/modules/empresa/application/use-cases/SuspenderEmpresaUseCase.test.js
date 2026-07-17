@@ -3,7 +3,7 @@ const EmpresaSuspendida = require("../../domain/events/EmpresaSuspendida");
 const Empresa = require("../../domain/entities/Empresa");
 const NotFoundError = require("../../../../shared/errors/NotFoundError");
 const TenantGuard = require("../../../../shared/tenant/TenantGuard");
-const TenantError = require("../../../../shared/tenant/TenantError");
+const TenantError = require("../../../../core/security/TenantError");
 
 describe("SuspenderEmpresaUseCase", () => {
     test("debe suspender la empresa y publicar el evento EmpresaSuspendida", async () => {

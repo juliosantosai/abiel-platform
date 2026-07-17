@@ -3,7 +3,7 @@ const EmpresaActivada = require("../../domain/events/EmpresaActivada");
 const Empresa = require("../../domain/entities/Empresa");
 const NotFoundError = require("../../../../shared/errors/NotFoundError");
 const TenantGuard = require("../../../../shared/tenant/TenantGuard");
-const TenantError = require("../../../../shared/tenant/TenantError");
+const TenantError = require("../../../../core/security/TenantError");
 
 describe("ActivarEmpresaUseCase", () => {
     test("debe activar la empresa y publicar el evento EmpresaActivada", async () => {

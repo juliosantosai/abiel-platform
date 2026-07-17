@@ -5,7 +5,7 @@ const TenantContext = require(path.resolve(__dirname, "../../../../shared/tenant
 const ValidationError = require(path.resolve(__dirname, "../../../../shared/errors/ValidationError"));
 const DomainError = require(path.resolve(__dirname, "../../../../shared/errors/DomainError"));
 const NotFoundError = require(path.resolve(__dirname, "../../../../shared/errors/NotFoundError"));
-const TenantError = require(path.resolve(__dirname, "../../../../shared/tenant/TenantError"));
+const TenantError = require(path.resolve(__dirname, "../../../../core/security/TenantError"));
 
 describe("Middleware: autenticar", () => {
     const TEST_JWT_SECRET = "test-secret-key-for-auth";

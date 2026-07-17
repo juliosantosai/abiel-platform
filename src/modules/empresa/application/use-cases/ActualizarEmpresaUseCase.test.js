@@ -3,7 +3,7 @@ const EmpresaActualizada = require("../../domain/events/EmpresaActualizada");
 const Empresa = require("../../domain/entities/Empresa");
 const NotFoundError = require("../../../../shared/errors/NotFoundError");
 const TenantGuard = require("../../../../shared/tenant/TenantGuard");
-const TenantError = require("../../../../shared/tenant/TenantError");
+const TenantError = require("../../../../core/security/TenantError");
 
 describe("ActualizarEmpresaUseCase", () => {
     test("debe actualizar el nombre de la empresa y publicar el evento EmpresaActualizada", async () => {
