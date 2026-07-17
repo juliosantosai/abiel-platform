@@ -17,5 +17,5 @@
     "types": ["node", "jest"]
   },
   "include": ["src/**/*", "types/**/*", "app.js", "prisma.config.ts"],
-  "exclude": ["node_modules", "dist", "coverage"]
+  "exclude": ["node_modules", "dist", "coverage", "**/*.js"]
 }
