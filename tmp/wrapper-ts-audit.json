@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-17T20:21:36.477Z",
+  "generatedAt": "2026-07-17T20:34:31.776Z",
   "totals": {
-    "totalFiles": 546,
-    "tsFiles": 300,
-    "jsFiles": 246,
+    "totalFiles": 537,
+    "tsFiles": 292,
+    "jsFiles": 245,
     "tsWrappers": 0,
     "jsWrappers": 0,
     "jsImportsExplicit": 73,
@@ -383,10 +383,6 @@
         7
       ],
       [
-        "src/infrastructure/api/interfaces/middleware/auth.js",
-        7
-      ],
-      [
         "src/shared/logger/Logger.js",
         6
       ],
@@ -396,6 +392,10 @@
       ],
       [
         "src/engines/conversation-engine/buffer/domain/repositories/MessageBufferRepository.js",
+        6
+      ],
+      [
+        "src/infrastructure/api/interfaces/middleware/auth.js",
         6
       ],
       [
