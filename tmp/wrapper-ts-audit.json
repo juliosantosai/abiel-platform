@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-17T13:55:03.648Z",
+  "generatedAt": "2026-07-17T14:13:53.163Z",
   "totals": {
     "totalFiles": 587,
     "tsFiles": 299,
     "jsFiles": 288,
     "tsWrappers": 0,
-    "jsWrappers": 50,
+    "jsWrappers": 40,
     "jsImportsExplicit": 73,
     "jsImportTargetsExplicit": [
       [
@@ -312,7 +312,7 @@
       ],
       [
         "src/core/kernel/events/DomainEvent.js",
-        26
+        32
       ],
       [
         "src/shared/tenant/TenantGuard.js",
@@ -388,10 +388,6 @@
       ],
       [
         "src/shared/logger/Logger.js",
-        6
-      ],
-      [
-        "src/shared/events/DomainEvent.ts",
         6
       ],
       [
@@ -1101,31 +1097,31 @@
       [
         "src/modules/empresa/application/use-cases/SuspenderEmpresaUseCase.js",
         1
+      ],
+      [
+        "src/modules/empresa/application/use-cases/SuspenderEmpresaUseCase.test.js",
+        1
       ]
     ]
   },
   "wrapperByCategory": {},
   "wrapperSummary": {
-    "totalWrappers": 50,
+    "totalWrappers": 40,
     "pureWrappers": 40,
-    "wrappersWithExtraCode": 10,
-    "referencedWrappers": 23,
-    "unreferencedWrappers": 27
+    "wrappersWithExtraCode": 0,
+    "referencedWrappers": 20,
+    "unreferencedWrappers": 20
   },
   "tsWrappers": [],
   "jsWrappers": [
-    "src/modules/ai/application/use-cases/GenerarRespuestaUseCase.js",
     "src/modules/ai/domain/entities/AIRequest.js",
     "src/modules/ai/domain/events/GeneracionFallida.js",
     "src/modules/ai/domain/events/RespuestaGenerada.js",
     "src/modules/ai/domain/repositories/LLMProvider.js",
     "src/modules/ai/domain/valueObjects/AIRequestState.js",
-    "src/modules/api/infrastructure/ExpressApp.js",
-    "src/modules/api/infrastructure/runApiMock.js",
     "src/modules/api/interfaces/controllers/ConversationControlController.js",
     "src/modules/api/interfaces/controllers/EmpresaController.js",
     "src/modules/api/interfaces/controllers/UsuarioController.js",
-    "src/modules/api/interfaces/middleware/auth.js",
     "src/modules/api/interfaces/middleware/rateLimit.js",
     "src/modules/api/interfaces/routes/conversacionesRoutes.js",
     "src/modules/api/interfaces/routes/empresasRoutes.js",
@@ -1134,72 +1130,32 @@
     "src/modules/buffer/application/use-cases/CerrarBufferUseCase.js",
     "src/modules/buffer/application/use-cases/ProcesarBufferUseCase.js",
     "src/modules/buffer/application/workers/BufferExpirationWorker.js",
-    "src/modules/buffer/domain/entities/MessageBuffer.js",
     "src/modules/buffer/domain/events/BufferAbierto.js",
     "src/modules/buffer/domain/events/BufferListo.js",
     "src/modules/buffer/domain/events/BufferProcesado.js",
     "src/modules/buffer/domain/repositories/MessageBufferRepository.js",
     "src/modules/buffer/domain/valueObjects/BufferState.js",
     "src/modules/buffer/infrastructure/persistence/FakeMessageBufferRepository.js",
-    "src/modules/capability/application/ExecuteCapabilityUseCase.js",
     "src/modules/capability/application/RegisterCapabilityUseCase.js",
     "src/modules/capability/domain/Capability.js",
-    "src/modules/capability/domain/CapabilityRegistry.js",
     "src/modules/execution-policy/domain/PermissionChecker.js",
     "src/modules/execution-policy/domain/RetryPolicy.js",
     "src/modules/execution-policy/domain/TimeoutPolicy.js",
-    "src/modules/runtime/application/RuntimeEngine.js",
     "src/modules/runtime/domain/ExecutionContext.js",
     "src/modules/runtime/domain/ExecutionLifecycle.js",
     "src/modules/runtime/infrastructure/EventDispatcher.js",
     "src/modules/state-machine/application/use-cases/AvanzarEtapaUseCase.js",
     "src/modules/state-machine/application/use-cases/FinalizarFlujoUseCase.js",
     "src/modules/state-machine/application/use-cases/IniciarFlujoUseCase.js",
-    "src/modules/state-machine/domain/entities/ConversationFlow.js",
     "src/modules/state-machine/domain/events/EtapaAvanzada.js",
     "src/modules/state-machine/domain/events/FlujoFinalizado.js",
     "src/modules/state-machine/domain/events/FlujoIniciado.js",
     "src/modules/state-machine/domain/repositories/ConversationFlowRepository.js",
     "src/modules/state-machine/domain/valueObjects/FlowStage.js",
     "src/modules/state-machine/infrastructure/persistence/FakeConversationFlowRepository.js",
-    "src/shared/tenant/TenantError.js",
-    "src/shared/tenant/TenantGuard.js"
+    "src/shared/tenant/TenantError.js"
   ],
   "jsWrapperDetails": [
-    {
-      "wrapper": "src/shared/tenant/TenantGuard.js",
-      "category": "shared",
-      "isPureWrapper": false,
-      "target": "../../core/security/TenantGuard\");const TenantContext = require(\"./TenantContext",
-      "references": 24,
-      "referencedBy": [
-        "src/modules/empresa/application/use-cases/ActivarEmpresaUseCase.js",
-        "src/modules/empresa/application/use-cases/ActivarEmpresaUseCase.test.js",
-        "src/modules/empresa/application/use-cases/ActualizarEmpresaUseCase.js",
-        "src/modules/empresa/application/use-cases/ActualizarEmpresaUseCase.test.js",
-        "src/modules/empresa/application/use-cases/CancelarEmpresaUseCase.js",
-        "src/modules/empresa/application/use-cases/CancelarEmpresaUseCase.test.js",
-        "src/modules/empresa/application/use-cases/SuspenderEmpresaUseCase.js",
-        "src/modules/empresa/application/use-cases/SuspenderEmpresaUseCase.test.js",
-        "src/modules/human-intervention/application/use-cases/BloquearCerrarConversacionUseCase.test.js",
-        "src/modules/human-intervention/application/use-cases/BloquearConversacionUseCase.js",
-        "src/modules/human-intervention/application/use-cases/CerrarConversacionUseCase.js",
-        "src/modules/human-intervention/application/use-cases/CrearConversationSessionUseCase.js",
-        "src/modules/human-intervention/application/use-cases/DetectarIntervencionHumanaUseCase.js",
-        "src/modules/human-intervention/application/use-cases/DetectarIntervencionHumanaUseCase.test.js",
-        "src/modules/usuario/application/use-cases/ActivarUsuarioUseCase.js",
-        "src/modules/usuario/application/use-cases/ActivarUsuarioUseCase.test.js",
-        "src/modules/usuario/application/use-cases/ActualizarUsuarioUseCase.js",
-        "src/modules/usuario/application/use-cases/ActualizarUsuarioUseCase.test.js",
-        "src/modules/usuario/application/use-cases/CancelarUsuarioUseCase.js",
-        "src/modules/usuario/application/use-cases/CancelarUsuarioUseCase.test.js",
-        "src/modules/usuario/application/use-cases/CrearUsuarioUseCase.js",
-        "src/modules/usuario/application/use-cases/CrearUsuarioUseCase.test.js",
-        "src/modules/usuario/application/use-cases/SuspenderUsuarioUseCase.js",
-        "src/modules/usuario/application/use-cases/SuspenderUsuarioUseCase.test.js"
-      ],
-      "sourceType": "code"
-    },
     {
       "wrapper": "src/shared/tenant/TenantError.js",
       "category": "shared",
@@ -1279,17 +1235,6 @@
       "sourceType": "code"
     },
     {
-      "wrapper": "src/modules/api/infrastructure/ExpressApp.js",
-      "category": "api",
-      "isPureWrapper": false,
-      "target": "../../../infrastructure/api/infrastructure/ExpressApp\");const express = require(\"express",
-      "references": 1,
-      "referencedBy": [
-        "src/modules/api/infrastructure/runApiMock.js"
-      ],
-      "sourceType": "code"
-    },
-    {
       "wrapper": "src/modules/api/interfaces/controllers/ConversationControlController.js",
       "category": "api",
       "isPureWrapper": true,
@@ -1316,17 +1261,6 @@
       "category": "api",
       "isPureWrapper": true,
       "target": "../../../../infrastructure/api/interfaces/controllers/UsuarioController",
-      "references": 1,
-      "referencedBy": [
-        "src/modules/api/infrastructure/ExpressApp.js"
-      ],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/api/interfaces/middleware/auth.js",
-      "category": "api",
-      "isPureWrapper": false,
-      "target": "../../../../infrastructure/api/interfaces/middleware/auth\");const jwt = require(\"jsonwebtoken",
       "references": 1,
       "referencedBy": [
         "src/modules/api/infrastructure/ExpressApp.js"
@@ -1455,28 +1389,10 @@
       "sourceType": "code"
     },
     {
-      "wrapper": "src/modules/ai/application/use-cases/GenerarRespuestaUseCase.js",
-      "category": "ai",
-      "isPureWrapper": false,
-      "target": "../../../../engines/ai-engine/application/use-cases/GenerarRespuestaUseCase\");const AIRequest = require(\"../../domain/entities/AIRequest",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
       "wrapper": "src/modules/ai/domain/valueObjects/AIRequestState.js",
       "category": "ai",
       "isPureWrapper": true,
       "target": "../../../../engines/ai-engine/domain/valueObjects/AIRequestState",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/api/infrastructure/runApiMock.js",
-      "category": "api",
-      "isPureWrapper": false,
-      "target": "../../../infrastructure/api/infrastructure/runApiMock\");const ExpressApp = require(\"./ExpressApp",
       "references": 0,
       "referencedBy": [],
       "sourceType": "code"
@@ -1513,15 +1429,6 @@
       "category": "buffer",
       "isPureWrapper": true,
       "target": "../../../../engines/conversation-engine/buffer/application/workers/BufferExpirationWorker",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/buffer/domain/entities/MessageBuffer.js",
-      "category": "buffer",
-      "isPureWrapper": false,
-      "target": "../../../../engines/conversation-engine/buffer/domain/entities/MessageBuffer\");const BufferState = require(\"../valueObjects/BufferState",
       "references": 0,
       "referencedBy": [],
       "sourceType": "code"
@@ -1572,37 +1479,10 @@
       "sourceType": "code"
     },
     {
-      "wrapper": "src/modules/capability/application/ExecuteCapabilityUseCase.js",
-      "category": "capability",
-      "isPureWrapper": false,
-      "target": "../../../core/capability/application/ExecuteCapabilityUseCase\");const ErrorClassifier = require(\"../../execution-policy/domain/ErrorClassifier",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
       "wrapper": "src/modules/capability/application/RegisterCapabilityUseCase.js",
       "category": "capability",
       "isPureWrapper": true,
       "target": "../../../core/capability/application/RegisterCapabilityUseCase",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/capability/domain/CapabilityRegistry.js",
-      "category": "capability",
-      "isPureWrapper": false,
-      "target": "../../../core/capability/domain/CapabilityRegistry\");const Capability = require(\"./Capability",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/runtime/application/RuntimeEngine.js",
-      "category": "runtime",
-      "isPureWrapper": false,
-      "target": "../../../engines/agent-runtime/application/RuntimeEngine\");const ExecutionContext = require(\"../domain/ExecutionContext",
       "references": 0,
       "referencedBy": [],
       "sourceType": "code"
@@ -1639,15 +1519,6 @@
       "category": "state-machine",
       "isPureWrapper": true,
       "target": "../../../../../engines/conversation-engine/state-machine/application/use-cases/IniciarFlujoUseCase",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/state-machine/domain/entities/ConversationFlow.js",
-      "category": "state-machine",
-      "isPureWrapper": false,
-      "target": "../../../../engines/conversation-engine/state-machine/domain/entities/ConversationFlow\");const FlowStage = require(\"../valueObjects/FlowStage",
       "references": 0,
       "referencedBy": [],
       "sourceType": "code"
