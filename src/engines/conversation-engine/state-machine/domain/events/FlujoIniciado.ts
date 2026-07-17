@@ -1,4 +1,4 @@
-import { DomainEvent } from "../../../../../shared/events/DomainEvent";
+import { DomainEvent } from "../../../../../core/kernel/events/DomainEvent";
 
 export interface FlujoIniciadoPayload {
   flowId: string;

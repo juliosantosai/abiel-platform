@@ -7,8 +7,8 @@ const srcRoot = path.join(repoRoot, 'src');
 const tmpDir = path.join(repoRoot, 'tmp');
 if (!fs.existsSync(tmpDir)) fs.mkdirSync(tmpDir, { recursive: true });
 
-const tsWrapperRegex = new RegExp('^const\\s+impl\\s*=\\s*require\\(__filename\\.replace\\(/\\.ts\\$, ".js"\\)\\);\\s*export\\s*=\\s*impl;\\s*$', 'm');
-const jsWrapperRegex = /^module\.exports\s*=\s*require\((['"])(.*?)\1\);?\s*$/m;
+const tsWrapperRegex = new RegExp('^const\\s+impl\\s*=\\s*require\\(__filename\\.replace\\(/\\.ts\\$, \\".js\\"\\)\\);\\s*export\\s*=\\s*impl;\\s*$', 'm');
+const jsWrapperRegex = /^module\.exports\s*=\s*require\((['"])(.*?)\1\);?\s*$/;
 const jsWrapperPureRegex = /^module\.exports\s*=\s*require\((['"])(.*?)\1\);?\s*$/;
 const importRegex = /(?:import\s+(?:[^'";]+?)\s+from\s+['"]([^'"']+)['"])|(?:import\(['"]([^'"']+)['"]\))|(?:require\(['"]([^'"']+)['"]\))/g;
 
