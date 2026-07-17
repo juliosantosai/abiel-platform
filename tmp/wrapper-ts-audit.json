@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-17T20:34:31.776Z",
+  "generatedAt": "2026-07-17T20:36:12.936Z",
   "totals": {
-    "totalFiles": 537,
-    "tsFiles": 292,
-    "jsFiles": 245,
+    "totalFiles": 525,
+    "tsFiles": 281,
+    "jsFiles": 244,
     "tsWrappers": 0,
     "jsWrappers": 0,
     "jsImportsExplicit": 73,
@@ -303,12 +303,12 @@
     ],
     "jsImportTargetsResolved": [
       [
-        "src/shared/errors/ValidationError.js",
+        "src/shared/errors/NotFoundError.js",
         36
       ],
       [
-        "src/shared/errors/NotFoundError.js",
-        36
+        "src/shared/errors/ValidationError.js",
+        35
       ],
       [
         "src/core/kernel/events/DomainEvent.js",
@@ -316,7 +316,7 @@
       ],
       [
         "src/shared/errors/DomainError.js",
-        17
+        16
       ],
       [
         "src/core/security/TenantError.js",
@@ -325,10 +325,6 @@
       [
         "src/core/security/TenantGuard.js",
         15
-      ],
-      [
-        "src/engines/conversation-engine/buffer/domain/entities/MessageBuffer.js",
-        12
       ],
       [
         "src/shared/database/prisma.js",
@@ -341,6 +337,10 @@
       [
         "src/modules/human-intervention/domain/entities/ConversationSession.js",
         12
+      ],
+      [
+        "src/engines/conversation-engine/buffer/domain/entities/MessageBuffer.js",
+        11
       ],
       [
         "src/modules/empresa/domain/entities/Empresa.js",
@@ -479,10 +479,6 @@
         3
       ],
       [
-        "src/engines/conversation-engine/buffer/domain/valueObjects/BufferState.js",
-        3
-      ],
-      [
         "src/engines/conversation-engine/state-machine/domain/events/EtapaAvanzada.js",
         3
       ],
@@ -564,6 +560,10 @@
       ],
       [
         "src/engines/ai-engine/application/use-cases/GenerarRespuestaUseCase.js",
+        2
+      ],
+      [
+        "src/engines/conversation-engine/buffer/domain/valueObjects/BufferState.js",
         2
       ],
       [
