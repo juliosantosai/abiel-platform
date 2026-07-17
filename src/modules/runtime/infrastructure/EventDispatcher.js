@@ -1,1 +1,0 @@
-module.exports = require("../../../engines/agent-runtime/infrastructure/EventDispatcher");

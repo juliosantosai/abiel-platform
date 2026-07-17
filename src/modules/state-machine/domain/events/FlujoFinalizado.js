@@ -1,1 +1,0 @@
-module.exports = require("../../../../engines/conversation-engine/state-machine/domain/events/FlujoFinalizado");

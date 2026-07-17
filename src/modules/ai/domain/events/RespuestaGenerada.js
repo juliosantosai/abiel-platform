@@ -1,1 +1,0 @@
-module.exports = require("../../../../engines/ai-engine/domain/events/RespuestaGenerada");
