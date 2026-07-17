@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-17T20:44:19.179Z",
+  "generatedAt": "2026-07-17T20:45:09.960Z",
   "totals": {
-    "totalFiles": 512,
-    "tsFiles": 272,
-    "jsFiles": 240,
+    "totalFiles": 501,
+    "tsFiles": 262,
+    "jsFiles": 239,
     "tsWrappers": 0,
     "jsWrappers": 0,
     "jsImportsExplicit": 73,
@@ -308,15 +308,11 @@
       ],
       [
         "src/shared/errors/ValidationError.js",
-        34
+        33
       ],
       [
         "src/core/kernel/events/DomainEvent.js",
         32
-      ],
-      [
-        "src/shared/errors/DomainError.js",
-        16
       ],
       [
         "src/core/security/TenantError.js",
@@ -324,6 +320,10 @@
       ],
       [
         "src/core/security/TenantGuard.js",
+        15
+      ],
+      [
+        "src/shared/errors/DomainError.js",
         15
       ],
       [
@@ -355,11 +355,11 @@
         8
       ],
       [
-        "src/engines/conversation-engine/state-machine/domain/entities/ConversationFlow.js",
-        8
+        "src/shared/events/EventBus.js",
+        7
       ],
       [
-        "src/shared/events/EventBus.js",
+        "src/engines/conversation-engine/state-machine/domain/entities/ConversationFlow.js",
         7
       ],
       [
@@ -491,10 +491,6 @@
         3
       ],
       [
-        "src/engines/conversation-engine/state-machine/domain/valueObjects/FlowStage.js",
-        3
-      ],
-      [
         "src/infrastructure/api/interfaces/controllers/EmpresaController.js",
         3
       ],
@@ -560,6 +556,10 @@
       ],
       [
         "src/engines/conversation-engine/buffer/domain/valueObjects/BufferState.js",
+        2
+      ],
+      [
+        "src/engines/conversation-engine/state-machine/domain/valueObjects/FlowStage.js",
         2
       ],
       [
