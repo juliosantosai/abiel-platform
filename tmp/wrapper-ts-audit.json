@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-17T20:42:34.327Z",
+  "generatedAt": "2026-07-17T20:44:19.179Z",
   "totals": {
-    "totalFiles": 520,
-    "tsFiles": 277,
-    "jsFiles": 243,
+    "totalFiles": 512,
+    "tsFiles": 272,
+    "jsFiles": 240,
     "tsWrappers": 0,
     "jsWrappers": 0,
     "jsImportsExplicit": 73,
@@ -308,7 +308,7 @@
       ],
       [
         "src/shared/errors/ValidationError.js",
-        35
+        34
       ],
       [
         "src/core/kernel/events/DomainEvent.js",
@@ -359,14 +359,6 @@
         8
       ],
       [
-        "src/core/capability/domain/CapabilityRegistry.js",
-        7
-      ],
-      [
-        "src/core/capability/domain/Capability.js",
-        7
-      ],
-      [
         "src/shared/events/EventBus.js",
         7
       ],
@@ -375,11 +367,11 @@
         7
       ],
       [
-        "src/core/execution-policy/domain/ErrorClassifier.js",
+        "src/core/capability/domain/CapabilityRegistry.js",
         6
       ],
       [
-        "src/core/execution-policy/domain/PermissionChecker.js",
+        "src/core/capability/domain/Capability.js",
         6
       ],
       [
@@ -399,6 +391,14 @@
         6
       ],
       [
+        "src/core/execution-policy/domain/ErrorClassifier.js",
+        5
+      ],
+      [
+        "src/core/execution-policy/domain/PermissionChecker.js",
+        5
+      ],
+      [
         "src/engines/conversation-engine/state-machine/domain/repositories/ConversationFlowRepository.js",
         5
       ],
@@ -409,10 +409,6 @@
       [
         "src/infrastructure/api/errors/ApiHttpException.js",
         5
-      ],
-      [
-        "src/core/capability/infrastructure/InMemoryCapabilityRepository.js",
-        4
       ],
       [
         "src/core/contracts/ExecutionContext.ts",
@@ -429,6 +425,10 @@
       [
         "src/infrastructure/api/interfaces/controllers/DashboardController.js",
         4
+      ],
+      [
+        "src/core/capability/infrastructure/InMemoryCapabilityRepository.js",
+        3
       ],
       [
         "src/core/execution-policy/domain/RetryPolicy.js",
@@ -548,10 +548,6 @@
       ],
       [
         "src/core/capability/application/RegisterCapabilityUseCase.js",
-        2
-      ],
-      [
-        "src/core/capability/application/ExecuteCapabilityUseCase.js",
         2
       ],
       [
@@ -729,6 +725,10 @@
       [
         "src/shared/tenant/TenantError.ts",
         2
+      ],
+      [
+        "src/core/capability/application/ExecuteCapabilityUseCase.js",
+        1
       ],
       [
         "src/core/capability/application/ExecuteCapabilityUseCase.test.js",
