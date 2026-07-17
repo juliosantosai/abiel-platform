@@ -1,4 +1,4 @@
-const DomainEvent = require("../../../../shared/events/DomainEvent");
+const DomainEvent = require("../../../../core/kernel/events/DomainEvent");
 
 class ConversationCreated extends DomainEvent {
     static eventName = "ConversationCreated";

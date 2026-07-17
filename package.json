@@ -11,7 +11,8 @@
     "typecheck:build": "tsc -p tsconfig.build.json",
     "arch:check": "node tools/architecture/check-architecture.js",
     "arch:check:strict": "node tools/architecture/check-architecture.js --strict",
-    "arch:inventory:wrappers": "node tools/architecture/check-architecture.js --write-inventory"
+    "arch:inventory:wrappers": "node tools/architecture/check-architecture.js --write-inventory",
+    "arch:inventory:wrapper-ts": "node tools/architecture/audit-wrapper-ts.js"
   },
   "devDependencies": {
     "@babel/plugin-syntax-import-meta": "^7.10.4",

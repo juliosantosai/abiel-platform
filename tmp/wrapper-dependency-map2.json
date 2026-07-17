@@ -1,0 +1,259 @@
+{
+  "wrappers": [
+    {
+      "wrapper": "src/modules/ai/application/use-cases/GenerarRespuestaUseCase.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/ai/domain/entities/AIRequest.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/ai/domain/events/GeneracionFallida.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/ai/domain/events/RespuestaGenerada.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/ai/domain/repositories/LLMProvider.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/ai/domain/valueObjects/AIRequestState.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/api/infrastructure/ExpressApp.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/api/infrastructure/runApiMock.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/api/interfaces/controllers/ConversationControlController.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/api/interfaces/controllers/EmpresaController.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/api/interfaces/controllers/UsuarioController.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/api/interfaces/middleware/auth.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/api/interfaces/middleware/rateLimit.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/api/interfaces/routes/conversacionesRoutes.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/api/interfaces/routes/empresasRoutes.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/api/interfaces/routes/usuariosRoutes.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/buffer/application/use-cases/AgregarMensajeAlBufferUseCase.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/buffer/application/use-cases/CerrarBufferUseCase.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/buffer/application/use-cases/ProcesarBufferUseCase.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/buffer/application/workers/BufferExpirationWorker.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/buffer/domain/entities/MessageBuffer.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/buffer/domain/events/BufferAbierto.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/buffer/domain/events/BufferListo.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/buffer/domain/events/BufferProcesado.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/buffer/domain/repositories/MessageBufferRepository.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/buffer/domain/valueObjects/BufferState.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/buffer/infrastructure/persistence/FakeMessageBufferRepository.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/capability/application/ExecuteCapabilityUseCase.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/capability/application/RegisterCapabilityUseCase.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/capability/domain/Capability.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/capability/domain/CapabilityRegistry.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/execution-policy/domain/PermissionChecker.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/execution-policy/domain/RetryPolicy.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/execution-policy/domain/TimeoutPolicy.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/runtime/application/RuntimeEngine.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/runtime/domain/ExecutionContext.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/runtime/domain/ExecutionLifecycle.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/runtime/infrastructure/EventDispatcher.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/state-machine/application/use-cases/AvanzarEtapaUseCase.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/state-machine/application/use-cases/FinalizarFlujoUseCase.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/state-machine/application/use-cases/IniciarFlujoUseCase.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/state-machine/domain/entities/ConversationFlow.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/state-machine/domain/events/EtapaAvanzada.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/state-machine/domain/events/FlujoFinalizado.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/state-machine/domain/events/FlujoIniciado.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/state-machine/domain/repositories/ConversationFlowRepository.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/state-machine/domain/valueObjects/FlowStage.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/modules/state-machine/infrastructure/persistence/FakeConversationFlowRepository.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/shared/events/DomainEvent.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/shared/tenant/TenantError.js",
+      "refs": 0,
+      "referencedBy": []
+    },
+    {
+      "wrapper": "src/shared/tenant/TenantGuard.js",
+      "refs": 0,
+      "referencedBy": []
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-const DomainEvent = require("../../../../../shared/events/DomainEvent");
+const DomainEvent = require("../../../../../core/kernel/events/DomainEvent");
 
 class FlujoFinalizado extends DomainEvent {
     static eventName = "FlujoFinalizado";
