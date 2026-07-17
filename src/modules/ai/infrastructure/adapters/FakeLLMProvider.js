@@ -1,4 +1,4 @@
-const LLMProvider = require("../../domain/repositories/LLMProvider");
+const LLMProvider = require("../../../../engines/ai-engine/domain/repositories/LLMProvider");
 
 /**
  * Adaptador fake para tests. Devuelve una respuesta configurable sin llamadas externas.

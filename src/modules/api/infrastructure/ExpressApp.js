@@ -1,16 +1,16 @@
 module.exports = require("../../../infrastructure/api/infrastructure/ExpressApp");const express = require("express");
 const path = require("path");
 const jwt = require("jsonwebtoken");
-const EmpresaController = require("../interfaces/controllers/EmpresaController");
-const UsuarioController = require("../interfaces/controllers/UsuarioController");
-const ConversationControlController = require("../interfaces/controllers/ConversationControlController");
-const DashboardController = require("../../dashboard/interfaces/controllers/DashboardController");
-const { crearRutasEmpresas } = require("../interfaces/routes/empresasRoutes");
-const { crearRutasUsuarios } = require("../interfaces/routes/usuariosRoutes");
-const { crearRutasConversaciones } = require("../interfaces/routes/conversacionesRoutes");
-const { crearRutasDashboard } = require("../../dashboard/interfaces/routes/dashboardRoutes");
-const { autenticar, manejarErrores } = require("../interfaces/middleware/auth");
-const { crearRateLimiter } = require("../interfaces/middleware/rateLimit");
+const EmpresaController = require("../../../infrastructure/api/interfaces/controllers/EmpresaController");
+const UsuarioController = require("../../../infrastructure/api/interfaces/controllers/UsuarioController");
+const ConversationControlController = require("../../../infrastructure/api/interfaces/controllers/ConversationControlController");
+const DashboardController = require("../../../infrastructure/api/interfaces/controllers/DashboardController");
+const { crearRutasEmpresas } = require("../../../infrastructure/api/interfaces/routes/empresasRoutes");
+const { crearRutasUsuarios } = require("../../../infrastructure/api/interfaces/routes/usuariosRoutes");
+const { crearRutasConversaciones } = require("../../../infrastructure/api/interfaces/routes/conversacionesRoutes");
+const { crearRutasDashboard } = require("../../../infrastructure/api/interfaces/routes/dashboardRoutes");
+const { autenticar, manejarErrores } = require("../../../infrastructure/api/interfaces/middleware/auth");
+const { crearRateLimiter } = require("../../../infrastructure/api/interfaces/middleware/rateLimit");
 
 class ExpressApp {
     constructor({

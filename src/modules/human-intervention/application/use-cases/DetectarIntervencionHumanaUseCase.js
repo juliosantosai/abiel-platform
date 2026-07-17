@@ -1,6 +1,6 @@
 const NotFoundError = require("../../../../shared/errors/NotFoundError");
 const HumanInterventionDetected = require("../../domain/events/HumanInterventionDetected");
-const TenantGuard = require("../../../../shared/tenant/TenantGuard");
+const TenantGuard = require("../../../../core/security/TenantGuard");
 
 class DetectarIntervencionHumanaUseCase {
     constructor({ repository, eventPublisher, tenantGuard = new TenantGuard() }) {

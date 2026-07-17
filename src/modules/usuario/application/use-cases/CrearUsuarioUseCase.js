@@ -1,5 +1,5 @@
 const UsuarioCreado = require("../../domain/events/UsuarioCreado");
-const TenantGuard = require("../../../../shared/tenant/TenantGuard");
+const TenantGuard = require("../../../../core/security/TenantGuard");
 
 class CrearUsuarioUseCase {
     constructor({ usuarioRepository, eventPublisher, tenantGuard = new TenantGuard() }) {

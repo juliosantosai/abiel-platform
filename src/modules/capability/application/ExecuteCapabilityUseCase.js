@@ -1,5 +1,5 @@
-module.exports = require("../../../core/capability/application/ExecuteCapabilityUseCase");const ErrorClassifier = require("../../execution-policy/domain/ErrorClassifier");
-const PermissionChecker = require("../../execution-policy/domain/PermissionChecker");
+module.exports = require("../../../core/capability/application/ExecuteCapabilityUseCase");const ErrorClassifier = require("../../../core/execution-policy/domain/ErrorClassifier");
+const PermissionChecker = require("../../../core/execution-policy/domain/PermissionChecker");
 
 class ExecuteCapabilityUseCase {
     constructor({ capabilityRegistry, permissionChecker, errorClassifier, eventPublisher }) {

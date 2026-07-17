@@ -1,1 +1,0 @@
-module.exports = require("../../../../engines/conversation-engine/buffer/domain/valueObjects/BufferState");

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-17T14:13:53.163Z",
+  "generatedAt": "2026-07-17T20:21:36.477Z",
   "totals": {
-    "totalFiles": 587,
-    "tsFiles": 299,
-    "jsFiles": 288,
+    "totalFiles": 546,
+    "tsFiles": 300,
+    "jsFiles": 246,
     "tsWrappers": 0,
-    "jsWrappers": 40,
+    "jsWrappers": 0,
     "jsImportsExplicit": 73,
     "jsImportTargetsExplicit": [
       [
@@ -315,12 +315,16 @@
         32
       ],
       [
-        "src/shared/tenant/TenantGuard.js",
-        24
-      ],
-      [
         "src/shared/errors/DomainError.js",
         17
+      ],
+      [
+        "src/core/security/TenantError.js",
+        15
+      ],
+      [
+        "src/core/security/TenantGuard.js",
+        15
       ],
       [
         "src/engines/conversation-engine/buffer/domain/entities/MessageBuffer.js",
@@ -331,7 +335,7 @@
         12
       ],
       [
-        "src/shared/tenant/TenantError.js",
+        "src/shared/tenant/TenantGuard.js",
         12
       ],
       [
@@ -355,6 +359,14 @@
         8
       ],
       [
+        "src/core/execution-policy/domain/ErrorClassifier.js",
+        7
+      ],
+      [
+        "src/core/execution-policy/domain/PermissionChecker.js",
+        7
+      ],
+      [
         "src/core/capability/domain/CapabilityRegistry.js",
         7
       ],
@@ -367,39 +379,31 @@
         7
       ],
       [
-        "src/engines/conversation-engine/buffer/domain/events/BufferListo.js",
-        7
-      ],
-      [
-        "src/engines/conversation-engine/buffer/domain/repositories/MessageBufferRepository.js",
-        7
-      ],
-      [
         "src/infrastructure/api/contracts/index.js",
         7
       ],
       [
-        "src/core/execution-policy/domain/ErrorClassifier.js",
-        6
-      ],
-      [
-        "src/core/execution-policy/domain/PermissionChecker.js",
-        6
+        "src/infrastructure/api/interfaces/middleware/auth.js",
+        7
       ],
       [
         "src/shared/logger/Logger.js",
         6
       ],
       [
-        "src/engines/conversation-engine/state-machine/domain/repositories/ConversationFlowRepository.js",
+        "src/engines/conversation-engine/buffer/domain/events/BufferListo.js",
         6
       ],
       [
-        "src/infrastructure/api/interfaces/middleware/auth.js",
+        "src/engines/conversation-engine/buffer/domain/repositories/MessageBufferRepository.js",
         6
       ],
       [
         "src/engines/agent-runtime/application/RuntimeEngine.js",
+        5
+      ],
+      [
+        "src/engines/conversation-engine/state-machine/domain/repositories/ConversationFlowRepository.js",
         5
       ],
       [
@@ -431,14 +435,6 @@
         4
       ],
       [
-        "src/core/security/TenantError.js",
-        4
-      ],
-      [
-        "src/engines/agent-runtime/infrastructure/EventDispatcher.js",
-        4
-      ],
-      [
         "src/engines/agent-runtime/domain/ExecutionContext.js",
         4
       ],
@@ -447,31 +443,11 @@
         4
       ],
       [
-        "src/engines/conversation-engine/buffer/domain/events/BufferAbierto.js",
+        "src/infrastructure/api/interfaces/controllers/DashboardController.js",
         4
       ],
       [
-        "src/engines/conversation-engine/buffer/infrastructure/persistence/FakeMessageBufferRepository.js",
-        4
-      ],
-      [
-        "src/engines/conversation-engine/buffer/domain/events/BufferProcesado.js",
-        4
-      ],
-      [
-        "src/engines/conversation-engine/state-machine/domain/events/EtapaAvanzada.js",
-        4
-      ],
-      [
-        "src/engines/conversation-engine/state-machine/domain/events/FlujoFinalizado.js",
-        4
-      ],
-      [
-        "src/engines/conversation-engine/state-machine/domain/events/FlujoIniciado.js",
-        4
-      ],
-      [
-        "src/core/capability/application/RegisterCapabilityUseCase.js",
+        "src/engines/agent-runtime/infrastructure/EventDispatcher.js",
         3
       ],
       [
@@ -487,11 +463,35 @@
         3
       ],
       [
+        "src/engines/conversation-engine/buffer/domain/events/BufferAbierto.js",
+        3
+      ],
+      [
+        "src/engines/conversation-engine/buffer/infrastructure/persistence/FakeMessageBufferRepository.js",
+        3
+      ],
+      [
         "src/engines/conversation-engine/buffer/application/use-cases/CerrarBufferUseCase.js",
         3
       ],
       [
+        "src/engines/conversation-engine/buffer/domain/events/BufferProcesado.js",
+        3
+      ],
+      [
         "src/engines/conversation-engine/buffer/domain/valueObjects/BufferState.js",
+        3
+      ],
+      [
+        "src/engines/conversation-engine/state-machine/domain/events/EtapaAvanzada.js",
+        3
+      ],
+      [
+        "src/engines/conversation-engine/state-machine/domain/events/FlujoFinalizado.js",
+        3
+      ],
+      [
+        "src/engines/conversation-engine/state-machine/domain/events/FlujoIniciado.js",
         3
       ],
       [
@@ -511,7 +511,7 @@
         3
       ],
       [
-        "src/infrastructure/api/interfaces/controllers/DashboardController.js",
+        "src/infrastructure/api/interfaces/routes/dashboardRoutes.js",
         3
       ],
       [
@@ -551,6 +551,10 @@
         3
       ],
       [
+        "src/core/capability/application/RegisterCapabilityUseCase.js",
+        2
+      ],
+      [
         "src/core/capability/application/ExecuteCapabilityUseCase.js",
         2
       ],
@@ -559,23 +563,7 @@
         2
       ],
       [
-        "src/core/security/TenantGuard.js",
-        2
-      ],
-      [
         "src/engines/ai-engine/application/use-cases/GenerarRespuestaUseCase.js",
-        2
-      ],
-      [
-        "src/engines/ai-engine/domain/valueObjects/AIRequestState.js",
-        2
-      ],
-      [
-        "src/engines/conversation-engine/buffer/application/workers/BufferExpirationWorker.js",
-        2
-      ],
-      [
-        "src/engines/conversation-engine/state-machine/infrastructure/persistence/FakeConversationFlowRepository.js",
         2
       ],
       [
@@ -608,18 +596,6 @@
       ],
       [
         "src/infrastructure/api/interfaces/routes/conversacionesRoutes.js",
-        2
-      ],
-      [
-        "src/infrastructure/api/interfaces/routes/dashboardRoutes.js",
-        2
-      ],
-      [
-        "src/modules/execution-policy/domain/ErrorClassifier.js",
-        2
-      ],
-      [
-        "src/modules/execution-policy/domain/PermissionChecker.js",
         2
       ],
       [
@@ -751,6 +727,10 @@
         2
       ],
       [
+        "src/shared/tenant/TenantError.ts",
+        2
+      ],
+      [
         "src/core/capability/application/ExecuteCapabilityUseCase.test.js",
         1
       ],
@@ -839,6 +819,10 @@
         1
       ],
       [
+        "src/engines/ai-engine/domain/valueObjects/AIRequestState.js",
+        1
+      ],
+      [
         "src/engines/conversation-engine/buffer/application/use-cases/AgregarMensajeAlBufferUseCase.js",
         1
       ],
@@ -855,11 +839,19 @@
         1
       ],
       [
+        "src/engines/conversation-engine/buffer/application/workers/BufferExpirationWorker.js",
+        1
+      ],
+      [
         "src/engines/conversation-engine/buffer/application/workers/BufferExpirationWorker.test.js",
         1
       ],
       [
         "src/engines/conversation-engine/buffer/domain/entities/MessageBuffer.test.js",
+        1
+      ],
+      [
+        "src/engines/conversation-engine/state-machine/infrastructure/persistence/FakeConversationFlowRepository.js",
         1
       ],
       [
@@ -971,63 +963,7 @@
         1
       ],
       [
-        "src/modules/ai/domain/entities/AIRequest.js",
-        1
-      ],
-      [
-        "src/modules/ai/domain/events/RespuestaGenerada.js",
-        1
-      ],
-      [
-        "src/modules/ai/domain/events/GeneracionFallida.js",
-        1
-      ],
-      [
         "src/engines/ai-engine/domain/repositories/LLMProvider.js",
-        1
-      ],
-      [
-        "src/modules/ai/domain/repositories/LLMProvider.js",
-        1
-      ],
-      [
-        "src/modules/api/interfaces/controllers/EmpresaController.js",
-        1
-      ],
-      [
-        "src/modules/api/interfaces/controllers/UsuarioController.js",
-        1
-      ],
-      [
-        "src/modules/api/interfaces/controllers/ConversationControlController.js",
-        1
-      ],
-      [
-        "src/modules/dashboard/interfaces/controllers/DashboardController.js",
-        1
-      ],
-      [
-        "src/modules/api/interfaces/routes/empresasRoutes.js",
-        1
-      ],
-      [
-        "src/modules/api/interfaces/routes/usuariosRoutes.js",
-        1
-      ],
-      [
-        "src/modules/api/interfaces/routes/conversacionesRoutes.js",
-        1
-      ],
-      [
-        "src/modules/dashboard/interfaces/routes/dashboardRoutes.js",
-        1
-      ],
-      [
-        "src/modules/api/interfaces/middleware/auth.js",
-        1
-      ],
-      [
-        "src/modules/api/interfaces/middleware/rateLimit.js",
         1
       ],
       [
@@ -1036,14 +972,6 @@
       ],
       [
         "src/modules/api/infrastructure/ExpressApp.js",
-        1
-      ],
-      [
-        "src/modules/buffer/domain/valueObjects/BufferState.js",
-        1
-      ],
-      [
-        "src/modules/capability/domain/Capability.js",
         1
       ],
       [
@@ -1101,474 +1029,92 @@
       [
         "src/modules/empresa/application/use-cases/SuspenderEmpresaUseCase.test.js",
         1
+      ],
+      [
+        "src/modules/empresa/domain/valueObjects/NombreEmpresa.js",
+        1
+      ],
+      [
+        "src/modules/empresa/domain/entities/Empresa.test.js",
+        1
+      ],
+      [
+        "src/modules/empresa/domain/repositories/EmpresaRepository.test.js",
+        1
+      ],
+      [
+        "src/modules/empresa/infrastructure/persistence/FakeEmpresaRepository.js",
+        1
+      ],
+      [
+        "src/modules/empresa/infrastructure/persistence/FakeEmpresaRepository.test.js",
+        1
+      ],
+      [
+        "src/modules/empresa/infrastructure/persistence/PrismaEmpresaRepository.js",
+        1
+      ],
+      [
+        "src/modules/empresa/infrastructure/persistence/PrismaEmpresaRepository.test.js",
+        1
+      ],
+      [
+        "src/modules/human-intervention/application/use-cases/BloquearConversacionUseCase.js",
+        1
+      ],
+      [
+        "src/modules/human-intervention/application/use-cases/CerrarConversacionUseCase.js",
+        1
+      ],
+      [
+        "src/modules/human-intervention/application/use-cases/BloquearCerrarConversacionUseCase.test.js",
+        1
+      ],
+      [
+        "src/modules/human-intervention/application/use-cases/CrearConversationSessionUseCase.test.js",
+        1
+      ],
+      [
+        "src/modules/human-intervention/application/use-cases/DetectarIntervencionHumanaUseCase.test.js",
+        1
+      ],
+      [
+        "src/modules/human-intervention/application/use-cases/EvaluarReanudacionBotUseCase.test.js",
+        1
+      ],
+      [
+        "src/modules/human-intervention/application/workers/BotResumptionWorker.js",
+        1
+      ],
+      [
+        "src/modules/human-intervention/application/workers/BotResumptionWorker.test.js",
+        1
+      ],
+      [
+        "src/modules/human-intervention/domain/entities/ConversationSession.test.js",
+        1
+      ],
+      [
+        "src/modules/human-intervention/domain/valueObjects/ConversationState.test.js",
+        1
+      ],
+      [
+        "src/modules/human-intervention/infrastructure/adapters/EvolutionWebhookAdapter.test.js",
+        1
       ]
     ]
   },
   "wrapperByCategory": {},
   "wrapperSummary": {
-    "totalWrappers": 40,
-    "pureWrappers": 40,
+    "totalWrappers": 0,
+    "pureWrappers": 0,
     "wrappersWithExtraCode": 0,
-    "referencedWrappers": 20,
-    "unreferencedWrappers": 20
+    "referencedWrappers": 0,
+    "unreferencedWrappers": 0
   },
   "tsWrappers": [],
-  "jsWrappers": [
-    "src/modules/ai/domain/entities/AIRequest.js",
-    "src/modules/ai/domain/events/GeneracionFallida.js",
-    "src/modules/ai/domain/events/RespuestaGenerada.js",
-    "src/modules/ai/domain/repositories/LLMProvider.js",
-    "src/modules/ai/domain/valueObjects/AIRequestState.js",
-    "src/modules/api/interfaces/controllers/ConversationControlController.js",
-    "src/modules/api/interfaces/controllers/EmpresaController.js",
-    "src/modules/api/interfaces/controllers/UsuarioController.js",
-    "src/modules/api/interfaces/middleware/rateLimit.js",
-    "src/modules/api/interfaces/routes/conversacionesRoutes.js",
-    "src/modules/api/interfaces/routes/empresasRoutes.js",
-    "src/modules/api/interfaces/routes/usuariosRoutes.js",
-    "src/modules/buffer/application/use-cases/AgregarMensajeAlBufferUseCase.js",
-    "src/modules/buffer/application/use-cases/CerrarBufferUseCase.js",
-    "src/modules/buffer/application/use-cases/ProcesarBufferUseCase.js",
-    "src/modules/buffer/application/workers/BufferExpirationWorker.js",
-    "src/modules/buffer/domain/events/BufferAbierto.js",
-    "src/modules/buffer/domain/events/BufferListo.js",
-    "src/modules/buffer/domain/events/BufferProcesado.js",
-    "src/modules/buffer/domain/repositories/MessageBufferRepository.js",
-    "src/modules/buffer/domain/valueObjects/BufferState.js",
-    "src/modules/buffer/infrastructure/persistence/FakeMessageBufferRepository.js",
-    "src/modules/capability/application/RegisterCapabilityUseCase.js",
-    "src/modules/capability/domain/Capability.js",
-    "src/modules/execution-policy/domain/PermissionChecker.js",
-    "src/modules/execution-policy/domain/RetryPolicy.js",
-    "src/modules/execution-policy/domain/TimeoutPolicy.js",
-    "src/modules/runtime/domain/ExecutionContext.js",
-    "src/modules/runtime/domain/ExecutionLifecycle.js",
-    "src/modules/runtime/infrastructure/EventDispatcher.js",
-    "src/modules/state-machine/application/use-cases/AvanzarEtapaUseCase.js",
-    "src/modules/state-machine/application/use-cases/FinalizarFlujoUseCase.js",
-    "src/modules/state-machine/application/use-cases/IniciarFlujoUseCase.js",
-    "src/modules/state-machine/domain/events/EtapaAvanzada.js",
-    "src/modules/state-machine/domain/events/FlujoFinalizado.js",
-    "src/modules/state-machine/domain/events/FlujoIniciado.js",
-    "src/modules/state-machine/domain/repositories/ConversationFlowRepository.js",
-    "src/modules/state-machine/domain/valueObjects/FlowStage.js",
-    "src/modules/state-machine/infrastructure/persistence/FakeConversationFlowRepository.js",
-    "src/shared/tenant/TenantError.js"
-  ],
-  "jsWrapperDetails": [
-    {
-      "wrapper": "src/shared/tenant/TenantError.js",
-      "category": "shared",
-      "isPureWrapper": true,
-      "target": "../../core/security/TenantError",
-      "references": 12,
-      "referencedBy": [
-        "src/modules/empresa/application/use-cases/ActivarEmpresaUseCase.test.js",
-        "src/modules/empresa/application/use-cases/ActualizarEmpresaUseCase.test.js",
-        "src/modules/empresa/application/use-cases/CancelarEmpresaUseCase.test.js",
-        "src/modules/empresa/application/use-cases/SuspenderEmpresaUseCase.test.js",
-        "src/modules/human-intervention/application/use-cases/BloquearCerrarConversacionUseCase.test.js",
-        "src/modules/human-intervention/application/use-cases/DetectarIntervencionHumanaUseCase.test.js",
-        "src/modules/usuario/application/use-cases/ActivarUsuarioUseCase.test.js",
-        "src/modules/usuario/application/use-cases/ActualizarUsuarioUseCase.test.js",
-        "src/modules/usuario/application/use-cases/CancelarUsuarioUseCase.test.js",
-        "src/modules/usuario/application/use-cases/CrearUsuarioUseCase.test.js",
-        "src/modules/usuario/application/use-cases/SuspenderUsuarioUseCase.test.js",
-        "src/shared/tenant/TenantGuard.js"
-      ],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/execution-policy/domain/PermissionChecker.js",
-      "category": "execution-policy",
-      "isPureWrapper": true,
-      "target": "../../../core/execution-policy/domain/PermissionChecker",
-      "references": 2,
-      "referencedBy": [
-        "src/modules/capability/application/ExecuteCapabilityUseCase.js",
-        "src/modules/runtime/application/RuntimeEngine.js"
-      ],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/ai/domain/entities/AIRequest.js",
-      "category": "ai",
-      "isPureWrapper": true,
-      "target": "../../../../engines/ai-engine/domain/entities/AIRequest",
-      "references": 1,
-      "referencedBy": [
-        "src/modules/ai/application/use-cases/GenerarRespuestaUseCase.js"
-      ],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/ai/domain/events/GeneracionFallida.js",
-      "category": "ai",
-      "isPureWrapper": true,
-      "target": "../../../../engines/ai-engine/domain/events/GeneracionFallida",
-      "references": 1,
-      "referencedBy": [
-        "src/modules/ai/application/use-cases/GenerarRespuestaUseCase.js"
-      ],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/ai/domain/events/RespuestaGenerada.js",
-      "category": "ai",
-      "isPureWrapper": true,
-      "target": "../../../../engines/ai-engine/domain/events/RespuestaGenerada",
-      "references": 1,
-      "referencedBy": [
-        "src/modules/ai/application/use-cases/GenerarRespuestaUseCase.js"
-      ],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/ai/domain/repositories/LLMProvider.js",
-      "category": "ai",
-      "isPureWrapper": true,
-      "target": "../../../../engines/ai-engine/domain/repositories/LLMProvider",
-      "references": 1,
-      "referencedBy": [
-        "src/modules/ai/infrastructure/adapters/FakeLLMProvider.js"
-      ],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/api/interfaces/controllers/ConversationControlController.js",
-      "category": "api",
-      "isPureWrapper": true,
-      "target": "../../../../infrastructure/api/interfaces/controllers/ConversationControlController",
-      "references": 1,
-      "referencedBy": [
-        "src/modules/api/infrastructure/ExpressApp.js"
-      ],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/api/interfaces/controllers/EmpresaController.js",
-      "category": "api",
-      "isPureWrapper": true,
-      "target": "../../../../infrastructure/api/interfaces/controllers/EmpresaController",
-      "references": 1,
-      "referencedBy": [
-        "src/modules/api/infrastructure/ExpressApp.js"
-      ],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/api/interfaces/controllers/UsuarioController.js",
-      "category": "api",
-      "isPureWrapper": true,
-      "target": "../../../../infrastructure/api/interfaces/controllers/UsuarioController",
-      "references": 1,
-      "referencedBy": [
-        "src/modules/api/infrastructure/ExpressApp.js"
-      ],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/api/interfaces/middleware/rateLimit.js",
-      "category": "api",
-      "isPureWrapper": true,
-      "target": "../../../../infrastructure/api/interfaces/middleware/rateLimit",
-      "references": 1,
-      "referencedBy": [
-        "src/modules/api/infrastructure/ExpressApp.js"
-      ],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/api/interfaces/routes/conversacionesRoutes.js",
-      "category": "api",
-      "isPureWrapper": true,
-      "target": "../../../../infrastructure/api/interfaces/routes/conversacionesRoutes",
-      "references": 1,
-      "referencedBy": [
-        "src/modules/api/infrastructure/ExpressApp.js"
-      ],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/api/interfaces/routes/empresasRoutes.js",
-      "category": "api",
-      "isPureWrapper": true,
-      "target": "../../../../infrastructure/api/interfaces/routes/empresasRoutes",
-      "references": 1,
-      "referencedBy": [
-        "src/modules/api/infrastructure/ExpressApp.js"
-      ],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/api/interfaces/routes/usuariosRoutes.js",
-      "category": "api",
-      "isPureWrapper": true,
-      "target": "../../../../infrastructure/api/interfaces/routes/usuariosRoutes",
-      "references": 1,
-      "referencedBy": [
-        "src/modules/api/infrastructure/ExpressApp.js"
-      ],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/buffer/domain/valueObjects/BufferState.js",
-      "category": "buffer",
-      "isPureWrapper": true,
-      "target": "../../../../engines/conversation-engine/buffer/domain/valueObjects/BufferState",
-      "references": 1,
-      "referencedBy": [
-        "src/modules/buffer/domain/entities/MessageBuffer.js"
-      ],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/capability/domain/Capability.js",
-      "category": "capability",
-      "isPureWrapper": true,
-      "target": "../../../core/capability/domain/Capability",
-      "references": 1,
-      "referencedBy": [
-        "src/modules/capability/domain/CapabilityRegistry.js"
-      ],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/execution-policy/domain/RetryPolicy.js",
-      "category": "execution-policy",
-      "isPureWrapper": true,
-      "target": "../../../core/execution-policy/domain/RetryPolicy",
-      "references": 1,
-      "referencedBy": [
-        "src/modules/runtime/application/RuntimeEngine.js"
-      ],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/execution-policy/domain/TimeoutPolicy.js",
-      "category": "execution-policy",
-      "isPureWrapper": true,
-      "target": "../../../core/execution-policy/domain/TimeoutPolicy",
-      "references": 1,
-      "referencedBy": [
-        "src/modules/runtime/application/RuntimeEngine.js"
-      ],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/runtime/domain/ExecutionContext.js",
-      "category": "runtime",
-      "isPureWrapper": true,
-      "target": "../../../engines/agent-runtime/domain/ExecutionContext",
-      "references": 1,
-      "referencedBy": [
-        "src/modules/runtime/application/RuntimeEngine.js"
-      ],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/runtime/domain/ExecutionLifecycle.js",
-      "category": "runtime",
-      "isPureWrapper": true,
-      "target": "../../../engines/agent-runtime/domain/ExecutionLifecycle",
-      "references": 1,
-      "referencedBy": [
-        "src/modules/runtime/application/RuntimeEngine.js"
-      ],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/state-machine/domain/valueObjects/FlowStage.js",
-      "category": "state-machine",
-      "isPureWrapper": true,
-      "target": "../../../../engines/conversation-engine/state-machine/domain/valueObjects/FlowStage",
-      "references": 1,
-      "referencedBy": [
-        "src/modules/state-machine/domain/entities/ConversationFlow.js"
-      ],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/ai/domain/valueObjects/AIRequestState.js",
-      "category": "ai",
-      "isPureWrapper": true,
-      "target": "../../../../engines/ai-engine/domain/valueObjects/AIRequestState",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/buffer/application/use-cases/AgregarMensajeAlBufferUseCase.js",
-      "category": "buffer",
-      "isPureWrapper": true,
-      "target": "../../../../../engines/conversation-engine/buffer/application/use-cases/AgregarMensajeAlBufferUseCase",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/buffer/application/use-cases/CerrarBufferUseCase.js",
-      "category": "buffer",
-      "isPureWrapper": true,
-      "target": "../../../../../engines/conversation-engine/buffer/application/use-cases/CerrarBufferUseCase",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/buffer/application/use-cases/ProcesarBufferUseCase.js",
-      "category": "buffer",
-      "isPureWrapper": true,
-      "target": "../../../../../engines/conversation-engine/buffer/application/use-cases/ProcesarBufferUseCase",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/buffer/application/workers/BufferExpirationWorker.js",
-      "category": "buffer",
-      "isPureWrapper": true,
-      "target": "../../../../engines/conversation-engine/buffer/application/workers/BufferExpirationWorker",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/buffer/domain/events/BufferAbierto.js",
-      "category": "buffer",
-      "isPureWrapper": true,
-      "target": "../../../../engines/conversation-engine/buffer/domain/events/BufferAbierto",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/buffer/domain/events/BufferListo.js",
-      "category": "buffer",
-      "isPureWrapper": true,
-      "target": "../../../../engines/conversation-engine/buffer/domain/events/BufferListo",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/buffer/domain/events/BufferProcesado.js",
-      "category": "buffer",
-      "isPureWrapper": true,
-      "target": "../../../../engines/conversation-engine/buffer/domain/events/BufferProcesado",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/buffer/domain/repositories/MessageBufferRepository.js",
-      "category": "buffer",
-      "isPureWrapper": true,
-      "target": "../../../../engines/conversation-engine/buffer/domain/repositories/MessageBufferRepository",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/buffer/infrastructure/persistence/FakeMessageBufferRepository.js",
-      "category": "buffer",
-      "isPureWrapper": true,
-      "target": "../../../../engines/conversation-engine/buffer/infrastructure/persistence/FakeMessageBufferRepository",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/capability/application/RegisterCapabilityUseCase.js",
-      "category": "capability",
-      "isPureWrapper": true,
-      "target": "../../../core/capability/application/RegisterCapabilityUseCase",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/runtime/infrastructure/EventDispatcher.js",
-      "category": "runtime",
-      "isPureWrapper": true,
-      "target": "../../../engines/agent-runtime/infrastructure/EventDispatcher",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/state-machine/application/use-cases/AvanzarEtapaUseCase.js",
-      "category": "state-machine",
-      "isPureWrapper": true,
-      "target": "../../../../../engines/conversation-engine/state-machine/application/use-cases/AvanzarEtapaUseCase",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/state-machine/application/use-cases/FinalizarFlujoUseCase.js",
-      "category": "state-machine",
-      "isPureWrapper": true,
-      "target": "../../../../../engines/conversation-engine/state-machine/application/use-cases/FinalizarFlujoUseCase",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/state-machine/application/use-cases/IniciarFlujoUseCase.js",
-      "category": "state-machine",
-      "isPureWrapper": true,
-      "target": "../../../../../engines/conversation-engine/state-machine/application/use-cases/IniciarFlujoUseCase",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/state-machine/domain/events/EtapaAvanzada.js",
-      "category": "state-machine",
-      "isPureWrapper": true,
-      "target": "../../../../engines/conversation-engine/state-machine/domain/events/EtapaAvanzada",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/state-machine/domain/events/FlujoFinalizado.js",
-      "category": "state-machine",
-      "isPureWrapper": true,
-      "target": "../../../../engines/conversation-engine/state-machine/domain/events/FlujoFinalizado",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/state-machine/domain/events/FlujoIniciado.js",
-      "category": "state-machine",
-      "isPureWrapper": true,
-      "target": "../../../../engines/conversation-engine/state-machine/domain/events/FlujoIniciado",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/state-machine/domain/repositories/ConversationFlowRepository.js",
-      "category": "state-machine",
-      "isPureWrapper": true,
-      "target": "../../../../engines/conversation-engine/state-machine/domain/repositories/ConversationFlowRepository",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    },
-    {
-      "wrapper": "src/modules/state-machine/infrastructure/persistence/FakeConversationFlowRepository.js",
-      "category": "state-machine",
-      "isPureWrapper": true,
-      "target": "../../../../engines/conversation-engine/state-machine/infrastructure/persistence/FakeConversationFlowRepository",
-      "references": 0,
-      "referencedBy": [],
-      "sourceType": "code"
-    }
-  ],
+  "jsWrappers": [],
+  "jsWrapperDetails": [],
   "jsImports": [
     {
       "from": "src/core/capability/application/ExecuteCapabilityUseCase.test.ts",

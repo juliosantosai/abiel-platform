@@ -1,5 +1,5 @@
 const NotFoundError = require("../../../../shared/errors/NotFoundError");
-const TenantGuard = require("../../../../shared/tenant/TenantGuard");
+const TenantGuard = require("../../../../core/security/TenantGuard");
 const UsuarioCancelado = require("../../domain/events/UsuarioCancelado");
 
 class CancelarUsuarioUseCase {

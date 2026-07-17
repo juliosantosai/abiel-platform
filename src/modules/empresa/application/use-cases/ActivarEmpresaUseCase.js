@@ -1,5 +1,5 @@
 const NotFoundError = require("../../../../shared/errors/NotFoundError");
-const TenantGuard = require("../../../../shared/tenant/TenantGuard");
+const TenantGuard = require("../../../../core/security/TenantGuard");
 const EmpresaActivada = require("../../domain/events/EmpresaActivada");
 
 class ActivarEmpresaUseCase {

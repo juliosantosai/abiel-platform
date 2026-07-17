@@ -1,6 +1,6 @@
 const ConversationSession = require("../../domain/entities/ConversationSession");
 const ConversationCreated = require("../../domain/events/ConversationCreated");
-const TenantGuard = require("../../../../shared/tenant/TenantGuard");
+const TenantGuard = require("../../../../core/security/TenantGuard");
 
 class CrearConversationSessionUseCase {
     constructor({ repository, eventPublisher, tenantGuard = new TenantGuard() }) {

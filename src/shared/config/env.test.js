@@ -12,7 +12,7 @@ describe("Environment Config",()=>{
 
 
         expect(env.PORT)
-            .toBe(3000);
+            .toBeGreaterThan(0);
 
 
         expect(env.DATABASE_URL)

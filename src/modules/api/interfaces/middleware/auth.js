@@ -2,7 +2,7 @@ module.exports = require("../../../../infrastructure/api/interfaces/middleware/a
 const path = require("path");
 
 // Usar require.resolve para obtener el path correcto
-const TenantContext = require(path.resolve(__dirname, "../../../../shared/tenant/TenantContext"));
+const TenantContext = require(path.resolve(__dirname, "../../../../core/security/TenantContext"));
 
 /**
  * Obtiene JWT_SECRET - valida en tiempo de ejecución en lugar de en tiempo de carga

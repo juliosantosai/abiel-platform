@@ -1,6 +1,6 @@
-module.exports = require("../../../../engines/ai-engine/application/use-cases/GenerarRespuestaUseCase");const AIRequest = require("../../domain/entities/AIRequest");
-const RespuestaGenerada = require("../../domain/events/RespuestaGenerada");
-const GeneracionFallida = require("../../domain/events/GeneracionFallida");
+module.exports = require("../../../../engines/ai-engine/application/use-cases/GenerarRespuestaUseCase");const AIRequest = require("../../../../engines/ai-engine/domain/entities/AIRequest");
+const RespuestaGenerada = require("../../../../engines/ai-engine/domain/events/RespuestaGenerada");
+const GeneracionFallida = require("../../../../engines/ai-engine/domain/events/GeneracionFallida");
 
 class GenerarRespuestaUseCase {
     constructor({ llmProvider, repository, eventPublisher }) {

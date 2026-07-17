@@ -1,6 +1,6 @@
 const NotFoundError = require("../../../../shared/errors/NotFoundError");
 const ConversationClosed = require("../../domain/events/ConversationClosed");
-const TenantGuard = require("../../../../shared/tenant/TenantGuard");
+const TenantGuard = require("../../../../core/security/TenantGuard");
 
 class CerrarConversacionUseCase {
     constructor({ repository, eventPublisher, tenantGuard = new TenantGuard() }) {

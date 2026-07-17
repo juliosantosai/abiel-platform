@@ -1,4 +1,4 @@
-module.exports = require("../../../../engines/conversation-engine/state-machine/domain/entities/ConversationFlow");const FlowStage = require("../valueObjects/FlowStage");
+module.exports = require("../../../../engines/conversation-engine/state-machine/domain/entities/ConversationFlow");const FlowStage = require("../../../../engines/conversation-engine/state-machine/domain/valueObjects/FlowStage");
 const ValidationError = require("../../../../shared/errors/ValidationError");
 const DomainError = require("../../../../shared/errors/DomainError");
 
