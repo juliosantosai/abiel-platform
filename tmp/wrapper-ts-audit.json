@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-17T20:36:12.936Z",
+  "generatedAt": "2026-07-17T20:42:34.327Z",
   "totals": {
-    "totalFiles": 525,
-    "tsFiles": 281,
-    "jsFiles": 244,
+    "totalFiles": 520,
+    "tsFiles": 277,
+    "jsFiles": 243,
     "tsWrappers": 0,
     "jsWrappers": 0,
     "jsImportsExplicit": 73,
@@ -359,14 +359,6 @@
         8
       ],
       [
-        "src/core/execution-policy/domain/ErrorClassifier.js",
-        7
-      ],
-      [
-        "src/core/execution-policy/domain/PermissionChecker.js",
-        7
-      ],
-      [
         "src/core/capability/domain/CapabilityRegistry.js",
         7
       ],
@@ -383,6 +375,14 @@
         7
       ],
       [
+        "src/core/execution-policy/domain/ErrorClassifier.js",
+        6
+      ],
+      [
+        "src/core/execution-policy/domain/PermissionChecker.js",
+        6
+      ],
+      [
         "src/shared/logger/Logger.js",
         6
       ],
@@ -397,10 +397,6 @@
       [
         "src/infrastructure/api/interfaces/middleware/auth.js",
         6
-      ],
-      [
-        "src/engines/agent-runtime/application/RuntimeEngine.js",
-        5
       ],
       [
         "src/engines/conversation-engine/state-machine/domain/repositories/ConversationFlowRepository.js",
@@ -423,23 +419,11 @@
         4
       ],
       [
-        "src/core/execution-policy/domain/RetryPolicy.js",
-        4
-      ],
-      [
-        "src/core/execution-policy/domain/TimeoutPolicy.js",
-        4
-      ],
-      [
         "src/core/security/TenantContext.js",
         4
       ],
       [
-        "src/engines/agent-runtime/domain/ExecutionContext.js",
-        4
-      ],
-      [
-        "src/engines/agent-runtime/domain/ExecutionLifecycle.js",
+        "src/engines/agent-runtime/application/RuntimeEngine.js",
         4
       ],
       [
@@ -447,7 +431,23 @@
         4
       ],
       [
+        "src/core/execution-policy/domain/RetryPolicy.js",
+        3
+      ],
+      [
+        "src/core/execution-policy/domain/TimeoutPolicy.js",
+        3
+      ],
+      [
         "src/engines/agent-runtime/infrastructure/EventDispatcher.js",
+        3
+      ],
+      [
+        "src/engines/agent-runtime/domain/ExecutionContext.js",
+        3
+      ],
+      [
+        "src/engines/agent-runtime/domain/ExecutionLifecycle.js",
         3
       ],
       [
