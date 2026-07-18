@@ -30,3 +30,11 @@ class CapabilityRegistry {
 }
 
 module.exports = CapabilityRegistry;
+
+// CommonJS compatibility for named import
+try {
+    // @ts-ignore
+    module.exports.CapabilityRegistry = CapabilityRegistry;
+    // @ts-ignore
+    module.exports.default = CapabilityRegistry;
+} catch (e) {}

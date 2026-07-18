@@ -23,3 +23,13 @@ export class Logger {
 
 export const logger = new Logger();
 export default logger;
+
+// CommonJS compatibility
+try {
+  // @ts-ignore
+  module.exports = logger;
+  // @ts-ignore
+  module.exports.Logger = Logger;
+  // @ts-ignore
+  module.exports.logger = logger;
+} catch (e) {}

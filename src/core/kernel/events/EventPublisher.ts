@@ -1,5 +1,5 @@
 import { EventBus, globalEventBus } from "./EventBus";
-import { Logger } from "../../../shared/logger/Logger";
+import logger from "../../../shared/logger/Logger";
 
 export class EventPublisher {
   private bus: EventBus;
@@ -13,7 +13,7 @@ export class EventPublisher {
       throw new Error("EventPublisher.publish requiere un evento con propiedad 'name'.");
     }
 
-    Logger.info(`Evento publicado: ${event.name}`, { eventId: event.id });
+    logger.info(`Evento publicado: ${event.name}`, { eventId: event.id });
 
     await this.bus.publish(event);
   }

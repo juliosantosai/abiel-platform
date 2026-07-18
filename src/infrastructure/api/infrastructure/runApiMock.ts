@@ -25,13 +25,13 @@ function buildMockUseCases() {
     };
 }
 
-function run() {
+function run({ runtimeEngine, eventBus } = {}) {
     const port = Number(process.env.PORT || 5000);
     if (!process.env.JWT_SECRET) {
         process.env.JWT_SECRET = "dev-secret";
     }
 
-    const app = new ExpressApp(buildMockUseCases());
+    const app = new ExpressApp(buildMockUseCases(), { runtimeEngine, eventBus });
     app.listen(port);
 }
 

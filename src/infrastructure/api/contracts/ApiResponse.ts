@@ -4,6 +4,7 @@ function ok({ req, data, pagination, cursor, metadata = {} }) {
   const response = {
     success: true,
     data,
+    timestamp: new Date().toISOString(),
   };
 
   if (pagination) {

@@ -1,0 +1,184 @@
+openapi: 3.0.3
+info:
+  title: Abiel Core - Admin API (fragment)
+  version: 1.0.0
+paths:
+  /api/admin/logs:
+    get:
+      summary: Get server logs with pagination and filters
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 1000
+            default: 50
+        - in: query
+          name: level
+          schema:
+            type: string
+            enum: [debug, info, warn, error]
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Paginated logs list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseLogs'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      security:
+        - adminToken: []
+
+  /api/admin/metrics:
+    get:
+      summary: Get runtime and aggregated metrics
+      responses:
+        '200':
+          description: Metrics snapshot
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseMetrics'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      security:
+        - adminToken: []
+
+components:
+  securitySchemes:
+    adminToken:
+      type: apiKey
+      in: header
+      name: x-admin-token
+
+  schemas:
+    ApiResponseBase:
+      type: object
+      properties:
+        success:
+          type: boolean
+        timestamp:
+          type: string
+          format: date-time
+        data:
+          type: object
+    LogItem:
+      type: object
+      properties:
+        message:
+          type: string
+        level:
+          type: string
+          enum: [debug, info, warn, error]
+        occurredAt:
+          type: string
+          format: date-time
+        context:
+          type: object
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+        page:
+          type: integer
+        perPage:
+          type: integer
+    ApiResponseLogs:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/LogItem'
+                total:
+                  type: integer
+                page:
+                  type: integer
+                perPage:
+                  type: integer
+    MetricsSnapshot:
+      type: object
+      properties:
+        startedAt:
+          type: string
+          format: date-time
+        eventsPublished:
+          type: integer
+        capabilitiesRegistered:
+          type: integer
+        cpu:
+          type: number
+          nullable: true
+        ram:
+          type: integer
+        heap:
+          type: integer
+    ApiResponseMetrics:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/MetricsSnapshot'
+
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              error:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              error:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  fields:
+                    type: object

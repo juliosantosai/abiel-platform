@@ -18,3 +18,11 @@ export class EventDispatcher {
 }
 
 export default EventDispatcher;
+
+// CommonJS compatibility
+try {
+  // @ts-ignore
+  module.exports = EventDispatcher;
+  // @ts-ignore
+  module.exports.EventDispatcher = EventDispatcher;
+} catch (e) {}

@@ -58,3 +58,11 @@ export class Capability<TInput = unknown, TOutput = unknown> {
 }
 
 export default Capability;
+
+// CommonJS compatibility
+try {
+  // @ts-ignore
+  module.exports = Capability;
+  // @ts-ignore
+  module.exports.Capability = Capability;
+} catch (e) {}

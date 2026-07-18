@@ -29,3 +29,11 @@ export class TenantContext {
 }
 
 export default TenantContext;
+
+// CommonJS compatibility
+try {
+  // @ts-ignore
+  module.exports = TenantContext;
+  // @ts-ignore
+  module.exports.TenantContext = TenantContext;
+} catch (e) {}

@@ -7,6 +7,7 @@ const { registerApiPipeline } = require("../middleware/pipeline");
 const { getApiV1Paths } = require("../versioning/ApiVersioning");
 const { health } = require("../health/healthController");
 const { getOpenApiJson, getOpenApiYaml, getSwaggerUi } = require("../openapi/OpenApiController");
+const { corsMiddleware } = require("../middleware/corsMiddleware");
 const EmpresaController = require("../interfaces/controllers/EmpresaController");
 const UsuarioController = require("../interfaces/controllers/UsuarioController");
 const ConversationControlController = require("../interfaces/controllers/ConversationControlController");
@@ -15,6 +16,8 @@ const { crearRutasEmpresas } = require("../interfaces/routes/empresasRoutes");
 const { crearRutasUsuarios } = require("../interfaces/routes/usuariosRoutes");
 const { crearRutasConversaciones } = require("../interfaces/routes/conversacionesRoutes");
 const { crearRutasDashboard } = require("../interfaces/routes/dashboardRoutes");
+const { crearRutasAdmin } = require("../../../api/routes/admin.routes");
+const { adminAuth } = require("../../../api/middleware/adminAuth");
 const { autenticar, manejarErrores } = require("../interfaces/middleware/auth");
 const { crearRateLimiter } = require("../interfaces/middleware/rateLimit");
 
@@ -34,8 +37,11 @@ class ExpressApp {
         cerrarConversacionUseCase,
         obtenerMetricasGlobalesUseCase,
         obtenerActividadRecienteUseCase,
-    }) {
+    } = {}, extra = {}) {
         this.app = express();
+        this.runtimeEngine = extra.runtimeEngine;
+        this.eventBus = extra.eventBus;
+        this.abielCore = extra.abielCore;
 
         // Middleware global
         this.app.use(express.json());
@@ -43,6 +49,16 @@ class ExpressApp {
         // Rate limiter: 100 requests per minute per IP
         const apiLimiter = crearRateLimiter(100, 60000);
         registerApiPipeline(this.app, { rateLimiter: apiLimiter });
+
+        // Ensure global preflight handler runs before any auth middleware
+        // This guarantees OPTIONS requests are handled by CORS middleware and
+        // do not reach protected routes that require x-admin-token.
+        this.app.use((req, res, next) => {
+            if (req.method === 'OPTIONS') {
+                return corsMiddleware(req, res, next);
+            }
+            return next();
+        });
 
         // Inyectar controllers con use cases
         const empresaController = new EmpresaController({
@@ -209,6 +225,15 @@ class ExpressApp {
         this.app.get("/api/v1/openapi.yaml", getOpenApiYaml);
         this.app.get("/api/internal/docs", getSwaggerUi);
 
+        // Admin API (protected by x-admin-token)
+        try {
+            const adminOptions = { runtimeEngine: this.runtimeEngine, eventBus: this.eventBus, abielCore: this.abielCore };
+            this.app.use('/api/admin', adminAuth, crearRutasAdmin(adminOptions));
+        } catch (e) {
+            // If admin routes fail to load, keep server running
+            console.warn('Failed to mount admin routes:', e && e.message);
+        }
+
         // 404
         this.app.use((req, res) => {
             throw new ApiHttpException({
@@ -224,7 +249,11 @@ class ExpressApp {
 
     listen(port = 3000) {
         this.app.listen(port, () => {
-            console.log(`API servidor escuchando en puerto ${port}`);
+            const env = process.env.NODE_ENV || 'development';
+            console.log('[ABIEL CORE]');
+            console.log('Server started');
+            console.log(`Port: ${port}`);
+            console.log(`Environment: ${env}`);
         });
     }
 }

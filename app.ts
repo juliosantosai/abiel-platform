@@ -11,7 +11,7 @@ export function boot() {
   const runtimeEngine = new RuntimeEngine({ eventDispatcher });
 
   if (httpEnabled) {
-    runApiMock();
+    runApiMock({ runtimeEngine, eventBus: globalEventBus });
   }
 
   console.log("[Abiel Core V1] Bootstrapping...");

@@ -9,3 +9,11 @@ export class ValidationError extends Error {
 }
 
 export default ValidationError;
+
+// CommonJS compatibility
+try {
+  // @ts-ignore
+  module.exports = ValidationError;
+  // @ts-ignore
+  module.exports.ValidationError = ValidationError;
+} catch (e) {}

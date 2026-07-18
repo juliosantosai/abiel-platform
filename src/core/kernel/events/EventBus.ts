@@ -31,3 +31,13 @@ export class EventBus {
 
 export const globalEventBus = new EventBus();
 export default globalEventBus;
+
+// CommonJS compatibility for code that uses require()
+try {
+  // @ts-ignore
+  module.exports = globalEventBus;
+  // @ts-ignore
+  module.exports.EventBus = EventBus;
+} catch (e) {
+  // ignore in ESM environments
+}
