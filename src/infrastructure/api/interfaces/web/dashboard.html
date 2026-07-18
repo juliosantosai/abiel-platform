@@ -262,6 +262,7 @@
                 <div class="actions">
                     <button id="useDemo" class="btn btn-secondary" type="button">Usar token demo</button>
                     <button id="loadData" class="btn btn-primary" type="button">Actualizar dashboard</button>
+                    <button id="openInternals" class="btn btn-secondary" type="button">Ver vista interna</button>
                 </div>
             </div>
             <p id="status" class="status">Estado: pendiente de carga</p>
@@ -308,6 +309,7 @@
             const tokenInput = document.getElementById("tokenInput");
             const useDemoBtn = document.getElementById("useDemo");
             const loadDataBtn = document.getElementById("loadData");
+            const openInternalsBtn = document.getElementById("openInternals");
             const status = document.getElementById("status");
             const metricConversations = document.getElementById("metricConversations");
             const metricUsers = document.getElementById("metricUsers");
@@ -317,7 +319,12 @@
 
             tokenInput.value = localStorage.getItem(storageKey) || "";
 
-            useDemoBtn.addEventListener("click", async () => {
+            async function ensureDemoToken() {
+                const currentToken = tokenInput.value.trim();
+                if (currentToken) {
+                    return currentToken;
+                }
+
                 try {
                     setStatus("solicitando token demo...", "");
                     const response = await fetch("/api/demo-token");
@@ -330,15 +337,31 @@
                     tokenInput.value = data.data.token;
                     localStorage.setItem(storageKey, data.data.token);
                     setStatus("Token demo cargado.", "ok");
+                    return data.data.token;
                 } catch (error) {
                     setStatus(error.message || "No se pudo cargar token demo.", "warn");
+                    throw error;
+                }
+            }
+
+            useDemoBtn.addEventListener("click", async () => {
+                try {
+                    await ensureDemoToken();
+                } catch (error) {
+                    // El estado ya se actualiza dentro de ensureDemoToken
                 }
             });
 
-            loadDataBtn.addEventListener("click", () => {
-                loadDashboard().catch((error) => {
+            loadDataBtn.addEventListener("click", async () => {
+                try {
+                    await loadDashboard();
+                } catch (error) {
                     setStatus(error.message || "No se pudo cargar el dashboard.", "warn");
-                });
+                }
+            });
+
+            openInternalsBtn.addEventListener("click", () => {
+                window.location.href = "/dashboard/internals";
             });
 
             tokenInput.addEventListener("change", () => {
@@ -353,8 +376,8 @@
                 }
             }
 
-            function authHeaders() {
-                const token = tokenInput.value.trim();
+            async function authHeaders() {
+                const token = (await ensureDemoToken()).trim();
                 if (!token) {
                     throw new Error("Ingresa un JWT para continuar.");
                 }
@@ -364,7 +387,7 @@
 
             async function loadDashboard() {
                 setStatus("cargando datos...", "");
-                const headers = authHeaders();
+                const headers = await authHeaders();
 
                 const [metricasRes, actividadRes] = await Promise.all([
                     fetch("/api/dashboard/metricas", { headers }),

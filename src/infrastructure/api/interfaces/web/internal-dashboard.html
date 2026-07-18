@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vista Interna - Abiel Core</title>
+    <style>
+        :root {
+            --bg: #06121d;
+            --panel: rgba(10, 24, 38, 0.92);
+            --panel-2: rgba(20, 36, 54, 0.96);
+            --text: #f5f8ff;
+            --muted: #8da1b8;
+            --line: rgba(108, 139, 171, 0.22);
+            --brand: #39d98a;
+            --brand-2: #4cc9f0;
+            --warn: #ffb84d;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: Inter, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(76, 201, 240, 0.16), transparent 28%),
+                radial-gradient(circle at 90% 10%, rgba(57, 217, 138, 0.18), transparent 24%),
+                linear-gradient(135deg, #06121d 0%, #101f2f 45%, #102137 100%);
+            color: var(--text);
+            min-height: 100vh;
+        }
+        .shell { max-width: 1320px; margin: 0 auto; padding: 24px 16px 40px; }
+        .hero {
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+            padding: 20px; border: 1px solid var(--line); border-radius: 24px;
+            background: rgba(7, 16, 25, 0.72); backdrop-filter: blur(12px);
+            margin-bottom: 18px;
+        }
+        h1 { margin: 0; font-size: clamp(28px, 4vw, 40px); }
+        .meta { color: var(--muted); margin-top: 6px; max-width: 700px; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 10px 16px; border-radius: 999px; background: linear-gradient(120deg, var(--brand), var(--brand-2)); color: #04111b; font-weight: 700; text-decoration: none; }
+        .layout { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 16px; }
+        .stack { display: grid; gap: 12px; }
+        .card { background: var(--panel); border: 1px solid var(--line); border-radius: 20px; padding: 16px; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25); }
+        .card-header { display: flex; justify-content: space-between; align-items: start; gap: 8px; margin-bottom: 10px; }
+        .card h2 { margin: 0; font-size: 18px; }
+        .card p { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+        .pill { display: inline-block; padding: 5px 9px; border-radius: 999px; font-size: 12px; font-weight: 700; background: rgba(57, 217, 138, 0.16); color: var(--brand); }
+        .chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 999px; background: rgba(76, 201, 240, 0.14); color: var(--brand-2); font-size: 12px; font-weight: 700; }
+        .item { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px; border-radius: 12px; background: var(--panel-2); border: 1px solid transparent; cursor: pointer; transition: transform 160ms ease, border-color 160ms ease, background 160ms ease; }
+        .item:hover { transform: translateY(-1px); border-color: rgba(76, 201, 240, 0.38); }
+        .item.active { border-color: rgba(57, 217, 138, 0.55); background: rgba(57, 217, 138, 0.12); }
+        .item strong { font-size: 14px; }
+        .item span { color: var(--muted); font-size: 12px; }
+        .detail-card { position: sticky; top: 16px; align-self: start; padding: 18px; }
+        .detail-card h3 { margin: 0 0 8px; font-size: 20px; }
+        .detail-card .detail-body { color: var(--muted); line-height: 1.6; }
+        .detail-grid { display: grid; gap: 8px; margin-top: 12px; }
+        .detail-box { padding: 10px 12px; border-radius: 12px; background: rgba(255,255,255,0.04); border: 1px solid var(--line); }
+        .detail-box strong { display: block; margin-bottom: 3px; color: var(--text); font-size: 13px; }
+        .detail-box span { color: var(--muted); font-size: 13px; }
+        .empty { color: var(--muted); font-style: italic; }
+        @media (max-width: 920px) { .layout{grid-template-columns:1fr;} .detail-card{position:relative; top:0;} }
+    </style>
+</head>
+<body>
+    <main class="shell">
+        <section class="hero">
+            <div>
+                <h1>Vista Interna del Servidor</h1>
+                <p class="meta">Explora la arquitectura del sistema como un panel operativo moderno, con contexto de cada componente al hacer clic.</p>
+            </div>
+            <a class="btn" href="/dashboard">Volver al dashboard</a>
+        </section>
+
+        <section class="layout">
+            <div id="overview" class="stack"></div>
+            <aside id="detail" class="card detail-card">
+                <div class="chip">Selecciona un bloque</div>
+                <h3>Explora la plataforma</h3>
+                <p class="detail-body">Haz clic sobre un elemento para ver una descripción más rica del rol que cumple en el sistema.</p>
+            </aside>
+        </section>
+    </main>
+
+    <script>
+        const detailPanel = document.getElementById('detail');
+
+        const detailCatalog = {
+            core: {
+                title: 'Core',
+                summary: 'La capa base que soporta eventos, capacidades, seguridad y contexto de tenant.',
+                bullets: [
+                    ['Kernel', 'Provee el contrato central para orquestar los servicios.' ],
+                    ['EventBus', 'Transmite eventos entre capas sin acoplamiento fuerte.' ],
+                    ['TenantContext', 'Mantiene el contexto de negocio y seguridad por empresa.' ],
+                ],
+            },
+            engines: {
+                title: 'Engines',
+                summary: 'Motores de ejecución, conversación e IA que convierten los flujos en comportamiento operativo.',
+                bullets: [
+                    ['Runtime', 'Coordina la ejecución de capacidades y políticas.' ],
+                    ['Conversation', 'Administra estados, buffers y etapas del diálogo.' ],
+                    ['AI', 'Genera respuestas y decisiones con modelos externos.' ],
+                ],
+            },
+            modules: {
+                title: 'Modules',
+                summary: 'Representan los casos de negocio del sistema: empresas, usuarios, conversaciones y entregas.',
+                bullets: [
+                    ['Empresas', 'Gestión del tenant y sus estados operativos.' ],
+                    ['Usuarios', 'Control de identidad, roles y permisos.' ],
+                    ['WhatsApp Sender', 'Integración de salida para mensajería y notificaciones.' ],
+                ],
+            },
+            infrastructure: {
+                title: 'Infrastructure',
+                summary: 'La capa de transporte, autenticación, observabilidad y exposición de APIs.',
+                bullets: [
+                    ['Express API', 'Sirve el modelo de endpoints y rutas HTTP.' ],
+                    ['Auth Middleware', 'Valida tokens y contextos de seguridad.' ],
+                    ['OpenAPI', 'Documenta los contratos para desarrolladores y integradores.' ],
+                ],
+            },
+            shared: {
+                title: 'Shared',
+                summary: 'Recursos reutilizables del ecosistema: errores, logging, base de datos y configuración.',
+                bullets: [
+                    ['Prisma', 'Acceso a datos y persistencia del sistema.' ],
+                    ['Logger', 'Observabilidad transversal para auditoría y monitoreo.' ],
+                    ['Config', 'Parámetros compartidos del runtime.' ],
+                ],
+            },
+        };
+
+        async function loadOverview() {
+            const response = await fetch('/api/internal/overview');
+            const payload = await response.json();
+            const sections = payload?.data?.sections || [];
+            const container = document.getElementById('overview');
+
+            container.innerHTML = sections.map((section) => {
+                const items = (section.items || []).map((item) => `
+                    <button class="item" type="button" data-section="${escapeHtml(section.id)}" data-name="${escapeHtml(item.name)}">
+                        <strong>${escapeHtml(item.name)}</strong>
+                        <span>${escapeHtml(item.status)}</span>
+                    </button>
+                `).join('');
+
+                return `
+                    <article class="card">
+                        <div class="card-header">
+                            <div>
+                                <p class="pill">${escapeHtml(section.title)}</p>
+                                <h2>${escapeHtml(section.title)}</h2>
+                                <p>${escapeHtml(section.description)}</p>
+                            </div>
+                            <span class="chip">${escapeHtml(section.items?.length || 0)} items</span>
+                        </div>
+                        <div class="stack">${items}</div>
+                    </article>
+                `;
+            }).join('');
+
+            container.querySelectorAll('.item').forEach((button) => {
+                button.addEventListener('click', () => {
+                    container.querySelectorAll('.item').forEach((el) => el.classList.remove('active'));
+                    button.classList.add('active');
+                    const section = detailCatalog[button.dataset.section] || { title: button.dataset.section, summary: 'Componentes del sistema.', bullets: [] };
+                    detailPanel.innerHTML = `
+                        <div class="chip">${escapeHtml(section.title)}</div>
+                        <h3>${escapeHtml(button.dataset.name)}</h3>
+                        <p class="detail-body">${escapeHtml(section.summary)}</p>
+                        <div class="detail-grid">
+                            ${(section.bullets || []).map(([label, value]) => `
+                                <div class="detail-box">
+                                    <strong>${escapeHtml(label)}</strong>
+                                    <span>${escapeHtml(value)}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                });
+            });
+        }
+
+        function escapeHtml(value) {
+            return String(value)
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#39;');
+        }
+
+        loadOverview().catch(() => {
+            document.getElementById('overview').innerHTML = '<article class="card"><h2>No disponible</h2><p>No se pudo cargar la vista interna en este momento.</p></article>';
+        });
+    </script>
+</body>
+</html>

@@ -65,6 +65,20 @@ describe("Middleware: autenticar", () => {
         expect(req.usuario.empresaId).toEqual("empresa-123");
         expect(req.usuario.iat).toBeDefined();
     });
+
+    test("debe aceptar el token demo cuando no hay JWT_SECRET configurado", () => {
+        delete process.env.JWT_SECRET;
+        const token = jwt.sign({ empresaId: "empresa-demo" }, "dev-secret");
+        const req = { headers: { authorization: `Bearer ${token}` } };
+        const res = {};
+        const next = jest.fn();
+
+        autenticar(req, res, next);
+
+        expect(next).toHaveBeenCalled();
+        expect(req.tenantContext).toBeDefined();
+        expect(req.usuario.empresaId).toEqual("empresa-demo");
+    });
 });
 
 describe("Middleware: manejarErrores", () => {

@@ -89,6 +89,79 @@ class ExpressApp {
             res.sendFile(path.resolve(__dirname, "../interfaces/web/dashboard.html"));
         });
 
+        this.app.get("/dashboard/internals", (req, res) => {
+            res.sendFile(path.resolve(__dirname, "../interfaces/web/internal-dashboard.html"));
+        });
+
+        this.app.get("/api/internal/overview", (req, res) => {
+            res.json(ApiResponse.ok({
+                req,
+                data: {
+                    server: "Abiel Core",
+                    generatedAt: new Date().toISOString(),
+                    sections: [
+                        {
+                            id: "core",
+                            title: "Core",
+                            description: "Kernel reusable del framework",
+                            items: [
+                                { name: "EventBus", status: "active" },
+                                { name: "EventPublisher", status: "active" },
+                                { name: "Capability", status: "active" },
+                                { name: "TenantContext", status: "active" },
+                                { name: "PermissionChecker", status: "active" },
+                            ],
+                        },
+                        {
+                            id: "engines",
+                            title: "Engines",
+                            description: "Motores de ejecución y conversación",
+                            items: [
+                                { name: "Agent Runtime", status: "active" },
+                                { name: "AI Engine", status: "active" },
+                                { name: "Conversation Engine", status: "active" },
+                            ],
+                        },
+                        {
+                            id: "modules",
+                            title: "Modules",
+                            description: "Módulos de negocio del servidor",
+                            items: [
+                                { name: "Empresa", status: "active" },
+                                { name: "Usuario", status: "active" },
+                                { name: "Human Intervention", status: "active" },
+                                { name: "WhatsApp Sender", status: "active" },
+                                { name: "Dashboard", status: "active" },
+                            ],
+                        },
+                        {
+                            id: "infrastructure",
+                            title: "Infrastructure",
+                            description: "API, middleware y adaptadores",
+                            items: [
+                                { name: "Express API", status: "active" },
+                                { name: "Auth Middleware", status: "active" },
+                                { name: "Rate Limiter", status: "active" },
+                                { name: "OpenAPI Docs", status: "active" },
+                                { name: "Health Endpoint", status: "active" },
+                            ],
+                        },
+                        {
+                            id: "shared",
+                            title: "Shared",
+                            description: "Servicios compartidos de soporte",
+                            items: [
+                                { name: "Logger", status: "active" },
+                                { name: "Errors", status: "active" },
+                                { name: "Prisma", status: "active" },
+                                { name: "Config", status: "active" },
+                            ],
+                        },
+                    ],
+                },
+            }));
+        });
+
         const demoTokenHandler = (req, res) => {
             const secret = process.env.JWT_SECRET || "dev-secret";
             const requestedEmpresaId = req.query.empresaId;
