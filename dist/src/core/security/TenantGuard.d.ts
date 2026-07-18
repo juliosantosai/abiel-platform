@@ -4,8 +4,8 @@ declare class TenantGuard {
     constructor({ tenantContext }?: {});
     setContext(tenantContext: any): void;
     clearContext(): void;
-    ensureTenantContext(tenantContext?: any): TenantContext;
-    ensureSameTenant(resourceTenantId: any, tenantContext?: any): TenantContext;
-    ensureTenantMatches(resource: any, tenantContext?: any): TenantContext;
+    ensureTenantContext(tenantContext?: any): any;
+    ensureSameTenant(resourceTenantId: any, tenantContext?: any): any;
+    ensureTenantMatches(resource: any, tenantContext?: any): any;
 }
 //# sourceMappingURL=TenantGuard.d.ts.map

@@ -1,12 +1,15 @@
 const CoreFacade = require('../../core/facade/CoreFacade');
+const ArchitectureDiscoveryService = require('../../modules/admin/application/ArchitectureDiscoveryService');
 
 class AdminService {
-    constructor({ abielCore, runtimeEngine, eventBus, metrics, logBuffer } = {}) {
+    constructor({ abielCore, runtimeEngine, eventBus, metrics, logBuffer, moduleRegistry, pluginRegistry } = {}) {
         this.abielCore = abielCore || null;
         this.runtimeEngine = runtimeEngine || null;
         this.eventBus = eventBus || null;
         this.metrics = metrics || null;
         this.logBuffer = logBuffer || null;
+        this.moduleRegistry = moduleRegistry || null;
+        this.pluginRegistry = pluginRegistry || null;
 
         // Create a small facade to unify access to core/runtime/eventbus
         try {
@@ -14,6 +17,15 @@ class AdminService {
         } catch (e) {
             this.facade = null;
         }
+
+        this.architectureDiscoveryService = new ArchitectureDiscoveryService({
+            abielCore: this.abielCore,
+            runtimeEngine: this.runtimeEngine,
+            eventBus: this.eventBus,
+            moduleRegistry: this.moduleRegistry,
+            pluginRegistry: this.pluginRegistry,
+            metrics: this.metrics,
+        });
     }
 
     async getDashboard() {
@@ -37,6 +49,17 @@ class AdminService {
             eventBus: eventStats,
             capabilities: Array.isArray(capabilities) ? capabilities.length : 0,
             tenants: process.env.DEMO_TENANTS ? Number(process.env.DEMO_TENANTS) : 1,
+        };
+    }
+
+    getStatus() {
+        return {
+            service: 'Abiel Core Admin API',
+            environment: process.env.NODE_ENV || 'development',
+            adminApiEnabled: true,
+            adminTokenConfigured: Boolean(process.env.ADMIN_SECRET_TOKEN),
+            serverTime: new Date().toISOString(),
+            version: process.env.npm_package_version || 'unknown',
         };
     }
 
@@ -107,6 +130,10 @@ class AdminService {
             eventBus: this.eventBus ? 'UP' : 'DOWN',
             core: this.abielCore ? 'UP' : 'DOWN',
         };
+    }
+
+    async getRuntimeState() {
+        return this.getRuntimeInfo();
     }
 
     async getMetrics() {
@@ -188,6 +215,50 @@ class AdminService {
             mode: process.env.NODE_ENV || 'development',
             env: { NODE_ENV: process.env.NODE_ENV },
         };
+    }
+
+    async getOverview() {
+        return {
+            status: this.getStatus(),
+            health: await this.getHealth(),
+            runtime: await this.getRuntimeState(),
+        };
+    }
+
+    async getArchitectureOverview() {
+        return this.architectureDiscoveryService.getArchitectureOverview();
+    }
+
+    async getCoreInfo() {
+        return this.architectureDiscoveryService.discoverCore();
+    }
+
+    async getEnginesInfo() {
+        return this.architectureDiscoveryService.discoverEngines();
+    }
+
+    async getModulesInfo() {
+        return this.architectureDiscoveryService.discoverModules();
+    }
+
+    async getPluginsInfo() {
+        return this.architectureDiscoveryService.discoverPlugins();
+    }
+
+    async getArchitectureModules() {
+        return this.architectureDiscoveryService.discoverModules();
+    }
+
+    async getSharedServicesInfo() {
+        return this.architectureDiscoveryService.discoverSharedServices();
+    }
+
+    async getRuntimeInfo() {
+        return this.architectureDiscoveryService.discoverRuntimeState();
+    }
+
+    async getComponentDetail(type, id) {
+        return this.architectureDiscoveryService.getComponentDetail(type, id);
     }
 }
 

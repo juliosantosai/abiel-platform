@@ -1,0 +1,1 @@
+{"version":3,"file":"customer.routes.d.ts","sourceRoot":"","sources":["../../../../src/api/routes/customer.routes.ts"],"names":[],"mappings":"AAAA,QAAA,MAAM,OAAO,KAAqB,CAAC;AACnC,QAAA,MAAM,wBAAwB,KAA8D,CAAC;AAC7F,QAAA,MAAQ,mBAAmB,KAAiD,CAAC;AAC7E,QAAA,MAAQ,aAAa,KAAqD,CAAC;AAC3E,QAAA,MAAQ,cAAc,OAAE,YAAY,KAA8D,CAAC;AAEnG,iBAAS,kBAAkB,CAAC,OAAO,KAAK,OAevC"}

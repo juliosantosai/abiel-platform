@@ -1,4 +1,6 @@
-declare class ValidationError extends Error {
-    constructor(message: any, fields?: {});
+export declare class ValidationError extends Error {
+    fields: Record<string, unknown>;
+    constructor(message: string, fields?: Record<string, unknown>);
 }
+export default ValidationError;
 //# sourceMappingURL=ValidationError.d.ts.map

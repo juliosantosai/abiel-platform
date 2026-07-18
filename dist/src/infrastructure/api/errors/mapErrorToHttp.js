@@ -1,10 +1,14 @@
 "use strict";
 const path = require("path");
 const ApiHttpException = require("./ApiHttpException");
-const ValidationError = require(path.resolve(__dirname, "../../../shared/errors/ValidationError"));
-const DomainError = require(path.resolve(__dirname, "../../../shared/errors/DomainError"));
-const NotFoundError = require(path.resolve(__dirname, "../../../shared/errors/NotFoundError"));
-const TenantError = require(path.resolve(__dirname, "../../../core/security/TenantError"));
+const ValidationErrorModule = require(path.resolve(__dirname, "../../../shared/errors/ValidationError"));
+const DomainErrorModule = require(path.resolve(__dirname, "../../../shared/errors/DomainError"));
+const NotFoundErrorModule = require(path.resolve(__dirname, "../../../shared/errors/NotFoundError"));
+const TenantErrorModule = require(path.resolve(__dirname, "../../../core/security/TenantError"));
+const ValidationError = ValidationErrorModule.ValidationError || ValidationErrorModule.default || ValidationErrorModule;
+const DomainError = DomainErrorModule.DomainError || DomainErrorModule.default || DomainErrorModule;
+const NotFoundError = NotFoundErrorModule.NotFoundError || NotFoundErrorModule.default || NotFoundErrorModule;
+const TenantError = TenantErrorModule.TenantError || TenantErrorModule.default || TenantErrorModule;
 function mapErrorToHttp(err) {
     if (err instanceof ApiHttpException) {
         return {

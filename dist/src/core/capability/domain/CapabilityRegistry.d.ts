@@ -4,7 +4,7 @@ declare class CapabilityRegistry {
     constructor({ capabilityRepository }: {
         capabilityRepository: any;
     });
-    register(capability: any): Promise<Capability>;
+    register(capability: any): Promise<any>;
     findByName(name: any): Promise<any>;
 }
 //# sourceMappingURL=CapabilityRegistry.d.ts.map

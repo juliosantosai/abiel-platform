@@ -1,13 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AbielCore = void 0;
-const Capability = require("./capability/domain/Capability");
-const CapabilityRegistry = require("./capability/domain/CapabilityRegistry");
-const EventBus = require("./kernel/events/EventBus");
-const TenantContext = require("./security/TenantContext");
-const { ConsoleLogger } = require("./observability/Logger");
-const { Metrics } = require("./observability/Metrics");
-const { HealthCheck } = require("./observability/HealthCheck");
+const CapabilityRegistry_1 = require("./capability/domain/CapabilityRegistry");
+const EventBus_1 = require("./kernel/events/EventBus");
+const TenantContext_1 = require("./security/TenantContext");
+const Logger_1 = require("./observability/Logger");
+const Metrics_1 = require("./observability/Metrics");
+const HealthCheck_1 = require("./observability/HealthCheck");
 class AbielCore {
     tenantContext;
     eventBus;
@@ -19,12 +18,12 @@ class AbielCore {
         if (!config || !config.tenantId) {
             throw new Error("AbielCore requires a tenantId");
         }
-        this.tenantContext = TenantContext.from(config.tenantId);
-        this.eventBus = config.eventBus || new (EventBus.EventBus || EventBus)();
-        this.logger = config.logger || new ConsoleLogger();
-        this.metrics = config.metrics || new Metrics();
-        this.healthCheck = config.healthCheck || new HealthCheck();
-        this.capabilityRegistry = config.capabilityRegistry || new CapabilityRegistry({
+        this.tenantContext = TenantContext_1.TenantContext.from(config.tenantId);
+        this.eventBus = config.eventBus || new (EventBus_1.EventBus.EventBus || EventBus_1.EventBus)();
+        this.logger = config.logger || new Logger_1.ConsoleLogger();
+        this.metrics = config.metrics || new Metrics_1.Metrics();
+        this.healthCheck = config.healthCheck || new HealthCheck_1.HealthCheck();
+        this.capabilityRegistry = config.capabilityRegistry || new CapabilityRegistry_1.CapabilityRegistry({
             capabilityRepository: {
                 async save(capability) {
                     return capability;

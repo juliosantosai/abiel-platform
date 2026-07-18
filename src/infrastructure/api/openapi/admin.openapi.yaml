@@ -64,6 +64,36 @@ paths:
       security:
         - adminToken: []
 
+  /api/admin/architecture:
+    get:
+      summary: Get architecture discovery overview
+      responses:
+        '200':
+          description: Architecture overview
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseArchitecture'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      security:
+        - adminToken: []
+
+  /api/admin/architecture/modules:
+    get:
+      summary: Get discovered admin modules and runtime module status
+      responses:
+        '200':
+          description: Module discovery
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseModules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      security:
+        - adminToken: []
+
 components:
   securitySchemes:
     adminToken:
@@ -146,6 +176,31 @@ components:
           properties:
             data:
               $ref: '#/components/schemas/MetricsSnapshot'
+    ApiResponseArchitecture:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              type: object
+    ApiResponseModules:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  path:
+                    type: string
+                  status:
+                    type: string
+                  exists:
+                    type: boolean
 
   responses:
     Unauthorized:

@@ -27,6 +27,10 @@ npx prisma generate
 npm start
 ```
 
+Entrypoint: el arranque centralizado ahora se realiza mediante `RuntimeBootstrap`.
+`npm start` ejecuta `app.ts` que a su vez llama a `RuntimeBootstrap.create(...)`.
+Para iniciar solo la API mock use `npm run start:api:mock`.
+
 ## Useful commands
 
 ```bash

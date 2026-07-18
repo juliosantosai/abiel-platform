@@ -1,4 +1,7 @@
-export {};
+import { Capability } from "./capability/domain/Capability";
+import { CapabilityRegistry } from "./capability/domain/CapabilityRegistry";
+import { EventBus } from "./kernel/events/EventBus";
+import { TenantContext } from "./security/TenantContext";
 export interface AbielCoreConfig {
     tenantId: string;
     source?: string;

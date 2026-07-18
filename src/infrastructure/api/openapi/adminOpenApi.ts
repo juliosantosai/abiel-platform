@@ -25,6 +25,20 @@ const adminOpenApi = {
         security: [{ adminToken: [] }],
       },
     },
+    "/api/admin/architecture": {
+      get: {
+        summary: "Get architecture discovery overview",
+        responses: { "200": { description: "Architecture overview" }, "401": { description: "Unauthorized" } },
+        security: [{ adminToken: [] }],
+      },
+    },
+    "/api/admin/architecture/modules": {
+      get: {
+        summary: "Get discovered admin modules and runtime module status",
+        responses: { "200": { description: "Module discovery" }, "401": { description: "Unauthorized" } },
+        security: [{ adminToken: [] }],
+      },
+    },
   },
   components: {
     securitySchemes: {

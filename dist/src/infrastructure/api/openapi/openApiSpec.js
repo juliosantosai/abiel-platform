@@ -329,5 +329,26 @@ const openApiSpec = {
         },
     },
 };
+// Merge admin OpenAPI fragment if present
+try {
+    const { adminOpenApi } = require("./adminOpenApi");
+    if (adminOpenApi && adminOpenApi.paths) {
+        openApiSpec.paths = Object.assign({}, openApiSpec.paths || {}, adminOpenApi.paths);
+    }
+    if (adminOpenApi && adminOpenApi.components) {
+        openApiSpec.components = openApiSpec.components || {};
+        // merge securitySchemes
+        if (adminOpenApi.components.securitySchemes) {
+            openApiSpec.components.securitySchemes = Object.assign({}, openApiSpec.components.securitySchemes || {}, adminOpenApi.components.securitySchemes);
+        }
+        // merge schemas
+        if (adminOpenApi.components.schemas) {
+            openApiSpec.components.schemas = Object.assign({}, openApiSpec.components.schemas || {}, adminOpenApi.components.schemas);
+        }
+    }
+}
+catch (e) {
+    // ignore if fragment not present
+}
 module.exports = { openApiSpec };
 //# sourceMappingURL=openApiSpec.js.map

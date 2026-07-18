@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node -r ts-node/register/transpile-only app.ts",
     "start:api:mock": "node -r ts-node/register/transpile-only src/modules/api/infrastructure/runApiMock.ts",
+    "build": "npm run typecheck:build",
     "test": "npx prisma generate && jest",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "typecheck:build": "tsc -p tsconfig.build.json",
@@ -15,6 +16,7 @@
     "arch:inventory:wrapper-ts": "node tools/architecture/audit-wrapper-ts.ts"
   },
   "devDependencies": {
+    "@types/node": "^20.5.12",
     "@babel/plugin-syntax-import-meta": "^7.10.4",
     "@types/jest": "^30.0.0",
     "jest": "^30.4.2",

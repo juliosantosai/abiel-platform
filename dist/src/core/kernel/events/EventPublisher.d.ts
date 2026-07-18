@@ -1,13 +1,15 @@
-declare const EventBus: any;
-declare const globalBus: any;
-declare const Logger: any;
-declare class EventPublisher {
-    /**
-     * @param {object} [opts]
-     * @param {EventBus} [opts.bus] - bus a usar; si se omite usa el singleton global
-     */
-    constructor({ bus }?: {});
-    publish(event: any): Promise<void>;
+import { EventBus } from "./EventBus";
+export declare class EventPublisher {
+    private bus;
+    constructor({ bus }?: {
+        bus?: EventBus;
+    });
+    publish(event: {
+        name: string;
+        id?: string;
+        [key: string]: unknown;
+    }): Promise<void>;
 }
-declare const globalPublisher: EventPublisher;
+export declare const globalPublisher: EventPublisher;
+export default globalPublisher;
 //# sourceMappingURL=EventPublisher.d.ts.map

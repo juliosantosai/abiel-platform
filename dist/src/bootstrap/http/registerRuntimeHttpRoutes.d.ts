@@ -1,0 +1,22 @@
+declare const path: any;
+declare const jwt: any;
+declare const ApiResponse: any;
+declare const getApiV1Paths: any;
+declare const health: any;
+declare const getOpenApiJson: any, getOpenApiYaml: any, getSwaggerUi: any;
+declare const EmpresaController: any;
+declare const UsuarioController: any;
+declare const ConversationControlController: any;
+declare const DashboardController: any;
+declare const crearRutasEmpresas: any;
+declare const crearRutasUsuarios: any;
+declare const crearRutasConversaciones: any;
+declare const crearRutasDashboard: any;
+declare const autenticar: any;
+declare const crearRutasAdmin: any;
+declare const crearRutasCustomer: any;
+declare const crearRutasCore: any;
+declare const crearRutasPublic: any;
+declare const adminAuth: any;
+declare function registerRuntimeHttpRoutes(app: any, useCases?: {}, extra?: {}): void;
+//# sourceMappingURL=registerRuntimeHttpRoutes.d.ts.map

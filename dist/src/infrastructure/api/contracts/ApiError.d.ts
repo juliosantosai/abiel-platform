@@ -3,11 +3,15 @@ declare function createApiError({ problem, metadata }: {
     metadata: any;
 }): {
     success: boolean;
-    error: any;
+    error: {
+        code: any;
+        message: any;
+    };
     code: any;
     fields: any;
     details: any;
     problem: any;
     metadata: any;
+    timestamp: string;
 };
 //# sourceMappingURL=ApiError.d.ts.map

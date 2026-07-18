@@ -1,13 +1,24 @@
-declare const ValidationError: any;
-declare class Capability {
-    constructor({ name, version, requiredPermissions, lifecycle, handler }: {
-        name: any;
-        version?: string;
-        requiredPermissions?: any[];
-        lifecycle?: string;
-        handler: any;
-    });
-    isExecutable(): boolean;
-    execute(input: any, executionContext: any): Promise<any>;
+export type CapabilityLifecycle = "active" | "deprecated" | "inactive" | string;
+export interface CapabilityExecutionContext {
+    [key: string]: unknown;
 }
+export type CapabilityHandler<TInput = unknown, TOutput = unknown> = (input: TInput, executionContext: CapabilityExecutionContext) => Promise<TOutput> | TOutput;
+export interface CapabilityProps<TInput = unknown, TOutput = unknown> {
+    name: string;
+    version?: string;
+    requiredPermissions?: string[];
+    lifecycle?: CapabilityLifecycle;
+    handler: CapabilityHandler<TInput, TOutput>;
+}
+export declare class Capability<TInput = unknown, TOutput = unknown> {
+    name: string;
+    version: string;
+    requiredPermissions: string[];
+    lifecycle: CapabilityLifecycle;
+    handler: CapabilityHandler<TInput, TOutput>;
+    constructor({ name, version, requiredPermissions, lifecycle, handler }: CapabilityProps<TInput, TOutput>);
+    isExecutable(): boolean;
+    execute(input: TInput, executionContext: CapabilityExecutionContext): Promise<TOutput>;
+}
+export default Capability;
 //# sourceMappingURL=Capability.d.ts.map

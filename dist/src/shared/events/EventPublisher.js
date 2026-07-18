@@ -1,5 +1,5 @@
 "use strict";
-module.exports = require("../../core/kernel/events/EventPublisher"); // src/shared/events/EventPublisher.js
+module.exports = require("../../core/kernel/events/EventPublisher");
 const { EventBus } = require("./EventBus");
 const globalBus = require("./EventBus");
 const Logger = require("../logger/Logger");

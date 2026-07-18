@@ -29,6 +29,9 @@ npx prisma generate
 npm start
 ```
 
+Nota: el arranque del runtime está centralizado en `src/bootstrap/RuntimeBootstrap.ts`.
+Los scripts de inicio (`npm start`, `npm run start:api:mock`) delegan en este bootstrap.
+
 ## Notas
 
 - La documentación histórica y de transición ha sido consolidada o eliminada para reducir ruido y mantener la guía orientada a la arquitectura actual.

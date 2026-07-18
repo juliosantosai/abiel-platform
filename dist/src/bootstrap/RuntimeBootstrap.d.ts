@@ -1,0 +1,80 @@
+declare const fs: any;
+declare const path: any;
+declare const eventBusModule: any;
+declare const globalEventBus: any;
+declare const AbielCore: any;
+declare const ModuleRegistry: any;
+declare const PluginRegistry: any;
+declare const ArchitectureRegistry: any;
+declare const RuntimeEngine: any;
+declare const EventDispatcher: any;
+declare const ExpressApp: any;
+declare const RuntimeContext: any;
+declare const MODULES_SOURCE_PATH: any;
+declare const PLUGINS_SOURCE_PATH: any;
+declare const BOOT_STATES: {
+    BOOTING: string;
+    DISCOVERING: string;
+    LOADING_MODULES: string;
+    LOADING_PLUGINS: string;
+    STARTING: string;
+    RUNNING: string;
+    STOPPING: string;
+    STOPPED: string;
+    FAILED: string;
+};
+declare class RuntimeBootstrap {
+    runtimeEnv: any;
+    tenantId: any;
+    apiPort: any;
+    loadPluginsFlag: any;
+    logger: any;
+    metrics: any;
+    state: any;
+    eventBus: any;
+    moduleRegistry: any;
+    pluginRegistry: any;
+    architectureRegistry: any;
+    abielCore: any;
+    runtimeEngine: any;
+    expressApp: any;
+    runtimeContext: any;
+    stageTimers: any;
+    health: any;
+    constructor({ tenantId, runtimeEnv, apiPort, loadPlugins, logger, metrics }?: {
+        tenantId?: string;
+        runtimeEnv?: string;
+        apiPort?: number | string;
+        loadPlugins?: boolean;
+        logger?: any;
+        metrics?: any;
+    });
+    _publishEvent(name: any, payload?: {}): void;
+    _transition(state: any): any;
+    _startStage(stage: any): void;
+    _endStage(stage: any): void;
+    createEventBus(): any;
+    createRegistries(): {
+        moduleRegistry: any;
+        pluginRegistry: any;
+        architectureRegistry: any;
+    };
+    createCore(): any;
+    registerCoreComponents(): any;
+    discoverModules(): any[];
+    discoverPlugins(): any[];
+    buildRuntimeEngine(): any;
+    initializeEngine(): any;
+    buildApi(useCases?: {}): any;
+    startServer(): any;
+    buildRuntimeContext(): any;
+    bootstrap({ useCases, startApi }?: {
+        useCases?: {};
+        startApi?: boolean;
+    }): any;
+    static create(options?: {}): any;
+    _scanModuleDirectories(): any[];
+    _scanPluginDirectories(): any[];
+    _countEventHandlers(): number;
+}
+//# sourceMappingURL=RuntimeBootstrap.d.ts.map

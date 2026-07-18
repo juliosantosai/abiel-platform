@@ -1,5 +1,5 @@
 "use strict";
-const ExpressApp = require("./ExpressApp");
+const RuntimeBootstrap = require("../../../bootstrap/RuntimeBootstrap");
 const PrismaDashboardRepository = require("../../../modules/dashboard/infrastructure/persistence/PrismaDashboardRepository");
 const ObtenerMetricasGlobales = require("../../../modules/dashboard/application/use-cases/ObtenerMetricasGlobales");
 const ObtenerActividadReciente = require("../../../modules/dashboard/application/use-cases/ObtenerActividadReciente");
@@ -25,11 +25,19 @@ function buildMockUseCases() {
 }
 function run() {
     const port = Number(process.env.PORT || 5000);
+    const loadPlugins = false;
+    const httpEnabled = true;
     if (!process.env.JWT_SECRET) {
         process.env.JWT_SECRET = "dev-secret";
     }
-    const app = new ExpressApp(buildMockUseCases());
-    app.listen(port);
+    RuntimeBootstrap.create({
+        tenantId: process.env.TENANT_ID,
+        runtimeEnv: process.env.NODE_ENV,
+        apiPort: port,
+        loadPlugins,
+        useCases: buildMockUseCases(),
+        startApi: httpEnabled,
+    });
 }
 if (require.main === module) {
     run();

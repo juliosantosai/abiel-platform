@@ -1,5 +1,9 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TenantContext = void 0;
 class TenantContext {
+    tenantId;
+    source;
     constructor({ tenantId, source = "unknown" } = {}) {
         if (!tenantId) {
             throw new Error("El tenantId es obligatorio.");
@@ -20,5 +24,14 @@ class TenantContext {
         throw new Error("No se puede crear un TenantContext a partir del valor proporcionado.");
     }
 }
-module.exports = TenantContext;
+exports.TenantContext = TenantContext;
+exports.default = TenantContext;
+// CommonJS compatibility
+try {
+    // @ts-ignore
+    module.exports = TenantContext;
+    // @ts-ignore
+    module.exports.TenantContext = TenantContext;
+}
+catch (e) { }
 //# sourceMappingURL=TenantContext.js.map

@@ -1,9 +1,14 @@
-declare class EventBus {
+export declare class EventBus {
+    private handlers;
     constructor();
-    subscribe(eventName: any, handler: any): void;
-    unsubscribe(eventName: any, handler: any): void;
-    publish(event: any): Promise<void>;
+    subscribe(eventName: string, handler: (event: any) => Promise<void> | void): void;
+    unsubscribe(eventName: string, handler: (event: any) => Promise<void> | void): void;
+    publish(event: {
+        name: string;
+        [key: string]: unknown;
+    }): Promise<void>;
     clear(): void;
 }
-declare const globalBus: EventBus;
+export declare const globalEventBus: EventBus;
+export default globalEventBus;
 //# sourceMappingURL=EventBus.d.ts.map

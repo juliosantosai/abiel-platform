@@ -1,26 +1,25 @@
 "use strict";
-// src/shared/events/EventPublisher.js
-const { EventBus } = require("./EventBus");
-const globalBus = require("./EventBus");
-const Logger = require("../../../shared/logger/Logger");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.globalPublisher = exports.EventPublisher = void 0;
+const EventBus_1 = require("./EventBus");
+const Logger_1 = __importDefault(require("../../../shared/logger/Logger"));
 class EventPublisher {
-    /**
-     * @param {object} [opts]
-     * @param {EventBus} [opts.bus] - bus a usar; si se omite usa el singleton global
-     */
+    bus;
     constructor({ bus } = {}) {
-        this.bus = bus || globalBus;
+        this.bus = bus || EventBus_1.globalEventBus;
     }
     async publish(event) {
         if (!event || !event.name) {
             throw new Error("EventPublisher.publish requiere un evento con propiedad 'name'.");
         }
-        Logger.info(`Evento publicado: ${event.name}`, { eventId: event.id });
+        Logger_1.default.info(`Evento publicado: ${event.name}`, { eventId: event.id });
         await this.bus.publish(event);
     }
 }
-// Singleton global para quienes no necesitan inyección
-const globalPublisher = new EventPublisher();
-module.exports = globalPublisher;
-module.exports.EventPublisher = EventPublisher;
+exports.EventPublisher = EventPublisher;
+exports.globalPublisher = new EventPublisher();
+exports.default = exports.globalPublisher;
 //# sourceMappingURL=EventPublisher.js.map

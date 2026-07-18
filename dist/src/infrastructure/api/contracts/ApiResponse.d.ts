@@ -8,6 +8,7 @@ declare function ok({ req, data, pagination, cursor, metadata }: {
 }): {
     success: boolean;
     data: any;
+    timestamp: string;
 };
 declare function created({ req, data, metadata }: {
     req: any;
@@ -16,5 +17,6 @@ declare function created({ req, data, metadata }: {
 }): {
     success: boolean;
     data: any;
+    timestamp: string;
 };
 //# sourceMappingURL=ApiResponse.d.ts.map

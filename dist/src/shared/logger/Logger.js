@@ -1,6 +1,8 @@
 "use strict";
-// src/shared/logger/Logger.js
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.logger = exports.Logger = void 0;
 class Logger {
+    silent;
     constructor({ silent = false } = {}) {
         this.silent = silent || process.env.NODE_ENV === "test";
     }
@@ -20,6 +22,17 @@ class Logger {
         console.warn(`[WARN] ${new Date().toISOString()} - ${message}`, data);
     }
 }
-module.exports = new Logger();
-module.exports.Logger = Logger;
+exports.Logger = Logger;
+exports.logger = new Logger();
+exports.default = exports.logger;
+// CommonJS compatibility
+try {
+    // @ts-ignore
+    module.exports = exports.logger;
+    // @ts-ignore
+    module.exports.Logger = Logger;
+    // @ts-ignore
+    module.exports.logger = exports.logger;
+}
+catch (e) { }
 //# sourceMappingURL=Logger.js.map

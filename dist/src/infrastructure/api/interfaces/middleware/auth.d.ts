@@ -3,6 +3,7 @@ declare const path: any;
 declare const ApiError: any, createMetadata: any, createProblemDetails: any;
 declare const ApiHttpException: any;
 declare const mapErrorToHttp: any;
+declare const TenantContextModule: any;
 declare const TenantContext: any;
 /**
  * Obtiene JWT_SECRET - valida en tiempo de ejecución en lugar de en tiempo de carga
