@@ -1,0 +1,1 @@
+{"version":3,"file":"EmpresaRepository.d.ts","sourceRoot":"","sources":["../../../../../../src/modules/empresa/domain/repositories/EmpresaRepository.ts"],"names":[],"mappings":"AAAA,cAAM,iBAAiB;IACb,OAAO,CAAC,OAAO,KAAA;IAIf,WAAW,CAAC,EAAE,KAAA;IAId,2BAA2B,CAAC,UAAU,KAAA;IAItC,YAAY;IAIZ,UAAU,CAAC,OAAO,KAAA;IAIlB,QAAQ,CAAC,EAAE,KAAA;CAGpB"}

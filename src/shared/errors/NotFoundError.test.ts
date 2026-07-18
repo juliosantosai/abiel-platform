@@ -1,5 +1,21 @@
-// TypeScript migration bridge: re-exports JS test suite so ts-jest can pick it up.
-// Replace this file with native TS tests progressively.
 export {};
-const suite = require('./NotFoundError.test.js');
-export default suite;
+
+// src/shared/errors/NotFoundError.test.js
+
+const NotFoundError = require("./NotFoundError");
+
+describe("NotFoundError", () => {
+
+    test("debe guardar recurso e id", () => {
+
+        const error = new NotFoundError(
+            "Empresa",
+            "123"
+        );
+
+        expect(error.resource).toBe("Empresa");
+        expect(error.id).toBe("123");
+
+    });
+
+});

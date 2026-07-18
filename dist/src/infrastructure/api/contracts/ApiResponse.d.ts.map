@@ -1,0 +1,1 @@
+{"version":3,"file":"ApiResponse.d.ts","sourceRoot":"","sources":["../../../../../src/infrastructure/api/contracts/ApiResponse.ts"],"names":[],"mappings":"AAAA,QAAA,MAAQ,cAAc,KAA0B,CAAC;AAEjD,iBAAS,EAAE,CAAC,EAAE,GAAG,EAAE,IAAI,EAAE,UAAU,EAAE,MAAM,EAAE,QAAa,EAAE;;;;;;CAAA;;;EAmB3D;AAED,iBAAS,OAAO,CAAC,EAAE,GAAG,EAAE,IAAI,EAAE,QAAa,EAAE;;;;CAAA;;;EAE5C"}

@@ -1,5 +1,4 @@
-const ValidationError: new (message: string, fields?: Record<string, unknown>) => Error =
-  require("../../../shared/errors/ValidationError");
+import { ValidationError } from "../../../shared/errors/ValidationError";
 
 export type CapabilityLifecycle = "active" | "deprecated" | "inactive" | string;
 
@@ -7,8 +6,10 @@ export interface CapabilityExecutionContext {
   [key: string]: unknown;
 }
 
-export type CapabilityHandler<TInput = unknown, TOutput = unknown> =
-  (input: TInput, executionContext: CapabilityExecutionContext) => Promise<TOutput> | TOutput;
+export type CapabilityHandler<TInput = unknown, TOutput = unknown> = (
+  input: TInput,
+  executionContext: CapabilityExecutionContext,
+) => Promise<TOutput> | TOutput;
 
 export interface CapabilityProps<TInput = unknown, TOutput = unknown> {
   name: string;
@@ -55,3 +56,5 @@ export class Capability<TInput = unknown, TOutput = unknown> {
     return this.handler(input, executionContext);
   }
 }
+
+export default Capability;

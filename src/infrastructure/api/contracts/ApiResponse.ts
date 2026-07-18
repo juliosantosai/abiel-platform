@@ -1,25 +1,7 @@
-import { Cursor } from "./Cursor";
-import { Metadata, RequestLike, createMetadata } from "./Metadata";
-import { Pagination } from "./Pagination";
+const { createMetadata } = require("./Metadata");
 
-export interface ApiSuccessResponse<T> {
-  success: true;
-  data: T;
-  pagination?: Pagination;
-  cursor?: Cursor;
-  metadata?: Metadata;
-}
-
-interface BuildOkInput<T> {
-  req?: RequestLike;
-  data: T;
-  pagination?: Pagination;
-  cursor?: Cursor;
-  metadata?: Record<string, unknown>;
-}
-
-export function ok<T>({ req, data, pagination, cursor, metadata = {} }: BuildOkInput<T>): ApiSuccessResponse<T> {
-  const response: ApiSuccessResponse<T> = {
+function ok({ req, data, pagination, cursor, metadata = {} }) {
+  const response = {
     success: true,
     data,
   };
@@ -39,6 +21,8 @@ export function ok<T>({ req, data, pagination, cursor, metadata = {} }: BuildOkI
   return response;
 }
 
-export function created<T>({ req, data, metadata = {} }: { req?: RequestLike; data: T; metadata?: Record<string, unknown> }): ApiSuccessResponse<T> {
+function created({ req, data, metadata = {} }) {
   return ok({ req, data, metadata });
 }
+
+module.exports = { ok, created };

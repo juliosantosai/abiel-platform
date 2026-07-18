@@ -1,5 +1,18 @@
-// TypeScript migration bridge: re-exports JS test suite so ts-jest can pick it up.
-// Replace this file with native TS tests progressively.
 export {};
-const suite = require('./DomainError.test.js');
-export default suite;
+
+// src/shared/errors/DomainError.test.js
+
+const DomainError = require("./DomainError");
+
+describe("DomainError", () => {
+
+    test("debe crear un DomainError", () => {
+
+        const error = new DomainError("Error");
+
+        expect(error.message).toBe("Error");
+        expect(error.name).toBe("DomainError");
+
+    });
+
+});

@@ -1,0 +1,1 @@
+{"version":3,"file":"UsuarioCancelado.d.ts","sourceRoot":"","sources":["../../../../../../src/modules/usuario/domain/events/UsuarioCancelado.ts"],"names":[],"mappings":"AAAA,QAAA,MAAM,WAAW,KAAwD,CAAC;AAE1E,cAAM,gBAAiB,SAAQ,WAAW;IACtC,MAAM,CAAC,SAAS,SAAsB;gBAE1B,EAAE,SAAS,EAAE,SAAS,EAAE,MAAM,EAAE;;;;KAAA;CAI/C"}

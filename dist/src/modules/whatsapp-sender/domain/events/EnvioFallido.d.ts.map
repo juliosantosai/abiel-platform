@@ -1,0 +1,1 @@
+{"version":3,"file":"EnvioFallido.d.ts","sourceRoot":"","sources":["../../../../../../src/modules/whatsapp-sender/domain/events/EnvioFallido.ts"],"names":[],"mappings":"AAAA,QAAA,MAAM,WAAW,KAAwD,CAAC;AAE1E,cAAM,YAAa,SAAQ,WAAW;IAClC,MAAM,CAAC,SAAS,SAAkB;gBACtB,EAAE,SAAS,EAAE,cAAc,EAAE,SAAS,EAAE,KAAK,EAAE,QAAQ,EAAE;;;;;;KAAA;CAIxE"}

@@ -1,13 +1,8 @@
-export interface TenantContextInput {
-  tenantId: string;
-  source?: string;
-}
-
 export class TenantContext {
   tenantId: string;
   source: string;
 
-  constructor({ tenantId, source = "unknown" }: TenantContextInput) {
+  constructor({ tenantId, source = "unknown" } = {}) {
     if (!tenantId) {
       throw new Error("El tenantId es obligatorio.");
     }
@@ -16,7 +11,7 @@ export class TenantContext {
     this.source = source;
   }
 
-  static from(value: TenantContext | string | TenantContextInput): TenantContext {
+  static from(value: string | TenantContext | { tenantId?: string; source?: string }) {
     if (value instanceof TenantContext) {
       return value;
     }
@@ -32,3 +27,5 @@ export class TenantContext {
     throw new Error("No se puede crear un TenantContext a partir del valor proporcionado.");
   }
 }
+
+export default TenantContext;

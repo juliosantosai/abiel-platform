@@ -1,5 +1,27 @@
-// TypeScript migration bridge: re-exports JS test suite so ts-jest can pick it up.
-// Replace this file with native TS tests progressively.
 export {};
-const suite = require('./env.test.js');
-export default suite;
+
+const env = require("./env");
+
+
+describe("Environment Config",()=>{
+
+
+    test("debe cargar variables del entorno",()=>{
+
+
+        expect(env.APP_NAME)
+            .toBe("abiel-core");
+
+
+        expect(env.PORT)
+            .toBeGreaterThan(0);
+
+
+        expect(env.DATABASE_URL)
+            .toBeDefined();
+
+
+    });
+
+
+});

@@ -1,0 +1,1 @@
+{"version":3,"file":"ApiHttpException.d.ts","sourceRoot":"","sources":["../../../../../src/infrastructure/api/errors/ApiHttpException.ts"],"names":[],"mappings":"AAAA,cAAM,gBAAiB,SAAQ,KAAK;gBACtB,EAAE,MAAY,EAAE,IAAuB,EAAE,OAA0B,EAAE,OAAO,EAAE,MAAM,EAAE,KAAK,EAAE;;;;;;;KAAA;CAS1G"}

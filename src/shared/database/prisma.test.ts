@@ -1,5 +1,27 @@
-// TypeScript migration bridge: re-exports JS test suite so ts-jest can pick it up.
-// Replace this file with native TS tests progressively.
 export {};
-const suite = require('./prisma.test.js');
-export default suite;
+
+// src/shared/database/prisma.test.js
+const prisma = require('./prisma');
+
+describe('Prisma Client Initialization', () => {
+  test('prisma debería estar definido y tener el método $queryRaw', () => {
+    expect(prisma).toBeDefined();
+    // Verificamos que es la instancia correcta de PrismaClient
+    expect(typeof prisma.$queryRaw).toBe('function');
+  });
+
+  test('debería poder realizar una consulta básica', async () => {
+    // Esto asegura que la conexión está viva y responde
+    const result = await prisma.$queryRaw`SELECT 1 as connected`;
+    expect(result).toBeDefined();
+    expect(result[0].connected).toBe(1);
+  });
+});
+
+afterAll(async () => {
+  await prisma.disconnect();
+});
+
+afterAll(async () => {
+  await prisma.$disconnect();
+});

@@ -1,0 +1,1 @@
+{"version":3,"file":"EventSubscriber.d.ts","sourceRoot":"","sources":["../../../../src/shared/events/EventSubscriber.ts"],"names":[],"mappings":"AAGA,QAAA,MAAM,SAAS,KAA+C,CAAC;AAE/D,cAAM,eAAe;IACjB,SAAS,CAAC,SAAS,KAAA,EAAE,OAAO,KAAA;IAI5B,WAAW,CAAC,SAAS,KAAA,EAAE,OAAO,KAAA;CAGjC"}

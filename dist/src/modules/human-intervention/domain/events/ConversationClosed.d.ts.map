@@ -1,0 +1,1 @@
+{"version":3,"file":"ConversationClosed.d.ts","sourceRoot":"","sources":["../../../../../../src/modules/human-intervention/domain/events/ConversationClosed.ts"],"names":[],"mappings":"AAAA,QAAA,MAAM,WAAW,KAAwD,CAAC;AAE1E,cAAM,kBAAmB,SAAQ,WAAW;IACxC,MAAM,CAAC,SAAS,SAAwB;gBAE5B,EAAE,cAAc,EAAE,SAAS,EAAE,MAAM,EAAE;;;;KAAA;CAIpD"}

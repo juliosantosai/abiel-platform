@@ -1,0 +1,1 @@
+{"version":3,"file":"EventPublisher.d.ts","sourceRoot":"","sources":["../../../../../src/core/kernel/events/EventPublisher.ts"],"names":[],"mappings":"AAEA,QAAA,MAAQ,QAAQ,KAA0B,CAAC;AAC3C,QAAA,MAAM,SAAS,KAAwB,CAAC;AACxC,QAAA,MAAM,MAAM,KAA2C,CAAC;AAExD,cAAM,cAAc;IAChB;;;OAGG;gBACS,EAAE,GAAG,EAAE,KAAK;IAIlB,OAAO,CAAC,KAAK,KAAA;CAStB;AAGD,QAAA,MAAM,eAAe,gBAAuB,CAAC"}

@@ -1,3 +1,5 @@
+export {};
+
 describe("shared tenant shims", () => {
   test("can require TenantGuard and TenantError from shared/tenant", () => {
     const TenantGuard = require("./TenantGuard");

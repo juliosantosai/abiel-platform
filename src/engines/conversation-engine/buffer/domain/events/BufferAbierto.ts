@@ -1,17 +1,10 @@
-import { DomainEvent } from "../../../../../core/kernel/events/DomainEvent";
+const DomainEvent = require("../../../../../core/kernel/events/DomainEvent");
 
-export interface BufferAbiertoPayload {
-  bufferId: string;
-  conversationId: string;
-  empresaId: string;
+class BufferAbierto extends DomainEvent {
+    static eventName = "BufferAbierto";
+    constructor({ bufferId, conversationId, empresaId }) {
+        super();
+        this.data = { bufferId, conversationId, empresaId };
+    }
 }
-
-export class BufferAbierto extends DomainEvent {
-  static eventName = "BufferAbierto";
-  data: BufferAbiertoPayload;
-
-  constructor({ bufferId, conversationId, empresaId }: BufferAbiertoPayload) {
-    super();
-    this.data = { bufferId, conversationId, empresaId };
-  }
-}
+module.exports = BufferAbierto;

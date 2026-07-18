@@ -1,0 +1,1 @@
+{"version":3,"file":"CerrarBufferUseCase.d.ts","sourceRoot":"","sources":["../../../../../../../src/engines/conversation-engine/buffer/application/use-cases/CerrarBufferUseCase.ts"],"names":[],"mappings":"AAAA,QAAA,MAAM,aAAa,KAAwD,CAAC;AAC5E,QAAA,MAAM,WAAW,KAA6C,CAAC;AAE/D,cAAM,mBAAmB;gBACT,EAAE,UAAU,EAAE,cAAc,EAAE;;;KAAA;IAKpC,OAAO,CAAC,EAAE,QAAQ,EAAE;;KAAA;CAgB7B"}

@@ -1,13 +1,11 @@
-import { randomUUID } from "crypto";
+const { randomUUID } = require("crypto");
 
-export class DomainEvent {
-  id: string;
-  name: string;
-  occurredAt: Date;
-
-  constructor() {
-    this.id = randomUUID();
-    this.name = (this.constructor as { eventName?: string }).eventName || this.constructor.name;
-    this.occurredAt = new Date();
-  }
+class DomainEvent {
+    constructor() {
+        this.id = randomUUID();
+        this.name = this.constructor.eventName || this.constructor.name;
+        this.occurredAt = new Date();
+    }
 }
+
+module.exports = DomainEvent;

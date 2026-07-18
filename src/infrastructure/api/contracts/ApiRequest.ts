@@ -1,27 +1,4 @@
-import { RequestLike } from "./Metadata";
-
-export interface ApiRequest {
-  path: string;
-  method: string;
-  params: Record<string, unknown>;
-  query: Record<string, unknown>;
-  body: Record<string, unknown>;
-  tenantContext: unknown;
-  user: unknown;
-  requestContext: unknown;
-}
-
-export interface HttpRequestLike extends RequestLike {
-  path: string;
-  method: string;
-  params?: Record<string, unknown>;
-  query?: Record<string, unknown>;
-  body?: Record<string, unknown>;
-  tenantContext?: unknown;
-  usuario?: unknown;
-}
-
-export function createApiRequest(req: HttpRequestLike): ApiRequest {
+function createApiRequest(req) {
   return {
     path: req.path,
     method: req.method,
@@ -33,3 +10,5 @@ export function createApiRequest(req: HttpRequestLike): ApiRequest {
     requestContext: req.requestContext || null,
   };
 }
+
+module.exports = { createApiRequest };

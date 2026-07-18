@@ -1,18 +1,10 @@
-import { DomainEvent } from "../../../../../core/kernel/events/DomainEvent";
+const DomainEvent = require("../../../../../core/kernel/events/DomainEvent");
 
-export interface FlujoIniciadoPayload {
-  flowId: string;
-  conversationId: string;
-  empresaId: string;
-  etapa: string;
+class FlujoIniciado extends DomainEvent {
+    static eventName = "FlujoIniciado";
+    constructor({ flowId, conversationId, empresaId, etapa }) {
+        super();
+        this.data = { flowId, conversationId, empresaId, etapa };
+    }
 }
-
-export class FlujoIniciado extends DomainEvent {
-  static eventName = "FlujoIniciado";
-  data: FlujoIniciadoPayload;
-
-  constructor({ flowId, conversationId, empresaId, etapa }: FlujoIniciadoPayload) {
-    super();
-    this.data = { flowId, conversationId, empresaId, etapa };
-  }
-}
+module.exports = FlujoIniciado;

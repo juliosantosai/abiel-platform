@@ -1,7 +1,9 @@
-import { randomUUID } from "crypto";
+const { randomUUID } =require('crypto');
 
-export class UuidGenerator {
-  generate(): string {
-    return randomUUID();
-  }
+class UuidGenerator {
+    generate() {
+        return randomUUID();
+    }
 }
+
+module.exports = UuidGenerator;

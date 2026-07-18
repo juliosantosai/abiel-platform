@@ -1,38 +1,33 @@
-export interface DomainEventLike {
-  name: string;
-  [key: string]: unknown;
-}
-
-export type EventHandler<TEvent extends DomainEventLike = DomainEventLike> =
-  (event: TEvent) => void | Promise<void>;
-
 export class EventBus {
-  private handlers: Record<string, EventHandler[]> = {};
+  private handlers: Record<string, Array<(event: any) => Promise<void> | void>>;
 
-  subscribe(eventName: string, handler: EventHandler): void {
+  constructor() {
+    this.handlers = {};
+  }
+
+  subscribe(eventName: string, handler: (event: any) => Promise<void> | void) {
     if (!this.handlers[eventName]) {
       this.handlers[eventName] = [];
     }
     this.handlers[eventName].push(handler);
   }
 
-  unsubscribe(eventName: string, handler: EventHandler): void {
+  unsubscribe(eventName: string, handler: (event: any) => Promise<void> | void) {
     if (!this.handlers[eventName]) return;
     this.handlers[eventName] = this.handlers[eventName].filter((h) => h !== handler);
   }
 
-  async publish(event: DomainEventLike): Promise<void> {
+  async publish(event: { name: string; [key: string]: unknown }) {
     const handlers = this.handlers[event.name] || [];
     for (const handler of handlers) {
       await handler(event);
     }
   }
 
-  clear(): void {
+  clear() {
     this.handlers = {};
   }
 }
 
-const globalBus = new EventBus();
-
-export default globalBus;
+export const globalEventBus = new EventBus();
+export default globalEventBus;

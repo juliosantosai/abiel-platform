@@ -1,2 +1,12 @@
-const impl = require(__filename.replace(/\.ts$/, ".js"));
-export = impl;
+function getApiV1Paths() {
+  return ["/api", "/api/v1"];
+}
+
+function isInternalPath(pathname = "") {
+  return pathname.startsWith("/api/internal");
+}
+
+module.exports = {
+  getApiV1Paths,
+  isInternalPath,
+};

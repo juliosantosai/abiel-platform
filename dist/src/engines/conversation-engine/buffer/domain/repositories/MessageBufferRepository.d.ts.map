@@ -1,0 +1,1 @@
+{"version":3,"file":"MessageBufferRepository.d.ts","sourceRoot":"","sources":["../../../../../../../src/engines/conversation-engine/buffer/domain/repositories/MessageBufferRepository.ts"],"names":[],"mappings":"AAAA,cAAM,uBAAuB;IACnB,OAAO,CAAC,MAAM,KAAA;IACd,WAAW,CAAC,EAAE,KAAA;IACd,YAAY,CAAC,cAAc,KAAA,EAAE,SAAS,KAAA;IACtC,eAAe,CAAC,KAAK,KAAA;IACrB,UAAU,CAAC,MAAM,KAAA;CAC1B"}

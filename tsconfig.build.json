@@ -7,5 +7,5 @@
     "outDir": "dist",
     "sourceMap": true
   },
-  "exclude": ["node_modules", "dist", "coverage", "**/*.test.js", "**/*.test.ts", "**/*.integration.test.js", "**/*.contract.test.js", "**/*.e2e.test.js"]
+  "exclude": ["node_modules", "dist", "coverage", "**/*.test.ts", "**/*.integration.test.ts", "**/*.contract.test.ts", "**/*.e2e.test.ts"]
 }

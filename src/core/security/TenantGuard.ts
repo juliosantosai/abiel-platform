@@ -1,57 +1,47 @@
-import { TenantContext, TenantContextInput } from "./TenantContext";
-import { TenantError } from "./TenantError";
+const TenantContext = require("./TenantContext");
+const TenantError = require("./TenantError");
 
-type TenantContextLike = TenantContext | string | TenantContextInput;
+class TenantGuard {
+    constructor({ tenantContext } = {}) {
+        this.tenantContext = tenantContext || null;
+    }
 
-interface TenantScopedResource {
-  tenantId?: string;
-  empresaId?: string;
-  tenant?: {
-    id?: string;
-  };
+    setContext(tenantContext) {
+        this.tenantContext = TenantContext.from(tenantContext);
+    }
+
+    clearContext() {
+        this.tenantContext = null;
+    }
+
+    ensureTenantContext(tenantContext = this.tenantContext) {
+        const context = tenantContext ? TenantContext.from(tenantContext) : null;
+
+        if (!context) {
+            throw new TenantError("No existe un contexto de tenant activo.");
+        }
+
+        return context;
+    }
+
+    ensureSameTenant(resourceTenantId, tenantContext = this.tenantContext) {
+        const context = this.ensureTenantContext(tenantContext);
+
+        if (resourceTenantId !== context.tenantId) {
+            throw new TenantError("El recurso no pertenece al tenant actual.");
+        }
+
+        return context;
+    }
+
+    ensureTenantMatches(resource, tenantContext = this.tenantContext) {
+        if (!resource) {
+            throw new TenantError("No se puede validar un recurso nulo.");
+        }
+
+        const tenantId = resource.tenantId || resource.empresaId || resource.tenant?.id;
+        return this.ensureSameTenant(tenantId, tenantContext);
+    }
 }
 
-export class TenantGuard {
-  private tenantContext: TenantContext | null;
-
-  constructor({ tenantContext }: { tenantContext?: TenantContextLike } = {}) {
-    this.tenantContext = tenantContext ? TenantContext.from(tenantContext) : null;
-  }
-
-  setContext(tenantContext: TenantContextLike): void {
-    this.tenantContext = TenantContext.from(tenantContext);
-  }
-
-  clearContext(): void {
-    this.tenantContext = null;
-  }
-
-  ensureTenantContext(tenantContext: TenantContextLike | null = this.tenantContext): TenantContext {
-    const context = tenantContext ? TenantContext.from(tenantContext) : null;
-
-    if (!context) {
-      throw new TenantError("No existe un contexto de tenant activo.");
-    }
-
-    return context;
-  }
-
-  ensureSameTenant(resourceTenantId: string | undefined, tenantContext: TenantContextLike | null = this.tenantContext): TenantContext {
-    const context = this.ensureTenantContext(tenantContext);
-
-    if (resourceTenantId !== context.tenantId) {
-      throw new TenantError("El recurso no pertenece al tenant actual.");
-    }
-
-    return context;
-  }
-
-  ensureTenantMatches(resource: TenantScopedResource | null | undefined, tenantContext: TenantContextLike | null = this.tenantContext): TenantContext {
-    if (!resource) {
-      throw new TenantError("No se puede validar un recurso nulo.");
-    }
-
-    const tenantId = resource.tenantId || resource.empresaId || resource.tenant?.id;
-    return this.ensureSameTenant(tenantId, tenantContext);
-  }
-}
+module.exports = TenantGuard;

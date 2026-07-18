@@ -1,15 +1,17 @@
-import globalBus, { EventHandler } from "./EventBus";
+// src/shared/events/EventSubscriber.js
+// Mantenido por compatibilidad. Usar EventBus directamente para nuevos módulos.
 
-export class EventSubscriber {
-  subscribe(eventName: string, handler: EventHandler): void {
-    globalBus.subscribe(eventName, handler);
-  }
+const globalBus = require("../../core/kernel/events/EventBus");
 
-  unsubscribe(eventName: string, handler: EventHandler): void {
-    globalBus.unsubscribe(eventName, handler);
-  }
+class EventSubscriber {
+    subscribe(eventName, handler) {
+        globalBus.subscribe(eventName, handler);
+    }
+
+    unsubscribe(eventName, handler) {
+        globalBus.unsubscribe(eventName, handler);
+    }
 }
 
-const globalSubscriber = new EventSubscriber();
-
-export default globalSubscriber;
+module.exports = new EventSubscriber();
+module.exports.EventSubscriber = EventSubscriber;

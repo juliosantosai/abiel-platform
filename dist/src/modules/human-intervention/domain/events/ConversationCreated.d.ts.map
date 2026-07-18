@@ -1,0 +1,1 @@
+{"version":3,"file":"ConversationCreated.d.ts","sourceRoot":"","sources":["../../../../../../src/modules/human-intervention/domain/events/ConversationCreated.ts"],"names":[],"mappings":"AAAA,QAAA,MAAM,WAAW,KAAwD,CAAC;AAE1E,cAAM,mBAAoB,SAAQ,WAAW;IACzC,MAAM,CAAC,SAAS,SAAyB;gBAE7B,EAAE,cAAc,EAAE,SAAS,EAAE,SAAS,EAAE,MAAM,EAAE;;;;;KAAA;CAI/D"}

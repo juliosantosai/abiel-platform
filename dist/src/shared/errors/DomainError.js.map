@@ -1,0 +1,1 @@
+{"version":3,"file":"DomainError.js","sourceRoot":"","sources":["../../../../src/shared/errors/DomainError.ts"],"names":[],"mappings":";AAAA,mCAAmC;AAEnC,MAAM,WAAY,SAAQ,KAAK;IAE3B,YAAY,OAAO;QAEf,KAAK,CAAC,OAAO,CAAC,CAAC;QAEf,IAAI,CAAC,IAAI,GAAG,aAAa,CAAC;IAE9B,CAAC;CAEJ;AAED,MAAM,CAAC,OAAO,GAAG,WAAW,CAAC"}

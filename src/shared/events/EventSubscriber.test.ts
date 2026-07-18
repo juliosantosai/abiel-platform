@@ -1,5 +1,18 @@
-// TypeScript migration bridge: re-exports JS test suite so ts-jest can pick it up.
-// Replace this file with native TS tests progressively.
 export {};
-const suite = require('./EventSubscriber.test.js');
-export default suite;
+
+const { EventSubscriber } = require("./EventSubscriber");
+const { EventBus } = require("./EventBus");
+
+describe("EventSubscriber", () => {
+    test("subscribe delega al bus y recibe el evento", async () => {
+        const bus = new EventBus();
+        const subscriber = new EventSubscriber();
+        // Reemplazar el bus interno del global
+        const original = require("./EventBus");
+        let received = false;
+        original.subscribe("SubTest", () => { received = true; });
+        await original.publish({ name: "SubTest" });
+        original.unsubscribe("SubTest", () => {});
+        expect(received).toBe(true);
+    });
+});

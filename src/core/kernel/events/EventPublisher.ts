@@ -1,14 +1,14 @@
-import Logger = require("../../../shared/logger/Logger");
-import globalBus, { DomainEventLike, EventBus } from "./EventBus";
+import { EventBus, globalEventBus } from "./EventBus";
+import { Logger } from "../../../shared/logger/Logger";
 
 export class EventPublisher {
-  private readonly bus: EventBus;
+  private bus: EventBus;
 
   constructor({ bus }: { bus?: EventBus } = {}) {
-    this.bus = bus || globalBus;
+    this.bus = bus || globalEventBus;
   }
 
-  async publish(event: DomainEventLike): Promise<void> {
+  async publish(event: { name: string; id?: string; [key: string]: unknown }) {
     if (!event || !event.name) {
       throw new Error("EventPublisher.publish requiere un evento con propiedad 'name'.");
     }
@@ -19,6 +19,5 @@ export class EventPublisher {
   }
 }
 
-const globalPublisher = new EventPublisher();
-
+export const globalPublisher = new EventPublisher();
 export default globalPublisher;

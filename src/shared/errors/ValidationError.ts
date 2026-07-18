@@ -7,3 +7,5 @@ export class ValidationError extends Error {
     this.fields = fields;
   }
 }
+
+export default ValidationError;

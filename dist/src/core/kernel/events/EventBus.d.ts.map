@@ -1,0 +1,1 @@
+{"version":3,"file":"EventBus.d.ts","sourceRoot":"","sources":["../../../../../src/core/kernel/events/EventBus.ts"],"names":[],"mappings":"AAEA,cAAM,QAAQ;;IAKV,SAAS,CAAC,SAAS,KAAA,EAAE,OAAO,KAAA;IAO5B,WAAW,CAAC,SAAS,KAAA,EAAE,OAAO,KAAA;IAKxB,OAAO,CAAC,KAAK,KAAA;IAOnB,KAAK;CAGR;AAID,QAAA,MAAM,SAAS,UAAiB,CAAC"}

@@ -1,2 +1,12 @@
-const impl = require(__filename.replace(/\.ts$/, ".js"));
-export = impl;
+const DomainEvent = require("../../../../core/kernel/events/DomainEvent");
+
+class EmpresaActualizada extends DomainEvent {
+    static eventName = "EmpresaActualizada";
+
+    constructor({ empresaId, nombre }) {
+        super();
+        this.data = { empresaId, nombre };
+    }
+}
+
+module.exports = EmpresaActualizada;

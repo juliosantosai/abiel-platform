@@ -1,0 +1,1 @@
+{"version":3,"file":"BufferListo.d.ts","sourceRoot":"","sources":["../../../../../../../src/engines/conversation-engine/buffer/domain/events/BufferListo.ts"],"names":[],"mappings":"AAAA,QAAA,MAAM,WAAW,KAA2D,CAAC;AAE7E,cAAM,WAAY,SAAQ,WAAW;IACjC,MAAM,CAAC,SAAS,SAAiB;gBACrB,EAAE,QAAQ,EAAE,cAAc,EAAE,SAAS,EAAE,QAAQ,EAAE;;;;;KAAA;CAIhE"}

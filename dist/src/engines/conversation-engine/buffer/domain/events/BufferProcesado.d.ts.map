@@ -1,0 +1,1 @@
+{"version":3,"file":"BufferProcesado.d.ts","sourceRoot":"","sources":["../../../../../../../src/engines/conversation-engine/buffer/domain/events/BufferProcesado.ts"],"names":[],"mappings":"AAAA,QAAA,MAAM,WAAW,KAA2D,CAAC;AAE7E,cAAM,eAAgB,SAAQ,WAAW;IACrC,MAAM,CAAC,SAAS,SAAqB;gBACzB,EAAE,QAAQ,EAAE,cAAc,EAAE,SAAS,EAAE;;;;KAAA;CAItD"}

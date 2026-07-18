@@ -1,24 +1,31 @@
-import Logger = require("../logger/Logger");
-import globalBus, { DomainEventLike, EventBus } from "./EventBus";
+module.exports = require("../../core/kernel/events/EventPublisher");// src/shared/events/EventPublisher.js
 
-export class EventPublisher {
-  private readonly bus: EventBus;
+const { EventBus } = require("./EventBus");
+const globalBus = require("./EventBus");
+const Logger = require("../logger/Logger");
 
-  constructor({ bus }: { bus?: EventBus } = {}) {
-    this.bus = bus || globalBus;
-  }
-
-  async publish(event: DomainEventLike): Promise<void> {
-    if (!event || !event.name) {
-      throw new Error("EventPublisher.publish requiere un evento con propiedad 'name'.");
+class EventPublisher {
+    /**
+     * @param {object} [opts]
+     * @param {EventBus} [opts.bus] - bus a usar; si se omite usa el singleton global
+     */
+    constructor({ bus } = {}) {
+        this.bus = bus || globalBus;
     }
 
-    Logger.info(`Evento publicado: ${event.name}`, { eventId: event.id });
+    async publish(event) {
+        if (!event || !event.name) {
+            throw new Error("EventPublisher.publish requiere un evento con propiedad 'name'.");
+        }
 
-    await this.bus.publish(event);
-  }
+        Logger.info(`Evento publicado: ${event.name}`, { eventId: event.id });
+
+        await this.bus.publish(event);
+    }
 }
 
+// Singleton global para quienes no necesitan inyección
 const globalPublisher = new EventPublisher();
 
-export default globalPublisher;
+module.exports = globalPublisher;
+module.exports.EventPublisher = EventPublisher;

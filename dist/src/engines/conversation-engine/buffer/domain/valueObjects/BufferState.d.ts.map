@@ -1,0 +1,1 @@
+{"version":3,"file":"BufferState.d.ts","sourceRoot":"","sources":["../../../../../../../src/engines/conversation-engine/buffer/domain/valueObjects/BufferState.ts"],"names":[],"mappings":"AAAA,QAAA,MAAM,eAAe,KAA0D,CAAC;AAEhF,cAAM,WAAW;IACb,MAAM,CAAC,KAAK,WAAsC;gBAEtC,KAAK,KAAA;IAWjB,MAAM,CAAC,KAAK,KAAA;IAIZ,QAAQ;CACX"}

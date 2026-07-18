@@ -1,0 +1,1 @@
+{"version":3,"file":"TenantError.js","sourceRoot":"","sources":["../../../../src/core/security/TenantError.ts"],"names":[],"mappings":";AAAA,MAAM,WAAY,SAAQ,KAAK;IAC3B,YAAY,OAAO,EAAE,OAAO,GAAG,EAAE;QAC7B,KAAK,CAAC,OAAO,CAAC,CAAC;QACf,IAAI,CAAC,IAAI,GAAG,aAAa,CAAC;QAC1B,IAAI,CAAC,OAAO,GAAG,OAAO,CAAC;IAC3B,CAAC;CACJ;AAED,MAAM,CAAC,OAAO,GAAG,WAAW,CAAC"}

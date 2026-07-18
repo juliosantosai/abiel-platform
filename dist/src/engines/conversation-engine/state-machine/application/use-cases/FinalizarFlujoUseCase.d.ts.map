@@ -1,0 +1,1 @@
+{"version":3,"file":"FinalizarFlujoUseCase.d.ts","sourceRoot":"","sources":["../../../../../../../src/engines/conversation-engine/state-machine/application/use-cases/FinalizarFlujoUseCase.ts"],"names":[],"mappings":"AAAA,QAAA,MAAM,aAAa,KAAwD,CAAC;AAC5E,QAAA,MAAM,eAAe,KAAiD,CAAC;AAEvE,cAAM,qBAAqB;gBACX,EAAE,UAAU,EAAE,cAAc,EAAE;;;KAAA;IAKpC,OAAO,CAAC,EAAE,MAAM,EAAE;;KAAA;CAS3B"}

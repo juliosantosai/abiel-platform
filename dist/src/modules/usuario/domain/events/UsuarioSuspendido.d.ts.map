@@ -1,0 +1,1 @@
+{"version":3,"file":"UsuarioSuspendido.d.ts","sourceRoot":"","sources":["../../../../../../src/modules/usuario/domain/events/UsuarioSuspendido.ts"],"names":[],"mappings":"AAAA,QAAA,MAAM,WAAW,KAAwD,CAAC;AAE1E,cAAM,iBAAkB,SAAQ,WAAW;IACvC,MAAM,CAAC,SAAS,SAAuB;gBAE3B,EAAE,SAAS,EAAE,SAAS,EAAE,MAAM,EAAE;;;;KAAA;CAI/C"}

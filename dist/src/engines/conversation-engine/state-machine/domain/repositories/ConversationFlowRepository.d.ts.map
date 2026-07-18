@@ -1,0 +1,1 @@
+{"version":3,"file":"ConversationFlowRepository.d.ts","sourceRoot":"","sources":["../../../../../../../src/engines/conversation-engine/state-machine/domain/repositories/ConversationFlowRepository.ts"],"names":[],"mappings":"AAAA,cAAM,0BAA0B;IACtB,OAAO,CAAC,IAAI,KAAA;IACZ,WAAW,CAAC,EAAE,KAAA;IACd,qBAAqB,CAAC,cAAc,KAAA,EAAE,SAAS,KAAA;IAC/C,UAAU,CAAC,IAAI,KAAA;CACxB"}

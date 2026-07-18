@@ -1,38 +1,41 @@
-import { MessageBuffer } from "../../domain/entities/MessageBuffer";
-import { MessageBufferRepository } from "../../domain/repositories/MessageBufferRepository";
+const MessageBufferRepository = require("../../domain/repositories/MessageBufferRepository");
+const MessageBuffer = require("../../domain/entities/MessageBuffer");
 
-export class FakeMessageBufferRepository extends MessageBufferRepository {
-  private storage: Map<string, MessageBuffer> = new Map();
-
-  async guardar(buffer: MessageBuffer): Promise<MessageBuffer> {
-    this.storage.set(buffer.id, buffer);
-    return buffer;
-  }
-
-  async buscarPorId(id: string): Promise<MessageBuffer | null> {
-    return this.storage.get(id) || null;
-  }
-
-  async buscarActivo(conversationId: string, empresaId: string): Promise<MessageBuffer | null> {
-    for (const buf of this.storage.values()) {
-      if (buf.conversationId === conversationId && buf.empresaId === empresaId && buf.estado === "COLLECTING") {
-        return buf;
-      }
+class FakeMessageBufferRepository extends MessageBufferRepository {
+    constructor() {
+        super();
+        this.storage = new Map();
     }
-    return null;
-  }
 
-  async buscarExpirados(ahora: Date): Promise<MessageBuffer[]> {
-    return Array.from(this.storage.values()).filter((b) => b.estaExpirado(ahora));
-  }
+    async guardar(buffer) {
+        this.storage.set(buffer.id, buffer);
+        return buffer;
+    }
 
-  async actualizar(buffer: MessageBuffer): Promise<MessageBuffer> {
-    if (!this.storage.has(buffer.id)) throw new Error(`Buffer ${buffer.id} no encontrado.`);
-    this.storage.set(buffer.id, buffer);
-    return buffer;
-  }
+    async buscarPorId(id) {
+        return this.storage.get(id) || null;
+    }
 
-  clear(): void {
-    this.storage.clear();
-  }
+    async buscarActivo(conversationId, empresaId) {
+        for (const buf of this.storage.values()) {
+            if (buf.conversationId === conversationId &&
+                buf.empresaId === empresaId &&
+                buf.estado === "COLLECTING") {
+                return buf;
+            }
+        }
+        return null;
+    }
+
+    async buscarExpirados(ahora) {
+        return Array.from(this.storage.values()).filter(b => b.estaExpirado(ahora));
+    }
+
+    async actualizar(buffer) {
+        if (!this.storage.has(buffer.id)) throw new Error(`Buffer ${buffer.id} no encontrado.`);
+        this.storage.set(buffer.id, buffer);
+        return buffer;
+    }
 }
+
+module.exports = FakeMessageBufferRepository;

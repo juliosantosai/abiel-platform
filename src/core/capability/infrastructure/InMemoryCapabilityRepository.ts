@@ -1,19 +1,20 @@
-import { Capability } from "../domain/Capability";
-import { CapabilityRepository } from "../domain/CapabilityRegistry";
+class InMemoryCapabilityRepository {
+    constructor() {
+        this.capabilities = new Map();
+    }
 
-export class InMemoryCapabilityRepository implements CapabilityRepository {
-  private capabilities: Map<string, Capability> = new Map();
+    async save(capability) {
+        this.capabilities.set(capability.name, capability);
+        return capability;
+    }
 
-  async save(capability: Capability): Promise<Capability> {
-    this.capabilities.set(capability.name, capability);
-    return capability;
-  }
+    async findByName(name) {
+        return this.capabilities.get(name) || null;
+    }
 
-  async findByName(name: string): Promise<Capability | null> {
-    return this.capabilities.get(name) || null;
-  }
-
-  clear(): void {
-    this.capabilities.clear();
-  }
+    clear() {
+        this.capabilities.clear();
+    }
 }
+
+module.exports = InMemoryCapabilityRepository;

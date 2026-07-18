@@ -1,0 +1,1 @@
+{"version":3,"file":"ApiVersioning.js","sourceRoot":"","sources":["../../../../../src/infrastructure/api/versioning/ApiVersioning.ts"],"names":[],"mappings":";AAAA,SAAS,aAAa;IACpB,OAAO,CAAC,MAAM,EAAE,SAAS,CAAC,CAAC;AAC7B,CAAC;AAED,SAAS,cAAc,CAAC,QAAQ,GAAG,EAAE;IACnC,OAAO,QAAQ,CAAC,UAAU,CAAC,eAAe,CAAC,CAAC;AAC9C,CAAC;AAED,MAAM,CAAC,OAAO,GAAG;IACf,aAAa;IACb,cAAc;CACf,CAAC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"FakeMessageSender.d.ts","sourceRoot":"","sources":["../../../../../../src/modules/whatsapp-sender/infrastructure/adapters/FakeMessageSender.ts"],"names":[],"mappings":"AAAA,QAAA,MAAM,aAAa,KAAqD,CAAC;AAEzE,cAAM,iBAAkB,SAAQ,aAAa;gBAC7B,EAAE,UAAkB,EAAE;;KAAK;IAMjC,IAAI,CAAC,IAAI,KAAA;;;;CAKlB"}

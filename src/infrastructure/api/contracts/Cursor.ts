@@ -1,8 +1,5 @@
-export interface Cursor {
-  next?: string | null;
-  previous?: string | null;
-}
-
-export function createCursor({ next, previous }: Cursor): Required<Cursor> {
+function createCursor({ next, previous }) {
   return { next: next || null, previous: previous || null };
 }
+
+module.exports = { createCursor };

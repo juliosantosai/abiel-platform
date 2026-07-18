@@ -1,18 +1,4 @@
-export interface Metadata {
-  requestId?: string;
-  correlationId?: string;
-  timestamp: string;
-  [key: string]: unknown;
-}
-
-export interface RequestLike {
-  requestContext?: {
-    requestId?: string;
-    correlationId?: string;
-  };
-}
-
-export function createMetadata(req?: RequestLike, extra: Record<string, unknown> = {}): Metadata {
+function createMetadata(req, extra = {}) {
   return {
     requestId: req?.requestContext?.requestId,
     correlationId: req?.requestContext?.correlationId,
@@ -20,3 +6,5 @@ export function createMetadata(req?: RequestLike, extra: Record<string, unknown>
     ...extra,
   };
 }
+
+module.exports = { createMetadata };

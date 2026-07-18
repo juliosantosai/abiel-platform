@@ -1,0 +1,1 @@
+{"version":3,"file":"CapabilityRegistry.d.ts","sourceRoot":"","sources":["../../../../../src/core/capability/domain/CapabilityRegistry.ts"],"names":[],"mappings":"AAAA,QAAA,MAAM,UAAU,KAA0B,CAAC;AAC3C,QAAA,MAAM,eAAe,KAAoD,CAAC;AAE1E,cAAM,kBAAkB;gBACR,EAAE,oBAAoB,EAAE;;KAAA;IAQ9B,QAAQ,CAAC,UAAU,KAAA;IAcnB,UAAU,CAAC,IAAI,KAAA;CAGxB"}
